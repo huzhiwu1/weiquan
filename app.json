@@ -1,0 +1,263 @@
+{
+  "pages": [
+    "yl_welore/pages/index/index",
+    "yl_welore/pages/black_house/index",
+    "yl_welore/pages/shell_mall/index",
+    "yl_welore/pages/circle/index",
+    "yl_welore/pages/square/index",
+    "yl_welore/pages/inspect/index",
+    "yl_welore/pages/user/index",
+    "yl_welore/pages/author/index"
+      
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#1296db"
+  },
+  "subPackages": [
+    {
+      "root": "yl_welore/pages/packageA",
+      "name":"yA",
+      "pages": [
+        "add/index",
+        "canvas/index",
+        "circle_info/index",
+        "article/index",
+        "gift_received/index",
+        "circle_master/index",
+        "apply_admin/index",
+        "user_smail/index",
+        "user_banned/index",
+        "good_info/index",
+        "good_address/index",
+        "user_order/index",
+        "order_info/index",
+        "territory_interest/index"
+      ]
+    },
+    {
+      "root": "yl_welore/pages/packageB",
+      "name": "yB",
+      "pages": [
+        "user_vip/index",
+        "user_trailing/index",
+        "set_territory/index",
+        "search/index",
+        "my_home/index",
+        "edit_user_info/index",
+        "user_follow/index",
+        "circle_info/index",
+        "user_guard/index"
+      ]
+    },
+    {
+      "root": "yl_welore/pages/packageC",
+      "name": "yC",
+      "pages": [
+        "user_collection/index",
+        "user_details/index",
+        "service_centre/index",
+        "help_info/index",
+        "confession/index",
+        "about_us/index",
+        "delete_posts/index",
+        "user_report/index",
+        "notice/index",
+        "post_notice/index",
+        "withdrawal/index",
+        "withdrawal_list/index",
+        "user_invitation/index"
+      ]
+    },
+   
+    {
+      "root": "mch",
+      "pages": [
+        "m/myshop/myshop",
+        "m/setting/setting",
+        "m/goods/goods",
+        "m/order/order",
+        "m/order-detail/order-detail",
+        "m/order-send/order-send",
+        "m/shop-qrcode/shop-qrcode",
+        "m/account/account",
+        "m/account-rest/account-rest",
+        "m/account-log/account-log",
+        "m/cash-log/cash-log",
+        "m/tongji/tongji",
+        "m/order-refund/order-refund",
+        "apply/apply",
+        "shop/shop",
+        "shop-list/shop-list",
+        "shop-cat/shop-cat",
+        "m/cash/cash",
+        "m/settle_detail/settle_detail",
+        "shop-summary/shop-summary"
+      ]
+    },
+    {
+      "root": "pond",
+      "pages": [
+        "pond/pond",
+        "prize/prize",
+        "rule/rule"
+      ]
+    },
+    {
+      "root": "bargain",
+      "pages": [
+        "goods/goods",
+        "list/list",
+        "activity/activity",
+        "order-list/order-list",
+        "rule/rule"
+      ]
+    },
+    {
+      "root": "scratch",
+      "pages": [
+        "index/index",
+        "prize/prize",
+        "rule/rule"
+      ]
+    },
+    {
+      "root": "lottery",
+      "pages": [
+        "index/index",
+        "detail/detail",
+        "goods/goods",
+        "prize/prize",
+        "rule/rule",
+        "lucky-code/lucky-code"
+      ]
+    },
+    {
+      "root": "step",
+      "pages": [
+        "index/index",
+        "detail/detail",
+        "goods/goods",
+        "dare/dare",
+        "rules/rules",
+        "top/top",
+        "join/join",
+        "log/log",
+        "share/share",
+        "friend/friend"
+      ]
+    },
+    {
+      "root":"pages",
+      "pages":[
+        "index/index",
+        "cart/cart",
+        "goods/goods",
+        "list/list",
+        "user/user",
+        "search/search",
+        "order-submit/order-submit",
+        "order/order",
+        "order-detail/order-detail",
+        "address/address",
+        "address-edit/address-edit",
+        "address-picker/address-picker",
+        "test/test",
+        "favorite/favorite",
+        "order-refund/order-refund",
+        "order-refund-detail/order-refund-detail",
+        "add-share/index",
+        "share/index",
+        "cash/cash",
+        "share-money/share-money",
+        "cash-detail/cash-detail",
+        "share-team/share-team",
+        "share-order/share-order",
+        "share-qrcode/share-qrcode",
+        "order-comment/order-comment",
+        "article-list/article-list",
+        "article-detail/article-detail",
+        "express-detail/express-detail",
+        "cat/cat",
+        "coupon/coupon",
+        "clerk/clerk",
+        "video/video-list",
+        "coupon-list/coupon-list",
+        "topic-list/topic-list",
+        "topic/topic",
+        "member/member",
+        "web/web",
+        "shop/shop",
+        "shop-detail/shop-detail",
+        "card/card",
+        "card-clerk/card-clerk",
+        "miaosha/miaosha",
+        "miaosha/details/details",
+        "miaosha/order-submit/order-submit",
+        "miaosha/order/order",
+        "miaosha/order-detail/order-detail",
+        "miaosha/express-detail/express-detail",
+        "miaosha/order-comment/order-comment",
+        "miaosha/order-refund/order-refund",
+        "miaosha/order-refund-detail/order-refund-detail",
+        "pt/index/index",
+        "pt/list/list",
+        "pt/details/details",
+        "pt/order-submit/order-submit",
+        "pt/order/order",
+        "pt/order-details/order-details",
+        "pt/group/details",
+        "pt/express-detail/express-detail",
+        "pt/order-comment/order-comment",
+        "pt/comment/comment",
+        "pt/clerk/clerk",
+        "pt/order-refund/order-refund",
+        "pt/order-refund-detail/order-refund-detail",
+        "pt/search/search",
+        "book/index/index",
+        "book/details/details",
+        "book/submit/submit",
+        "book/order/order",
+        "book/order/details",
+        "book/shop/shop",
+        "book/clerk/clerk",
+        "book/order-comment/order-comment",
+        "book/comment/comment",
+        "fxhb/open/open",
+        "fxhb/detail/detail",
+        "quick-purchase/index/index",
+        "balance/balance",
+        "recharge/recharge",
+        "bangding/bangding",
+        "web/login/login",
+        "web/authorization/authorization",
+        "balance/detail",
+        "login/login",
+        "integral-mall/index/index",
+        "integral-mall/shuoming/index",
+        "integral-mall/detail/index",
+        "integral-mall/exchange/index",
+        "integral-mall/register/index",
+        "integral-mall/coupon-info/index",
+        "integral-mall/goods-info/index",
+        "integral-mall/order-submit/index",
+        "integral-mall/order/order",
+        "integral-mall/clerk/clerk",
+        "store-disabled/store-disabled",
+        "new-order-submit/new-order-submit",
+        "coupon-detail/coupon-detail",
+        "card-detail/card-detail",
+        "demo/demo"
+      ]
+    }
+  ],
+  "debug": false,
+  "sitemapLocation": "sitemap.json"
+}
