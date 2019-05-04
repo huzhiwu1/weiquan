@@ -145,6 +145,10 @@
         <view bindtap="del_do" class="btn-confirm" data-status="confirm">确定</view>
     </view>
 </view>
+<!--这里是我新加的图片按钮  -->
+
+
+
 <image bindtap="get_liwu" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:18%;right:10px;" wx:if="{{id!=uid}}"></image>
 <image bindtap="goShop" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:10%;right:10px;" wx:if="{{id!=uid}}" alt="查看他的商店"></image>
 <view animation="{{animationDataLi}}" id="liwu" style="width:100%;height:49.5%;background-color:#ffffff;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;box-shadow: 0px 0px 10px 0px #000" wx:if="{{liwu}}">

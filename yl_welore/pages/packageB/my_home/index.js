@@ -24,7 +24,12 @@ Page({
         otherShop:false,
     },
     onLoad: function(t) {
-        let access_token =  getApp().const.ACCESS_TOKEN;
+        // this.setData({
+        //     openID:t,
+        // })
+        console.log("商家id"+t.id);
+        
+        let access_token =  getApp().core.getStorageSync(getApp().const.ACCESS_TOKEN);
         this.setData({
             height: app.globalData.height,
             isIpx: app.globalData.isIpx,
@@ -32,7 +37,7 @@ Page({
             design: app.globalData.design,
             access_token : access_token
         }), this.get_user_info(), this.get_liwu_all(), this.get_my_list();
-        this.get_other_shop();
+        
     },
     onShow: function() {
         var t = app.getCache("userinfo");
@@ -102,7 +107,8 @@ Page({
             success: function(t) {
                 console.log(t), "success" == t.data.status ? a.setData({
                     li_list: t.data.info,
-                    user_liwu: t.data.user_info
+                    user_liwu: t.data.user_info,
+                    // shopUser:t
                 }) : a.setData({
                     li_if: !0,
                     li_msg: t.data.msg
@@ -111,6 +117,7 @@ Page({
                         li_if: !1
                     });
                 }, 3e3);
+               
             },
             fail: function() {
                 wx.showModal({
@@ -148,6 +155,9 @@ Page({
         http.POST(i, {
             params: e,
             success: function(t) {
+                // a.setData({
+                //     OPENID:t
+                // })
                 console.log(t), "success" == t.data.status ? ($Toast({
                     content: t.data.msg
                 }), a.get_user_info(), a.get_liwu_all()) : $Toast({
@@ -229,6 +239,7 @@ Page({
                 }) : $Toast({
                     content: t.data.msg
                 });
+                a.get_other_shop();//这时候去获取入驻商铺的信息，与跳转地址
             },
             fail: function() {
                 wx.showModal({
@@ -341,9 +352,9 @@ Page({
     },
     // 这是我用来获取用户入驻商户店铺数据
     get_other_shop(){
-        let url = "https://gzzt.zt-gz.cn/web/index.php?r=api%2Fmch%2Findex/qz-user-mch&access_token=XXEoPoK-DgEO_zgIG1ZrKQBW09R6h1jM&openId=ogGzc4rRn90UHPJKL6Xotk1rYrGg";
+        let url = "https://gzzt.zt-gz.cn/web/index.php";
         let access_token = this.data.access_token;
-        let openId = this.data.id;
+        let openId = this.data.user_info.user_wechat_open_id;
         let data ={
             
                 r: "api/mch/index/qz-user-mch",
@@ -352,15 +363,20 @@ Page({
           
         }
         let that = this;
+        console.log("商家的id"+openId);
+        console.log("访问者的token"+access_token)
         getApp().request({
             
             url:url,
             data:data,
-            method:"POST",
+            method:"GET",
             success:function(e){
-                console.log(e.data);
+                // console.log("商家信息："+e.data);
+                that.setData({
+                    "shop":e
+                })
                 let mch_id = parseInt(e.data.id);
-                if(e.code==0){
+                if(e.code===0){
                     // code==0在商户的动态页面的右下角出现一个
                     // 按钮，跳转到该用户的商城
                     that.setData({

@@ -40,7 +40,7 @@
         <view class="weui-cells weui-cells_after-title" style="" wx:if="{{item.study_type==0}}">
             <image src="../../style/icon/home_zhang.png" style="opacity:0.8;width:110px;height:110px;position:absolute;left:53%;top:1%;" wx:if="{{item.top_time}}"></image>
             <view class="weui-cell">
-                <!-- 这里的item.user._id是B用户的openId -->
+                <!-- 这里的item.user._id是文章的排序的id -->
                 <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.user_id}}">
                     <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                         <image src="{{item.user_head_sculpture}}" style="width: 35px; height: 35px; display: block;border-radius:50%;"></image>

@@ -206,3 +206,6 @@ input-holder {
     color: #CC3333;
     text-align: center;
 }
+page{
+    background:#fff;
+}
