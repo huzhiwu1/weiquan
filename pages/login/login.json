@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "授权登录"
+    "navigationBarTitleText": "授权登录",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

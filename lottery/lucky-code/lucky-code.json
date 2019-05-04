@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "幸运码"
+    "navigationBarTitleText": "幸运码",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

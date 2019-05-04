@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "申请入驻"
+    "navigationBarTitleText": "申请入驻",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

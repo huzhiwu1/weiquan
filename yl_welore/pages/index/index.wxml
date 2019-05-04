@@ -35,10 +35,12 @@
 </view>
 <view style="clear:both;height:0"></view>
 <view style="background-color:#ffffff;padding-bottom:50px;" wx:if="{{current=='tab1'}}">
+<!-- 这里是用来遍历用户的发帖信息的 -->
     <block wx:for="{{new_list}}" wx:for-index="dataListindex" wx:key="index_key">
         <view class="weui-cells weui-cells_after-title" style="" wx:if="{{item.study_type==0}}">
             <image src="../../style/icon/home_zhang.png" style="opacity:0.8;width:110px;height:110px;position:absolute;left:53%;top:1%;" wx:if="{{item.top_time}}"></image>
             <view class="weui-cell">
+                <!-- 这里的item.user._id是B用户的openId -->
                 <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.user_id}}">
                     <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                         <image src="{{item.user_head_sculpture}}" style="width: 35px; height: 35px; display: block;border-radius:50%;"></image>

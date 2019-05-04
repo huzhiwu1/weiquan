@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "抽奖"
+    "navigationBarTitleText": "抽奖",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

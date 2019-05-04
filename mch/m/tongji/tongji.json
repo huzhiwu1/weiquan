@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "数据统计"
+    "navigationBarTitleText": "数据统计",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

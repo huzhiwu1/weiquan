@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "我的砍价"
+    "navigationBarTitleText": "我的砍价",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

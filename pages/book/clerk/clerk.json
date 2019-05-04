@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "核销"
+    "navigationBarTitleText": "核销",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

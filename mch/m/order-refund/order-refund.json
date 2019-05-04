@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "售后订单"
+    "navigationBarTitleText": "售后订单",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

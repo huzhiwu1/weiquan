@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "订单发货"
+    "navigationBarTitleText": "订单发货",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

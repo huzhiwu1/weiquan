@@ -1,6 +1,8 @@
 {
     "navigationBarTitleText": "",
     "enablePullDownRefresh": true,
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff",
     "usingComponents": {
         "app-navigation": "/components/quick-navigation-components/index"
     }

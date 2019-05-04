@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "服务中心"
+    "navigationBarTitleText": "服务中心",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

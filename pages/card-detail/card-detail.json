@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "优惠券记录"
+    "navigationBarTitleText": "优惠券记录",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "我的卡券"
+    "navigationBarTitleText": "我的卡券",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

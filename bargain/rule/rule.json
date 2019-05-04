@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "规则"
+    "navigationBarTitleText": "规则",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

@@ -1,4 +1,6 @@
 {
     "navigationBarTitleText": "砍价",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": true,
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

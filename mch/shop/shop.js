@@ -8,6 +8,7 @@ Page({
         copy: !1
     },
     onLoad: function(t) {
+        console.log(t.mch_id)
         getApp().page.onLoad(this, t);
         var a = this;
         if ("undefined" == typeof my) {

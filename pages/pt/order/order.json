@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "我的拼团"
+    "navigationBarTitleText": "我的拼团",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

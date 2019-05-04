@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "店铺管理"
+    "navigationBarTitleText": "店铺管理",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

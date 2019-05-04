@@ -63,15 +63,20 @@ Page({
             var a = getApp().core.getStorageSync(getApp().const.PAGE_INDEX_INDEX);
             a && (a.act_modal_list = [], i.setData(a));
         }
+        // i.setData({
+        //     t:t,
+        // })
         getApp().request({
             url: getApp().api.default.index,
             data: t,
             success: function(t) {
+              
                 if (0 == t.code) {
                     if ("diy" == t.data.status) {
                         var a = t.data.act_modal_list;
                         -1 != s.page_id && (getApp().core.setNavigationBarTitle({
                             title: t.data.info
+                            // title:"首页"
                         }), i.setData({
                             title: t.data.info
                         }));

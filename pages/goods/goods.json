@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "商品详情"
+    "navigationBarTitleText": "商品详情",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

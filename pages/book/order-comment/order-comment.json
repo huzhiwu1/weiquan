@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "评价"
+    "navigationBarTitleText": "评价",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

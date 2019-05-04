@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "视频专区"
+    "navigationBarTitleText": "视频专区",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

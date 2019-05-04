@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "申请"
+    "navigationBarTitleText": "申请",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

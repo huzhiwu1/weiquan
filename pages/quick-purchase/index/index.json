@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "快速购买"
+    "navigationBarTitleText": "快速购买",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

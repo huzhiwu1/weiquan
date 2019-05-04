@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "授权手机号"
+    "navigationBarTitleText": "授权手机号",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

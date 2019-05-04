@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "提现记录"
+    "navigationBarTitleText": "提现记录",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

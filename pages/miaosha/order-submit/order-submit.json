@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "订单提交"
+    "navigationBarTitleText": "订单提交",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

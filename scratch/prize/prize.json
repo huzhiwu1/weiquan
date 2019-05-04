@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "中奖记录"
+    "navigationBarTitleText": "中奖记录",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

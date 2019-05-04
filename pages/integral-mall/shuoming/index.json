@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "积分说明"
+    "navigationBarTitleText": "积分说明",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

@@ -1,4 +1,6 @@
 {
     "navigationBarTitleText": "附近",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": true,
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

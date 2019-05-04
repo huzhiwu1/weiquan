@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "预约"
+    "navigationBarTitleText": "预约",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

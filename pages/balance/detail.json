@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "交易明细"
+    "navigationBarTitleText": "交易明细",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

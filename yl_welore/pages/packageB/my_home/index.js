@@ -20,15 +20,19 @@ Page({
         li_list: [],
         home_pl_check: !1,
         pl_id: 0,
-        home_pl_text: ""
+        home_pl_text: "",
+        otherShop:false,
     },
     onLoad: function(t) {
+        let access_token =  getApp().const.ACCESS_TOKEN;
         this.setData({
             height: app.globalData.height,
             isIpx: app.globalData.isIpx,
             id: t.id,
-            design: app.globalData.design
+            design: app.globalData.design,
+            access_token : access_token
         }), this.get_user_info(), this.get_liwu_all(), this.get_my_list();
+        this.get_other_shop();
     },
     onShow: function() {
         var t = app.getCache("userinfo");
@@ -334,5 +338,46 @@ Page({
                 });
             }
         };
+    },
+    // 这是我用来获取用户入驻商户店铺数据
+    get_other_shop(){
+        let url = "https://gzzt.zt-gz.cn/web/index.php?r=api%2Fmch%2Findex/qz-user-mch&access_token=XXEoPoK-DgEO_zgIG1ZrKQBW09R6h1jM&openId=ogGzc4rRn90UHPJKL6Xotk1rYrGg";
+        let access_token = this.data.access_token;
+        let openId = this.data.id;
+        let data ={
+            
+                r: "api/mch/index/qz-user-mch",
+                access_token:access_token,
+                openId:openId
+          
+        }
+        let that = this;
+        getApp().request({
+            
+            url:url,
+            data:data,
+            method:"POST",
+            success:function(e){
+                console.log(e.data);
+                let mch_id = parseInt(e.data.id);
+                if(e.code==0){
+                    // code==0在商户的动态页面的右下角出现一个
+                    // 按钮，跳转到该用户的商城
+                    that.setData({
+                        otherShop:true,
+                        mch_id:mch_id
+                    })
+                }
+                
+            }
+        })
+    },
+    // 這個是點擊商戶的店鋪按鈕后，要跳轉到商戶的商鋪頁面
+    goShop(){
+        let that = this;
+        wx.navigateTo({
+            url:"/mch/shop/shop?mch_id="+that.data.mch_id,
+            
+        })
     }
 });

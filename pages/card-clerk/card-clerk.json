@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "卡券核销"
+    "navigationBarTitleText": "卡券核销",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor":"#fff"
 }

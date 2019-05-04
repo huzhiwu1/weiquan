@@ -484,6 +484,7 @@ args.removeCache = function (t) {
   }
   return e;
 };
+// 这边是微圈 的获取用户信息的逻辑
 args.getUserInfo = function (i, a) {
   var s = this, c = "", r = "", t = s.getCache("userinfo");
   t ? a && "function" == typeof a && a(t) : wx.login({
@@ -520,6 +521,7 @@ args.getUserInfo = function (i, a) {
             e.wx_openid = c, e.userInfo = i, e.uniacid = s.siteInfo.uniacid, http.POST(s.api_root + "Login/do_login", {
               params: e,
               success: function (t) {
+                // 在这里用缓存存储了用户的openid
                 i.openid = c, i.token = t.data.token, i.uid = t.data.id, i.sessionKey = r, s.setCache("userinfo", i),
                   s.check_user_login(), a && "function" == typeof a && a(s.getCache("userinfo"));
               },
