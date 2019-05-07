@@ -376,6 +376,7 @@ Page({
                     "Content-Type": "multipart/form-data"
                 },
                 success: function(t) {
+                    console.log("上传视频")
                     var e = JSON.parse(t.data);
                     console.log(e), i.user_file = e.url, a.add_submit(i);
                 },

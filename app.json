@@ -258,6 +258,6 @@
       ]
     }
   ],
-  "debug": false,
+  "debug": true,
   "sitemapLocation": "sitemap.json"
 }
