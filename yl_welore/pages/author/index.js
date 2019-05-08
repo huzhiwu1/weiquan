@@ -63,6 +63,7 @@ Page({
     },
     // 这里要接的是商城的授权逻辑
     unionLogin: function(e) {
+        console.log(getApp().api.passport.login)
         var o = getCurrentPages().pop(), n = this;
         getApp().core.showLoading({
             title: "正在登录",

@@ -36,7 +36,7 @@ Page({
         animTranspond: {},
         animInput: {},
         animBack: {},
-        version: 0,
+        version: 1,
         home_pl_check: !1,
         pl_id: 0,
         home_pl_text: "",

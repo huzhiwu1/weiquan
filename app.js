@@ -274,7 +274,7 @@ var modules = [{
     forward: {},
     design: {}
   },
-  version: "1.0.31",
+  version: "1.0.35",
   api_root: "",
   http_root: "",
   siteInfo: require("siteinfo.js"),

@@ -352,6 +352,7 @@ Page({
     },
     // 这是我用来获取用户入驻商户店铺数据
     get_other_shop(){
+        console.log("进得来")
         let url = "https://tini.zt-gz.cn/web/index.php";
         let access_token = this.data.access_token;
         let openId = this.data.user_info.user_wechat_open_id;
@@ -371,9 +372,14 @@ Page({
             data:data,
             method:"GET",
             success:function(e){
+                console.log("请求路径正确");
+                console.log(e.data.id+"这是商家的mch_id")
+
+                console.log(e+"请求回来的信息是？")
                 // console.log("商家信息："+e.data);
                 that.setData({
                     "shop":e
+                    //注意新版商户的信息存在shop中
                 })
                 let mch_id = parseInt(e.data.id);
                 if(e.code===0){
