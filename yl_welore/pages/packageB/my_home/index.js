@@ -352,7 +352,7 @@ Page({
     },
     // 这是我用来获取用户入驻商户店铺数据
     get_other_shop(){
-        let url = "https://gzzt.zt-gz.cn/web/index.php";
+        let url = "https://tini.zt-gz.cn/web/index.php";
         let access_token = this.data.access_token;
         let openId = this.data.user_info.user_wechat_open_id;
         let data ={

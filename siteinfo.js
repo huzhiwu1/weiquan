@@ -5,7 +5,7 @@ module.exports = {
     acid2:-1,
     multiid: "0",
     version: "1.0.31",
-    siteroot: "https://qz.zt-gz.cn/app/index.php",
+    siteroot: "https://tini.zt-gz.cn/app/index.php",
     design_method: "3",
-  apiroot: "https://gzzt.zt-gz.cn/web/index.php?store_id=2&r=api/"
+  apiroot: "https://tini.zt-gz.cn/web/index.php?store_id=2&r=api/"
 }; 
