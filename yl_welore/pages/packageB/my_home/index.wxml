@@ -150,7 +150,8 @@
 
 
 <image bindtap="get_liwu" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:18%;right:10px;" wx:if="{{id!=uid}}"></image>
-<image bindtap="goShop" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:10%;right:10px;" wx:if="{{id!=uid}}" alt="查看他的商店"></image>
+<!-- 当otherShop为true显示该用户开通过商铺，显示跳转接口 -->
+<image bindtap="goShop" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:10%;right:10px;" wx:if="{{otherShop}}" alt="查看他的商店"></image>
 <view animation="{{animationDataLi}}" id="liwu" style="width:100%;height:49.5%;background-color:#ffffff;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;box-shadow: 0px 0px 10px 0px #000" wx:if="{{liwu}}">
     <view style="z-index:999999;font-size:14px;box-sizing: border-box;background:rgba(0, 0, 0, 0.7);position:absolute;top:36%;left:37%;color:#fff;text-align:center;padding: 10px 18px;border-radius:2px;line-height:1.5em;" wx:if="{{li_if}}">{{li_msg}}</view>
     <view style="height:90rpx;margin-top:12px;">

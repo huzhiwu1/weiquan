@@ -353,11 +353,13 @@ Page({
     // 这是我用来获取用户入驻商户店铺数据
     get_other_shop(){
         console.log("进得来")
-        let url = "https://tini.zt-gz.cn/web/index.php";
+        // let url = "https://tini.zt-gz.cn/web/index.php";
+        //商城获取用户入驻商户店铺的接口如下
+        let url = "https://tini.zt-gz.cn/addons/zjhj_mall/core/web/index.php?"
         let access_token = this.data.access_token;
         let openId = this.data.user_info.user_wechat_open_id;
         let data ={
-            
+                store_id:1,
                 r: "api/mch/index/qz-user-mch",
                 access_token:access_token,
                 openId:openId
@@ -378,11 +380,12 @@ Page({
                 console.log(e+"请求回来的信息是？")
                 // console.log("商家信息："+e.data);
                 that.setData({
-                    "shop":e
+                    shop:e
                     //注意新版商户的信息存在shop中
                 })
-                let mch_id = parseInt(e.data.id);
+                
                 if(e.code===0){
+                    let mch_id = parseInt(e.data.id);
                     // code==0在商户的动态页面的右下角出现一个
                     // 按钮，跳转到该用户的商城
                     that.setData({
