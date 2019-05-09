@@ -23,9 +23,9 @@ Component({
     },
     methods: {
         changeCurrent: function() {
-            var n = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : this.data.current, e = this.getRelationNodes("../radio/index");
-            0 < e.length && e.forEach(function(e) {
-                e.changeCurrent(n === e.data.value);
+            var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.data.current, n = this.getRelationNodes("../radio/index");
+            n.length > 0 && n.forEach(function(n) {
+                n.changeCurrent(e === n.data.value);
             });
         },
         emitEvent: function(e) {

@@ -16,7 +16,7 @@
     </view>
     <view style="clear:both;height:0"></view>
     <view class="weui-cell__bd" style="margin-top:20rpx;">
-        <textarea bindinput="get_text_len" class="weui-textarea" maxlength="-1" placeholder="来吧，畅所欲言..." style="height:200px;" value="{{text}}" wx:if="{{get_hidden}}"></textarea>
+        <textarea bindinput="get_text_len" class="weui-textarea" maxlength="-1" placeholder="来吧，畅所欲言..." style="height:150px;" value="{{text}}" wx:if="{{get_hidden}}"></textarea>
     </view>
     <view class="weui-cells" wx:if="{{fa_type==1||fa_type==0}}">
         <view class="weui-cell" style="padding:10px 0px 15px 0px;">
@@ -25,19 +25,19 @@
                     <view class="weui-uploader__bd" style="text-align:center">
                         <view class="weui-uploader__files" id="uploaderFiles">
                             <view class="weui-uploader__file" style="margin-right:0px;margin-left:10rpx;text-align:center;width:31%;" wx:for="{{img_arr}}" wx:key="*this">
-                                <image bindtap="previewImage" class="weui-uploader__img" data-src="{{item}}" mode="aspectFill" src="{{item}}" style="width:190rpx;height:190rpx;"></image>
+                                <image bindtap="previewImage" class="weui-uploader__img" data-src="{{item}}" mode="aspectFill" src="{{item}}" style="border-radius:10px;width:190rpx;height:190rpx;"></image>
                                 <image bindtap="clearImage" class="" data-index="{{index}}" mode="aspectFill" src="../../../style/icon/cuo.png" style="width:33px;height:33px;padding-right:16px;"></image>
                             </view>
-                        </view>
-                        <view class="" style="width:190rpx;height:190rpx;float:left;position:relative;margin-right:9px;margin-bottom:9px;" wx:if="{{img_botton}}">
-                            <view bindtap="chooseImage" class="weui-uploader__input"></view>
-                            <image mode="widthFix" src="../../../style/icon/bpj.png" style="width:104px;"></image>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
+        <view class="" style="width:100%;text-align:center;" wx:if="{{img_botton}}">
+            <image bindtap="chooseImage" mode="widthFix" src="../../../style/icon/add_images.png" style="width:300px;"></image>
+        </view>
     </view>
+    <view style="clear:both;height:0"></view>
     <view class="weui-cells" wx:if="{{fa_type==2&&open_file==0||open_file==3}}">
         <view class="weui-cell" style="padding:10px 0px 15px 0px;">
             <view class="weui-cell__bd">
@@ -81,6 +81,10 @@
         </view>
         <view style="text-align:center;font-size:12px;color:#CCCCCC;">点击添加视频（最长{{copyright.video_setting}}"）</view>
     </view>
+    <i-cell title="我的位置">
+        <i-switch bind:change="onChangePosition" slot="footer" value="{{is_position}}"></i-switch>
+        <view wx:if="{{is_position==true}}">{{ppooss}}</view>
+    </i-cell>
     <i-cell title="禁止转发">
         <i-switch bind:change="onChange" slot="footer" value="{{is_open}}"></i-switch>
     </i-cell>
@@ -116,6 +120,9 @@
 </view>
 <i-modal bind:cancel="handleClose" bind:ok="handleOk" visible="{{visible2}}">
     <view>发布需要使用您的录音功能，是否允许？</view>
+</i-modal>
+<i-modal bind:cancel="handleClose" bind:ok="handleOk" visible="{{visible_pos}}">
+    <view>需要使用您的地理位置，是否允许？</view>
 </i-modal>
 <view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{text_color}}"></view>
 <view class="modal-dialog" wx:if="{{text_color}}">

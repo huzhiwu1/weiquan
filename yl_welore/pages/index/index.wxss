@@ -111,11 +111,16 @@ button {
     display: -webkit-flex;
     display: flex;
     position: fixed;
-    z-index: 1;
     bottom: 0;
     width: 100%;
     border-top-left-radius: 30rpx;
     border-top-right-radius: 30rpx;
+}
+
+.weui-tabbar_boo_no {
+    position: fixed;
+    bottom: 23%;
+    right: 0;
 }
 
 .show-btn {

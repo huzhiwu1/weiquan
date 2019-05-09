@@ -1,4 +1,5 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = (require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), 
+require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast);
 
 Page({
     data: {
@@ -6,7 +7,7 @@ Page({
         nvabarData: {
             showCapsule: 0,
             title: "回收站",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         current: "tab1",
         page: 1
@@ -17,25 +18,25 @@ Page({
             current: e.key
         }), this.get_user_paper_del();
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
-            design: app.globalData.design
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx,
+            design: t.globalData.design
         });
     },
     onShow: function() {
         this.get_user_paper_del();
     },
     get_user_paper_del: function() {
-        var t = app.api_root + "User/get_user_paper_del", e = this, a = app.getCache("userinfo"), s = new Object();
-        s.token = a.token, s.openid = a.openid, s.much_id = app.siteInfo.uniacid, s.uid = a.uid, 
-        s.del_type = this.data.current, http.POST(t, {
-            params: s,
+        var i = t.api_root + "User/get_user_paper_del", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.much_id = t.siteInfo.uniacid, o.uid = s.uid, 
+        o.del_type = this.data.current, e.POST(i, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? e.setData({
+                console.log(t), "success" == t.data.status ? n.setData({
                     info: t.data.info
-                }) : $Toast({
+                }) : a({
                     content: t.data.msg
                 });
             },
@@ -66,16 +67,18 @@ Page({
         });
     },
     do_user_mutter: function() {
-        var t = app.api_root + "User/do_paper_mutter", e = this, a = app.getCache("userinfo"), s = new Object();
-        s.token = a.token, s.openid = a.openid, s.much_id = app.siteInfo.uniacid, s.uid = a.uid, 
-        s.id = this.data.info[this.data.id].id, s.tory_id = this.data.info[this.data.id].tory_id, 
-        s.is_reply = this.data.info[this.data.id].is_reply, s.tale_content = this.data.sc_text, 
-        http.POST(t, {
-            params: s,
+        var i = t.api_root + "User/do_paper_mutter", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.much_id = t.siteInfo.uniacid, o.uid = s.uid, 
+        o.id = this.data.info[this.data.id].id, o.tory_id = this.data.info[this.data.id].tory_id, 
+        o.is_reply = this.data.info[this.data.id].is_reply, o.tale_content = this.data.sc_text, 
+        e.POST(i, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status && e.setData({
+                console.log(t), "success" == t.data.status ? (n.setData({
                     sc_msg: !1
-                }), $Toast({
+                }), a({
+                    content: t.data.msg
+                })) : a({
                     content: t.data.msg
                 });
             },
@@ -93,18 +96,18 @@ Page({
         wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -112,12 +115,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }

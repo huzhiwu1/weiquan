@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
@@ -20,29 +20,20 @@ Page({
         li_list: [],
         home_pl_check: !1,
         pl_id: 0,
-        home_pl_text: "",
-        otherShop:false,
+        home_pl_text: ""
     },
-    onLoad: function(t) {
-        // this.setData({
-        //     openID:t,
-        // })
-        console.log("商家id"+t.id);
-        
-        let access_token =  getApp().core.getStorageSync(getApp().const.ACCESS_TOKEN);
+    onLoad: function(e) {
         this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
-            id: t.id,
-            design: app.globalData.design,
-            access_token : access_token
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx,
+            id: e.id,
+            design: t.globalData.design
         }), this.get_user_info(), this.get_liwu_all(), this.get_my_list();
-        
     },
     onShow: function() {
-        var t = app.getCache("userinfo");
+        var e = t.getCache("userinfo");
         this.setData({
-            uid: t.uid
+            uid: e.uid
         }), this.get_user_info();
     },
     home_pl: function(t) {
@@ -64,23 +55,23 @@ Page({
                 title: "评论中...",
                 mask: !0
             });
-            var e = this, t = app.getCache("userinfo"), a = new Object();
-            a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid, a.uid = t.uid, 
-            a.text = this.data.home_pl_text, a.id = this.data.pl_id, a.reply_type = 0;
-            var i = app.api_root + "User/add_paper_reply";
-            http.POST(i, {
-                params: a,
+            var i = this, n = t.getCache("userinfo"), s = new Object();
+            s.token = n.token, s.openid = n.openid, s.much_id = t.siteInfo.uniacid, s.uid = n.uid, 
+            s.text = this.data.home_pl_text, s.id = this.data.pl_id, s.reply_type = 0;
+            var o = t.api_root + "User/add_paper_reply";
+            e.POST(o, {
+                params: s,
                 success: function(t) {
                     if (console.log(t), "success" == t.data.status) {
-                        $Toast({
+                        a({
                             content: t.data.msg
-                        }), e.hideModal();
-                        var a = e.data.new_list;
-                        console.log(a), a[e.data.pl_wey].list[e.data.pl_key].study_repount = parseInt(a[e.data.pl_wey].list[e.data.pl_key].study_repount) + 1, 
-                        e.setData({
-                            new_list: a
+                        }), i.hideModal();
+                        var e = i.data.new_list;
+                        console.log(e), e[i.data.pl_wey].list[i.data.pl_key].study_repount = parseInt(e[i.data.pl_wey].list[i.data.pl_key].study_repount) + 1, 
+                        i.setData({
+                            new_list: e
                         }), wx.hideLoading();
-                    } else $Toast({
+                    } else a({
                         content: t.data.msg
                     }), wx.hideLoading();
                 },
@@ -93,22 +84,21 @@ Page({
                     });
                 }
             });
-        } else $Toast({
+        } else a({
             content: "内容不能为空！"
         });
     },
     preventTouchMove: function() {},
     get_liwu_all: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.much_id = app.siteInfo.uniacid, e.uid = t.uid;
-        var i = app.api_root + "User/get_liwu";
-        http.POST(i, {
-            params: e,
+        var a = this, i = t.getCache("userinfo"), n = new Object();
+        n.token = i.token, n.openid = i.openid, n.much_id = t.siteInfo.uniacid, n.uid = i.uid;
+        var s = t.api_root + "User/get_liwu";
+        e.POST(s, {
+            params: n,
             success: function(t) {
                 console.log(t), "success" == t.data.status ? a.setData({
                     li_list: t.data.info,
-                    user_liwu: t.data.user_info,
-                    // shopUser:t
+                    user_liwu: t.data.user_info
                 }) : a.setData({
                     li_if: !0,
                     li_msg: t.data.msg
@@ -117,7 +107,6 @@ Page({
                         li_if: !1
                     });
                 }, 3e3);
-               
             },
             fail: function() {
                 wx.showModal({
@@ -135,11 +124,11 @@ Page({
         });
     },
     liwu_index: function(t) {
-        var a = t.currentTarget.dataset.k, e = (t.currentTarget.dataset.id, this.data.li_list[a]);
+        var e = t.currentTarget.dataset.k, a = (t.currentTarget.dataset.id, this.data.li_list[e]);
         this.setData({
-            li_index: a,
+            li_index: e,
             li_number: 1,
-            li_sum: e.tr_conch
+            li_sum: a.tr_conch
         });
     },
     colse_li: function() {
@@ -148,19 +137,16 @@ Page({
         });
     },
     reward: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.num = this.data.li_number, e.uid = t.uid, 
-        e.user_id = this.data.id, e.much_id = app.siteInfo.uniacid, e.li_id = this.data.li_list[this.data.li_index].id;
-        var i = app.api_root + "User/user_reward";
-        http.POST(i, {
-            params: e,
+        var i = this, n = t.getCache("userinfo"), s = new Object();
+        s.token = n.token, s.openid = n.openid, s.num = this.data.li_number, s.uid = n.uid, 
+        s.user_id = this.data.id, s.much_id = t.siteInfo.uniacid, s.li_id = this.data.li_list[this.data.li_index].id;
+        var o = t.api_root + "User/user_reward";
+        e.POST(o, {
+            params: s,
             success: function(t) {
-                // a.setData({
-                //     OPENID:t
-                // })
-                console.log(t), "success" == t.data.status ? ($Toast({
+                console.log(t), "success" == t.data.status ? (a({
                     content: t.data.msg
-                }), a.get_user_info(), a.get_liwu_all()) : $Toast({
+                }), i.get_user_info(), i.get_liwu_all()) : a({
                     content: t.data.msg
                 });
             },
@@ -175,15 +161,15 @@ Page({
         });
     },
     handleChange1: function(t) {
-        var a = t.detail.value, e = this.data.li_list[this.data.li_index];
+        var e = t.detail.value, a = this.data.li_list[this.data.li_index];
         this.setData({
-            li_number: a,
-            li_sum: (e.tr_conch * a).toFixed(2)
+            li_number: e,
+            li_sum: (a.tr_conch * e).toFixed(2)
         });
     },
     handleChange: function(t) {
-        var a = t.detail;
-        $Toast({
+        var e = t.detail;
+        a({
             duration: 0,
             content: "加载中",
             type: "loading",
@@ -195,20 +181,20 @@ Page({
             index_page: 1,
             pay_di: !1,
             my_di: !1
-        }), "tab1" == a.key && this.get_my_list(), "tab2" == a.key && this.get_my_pay(), 
+        }), "tab1" == e.key && this.get_my_list(), "tab2" == e.key && this.get_my_pay(), 
         this.setData({
-            current: a.key
+            current: e.key
         });
     },
     cancel: function() {
-        var t = app.api_root + "User/get_user_cancel", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.token = e.token, i.openid = e.openid, i.much_id = app.siteInfo.uniacid, i.uid = this.data.id, 
-        i.this_uid = e.uid, i.is_user = this.data.user_info.is_user, http.POST(t, {
-            params: i,
+        var i = t.api_root + "User/get_user_cancel", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.much_id = t.siteInfo.uniacid, o.uid = this.data.id, 
+        o.this_uid = s.uid, o.is_user = this.data.user_info.is_user, e.POST(i, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? ($Toast({
+                console.log(t), "success" == t.data.status ? (a({
                     content: t.data.msg
-                }), a.get_user_info()) : $Toast({
+                }), n.get_user_info()) : a({
                     content: t.data.msg
                 });
             },
@@ -228,18 +214,17 @@ Page({
         });
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info_my", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.token = e.token, i.openid = e.openid, i.uid = this.data.id, i.much_id = app.siteInfo.uniacid, 
-        i.this_uid = e.uid, http.POST(t, {
-            params: i,
+        var i = t.api_root + "User/get_user_info_my", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.uid = this.data.id, o.much_id = t.siteInfo.uniacid, 
+        o.this_uid = s.uid, e.POST(i, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? n.setData({
                     user_info: t.data.info,
                     sex: t.data.info.gender
-                }) : $Toast({
+                }) : a({
                     content: t.data.msg
                 });
-                a.get_other_shop();//这时候去获取入驻商铺的信息，与跳转地址
             },
             fail: function() {
                 wx.showModal({
@@ -252,22 +237,22 @@ Page({
         });
     },
     get_my_list: function() {
-        var t = app.api_root + "User/get_my_list", e = this, a = app.getCache("userinfo"), i = new Object();
-        i.token = a.token, i.openid = a.openid, i.uid = a.uid, i.much_id = app.siteInfo.uniacid, 
-        i.id = this.data.id, i.type = this.data.current, i.index_page = this.data.index_page;
-        var s = this.data.new_list;
-        http.POST(t, {
-            params: i,
+        var i = t.api_root + "User/get_my_list", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.uid = s.uid, o.much_id = t.siteInfo.uniacid, 
+        o.id = this.data.id, o.type = this.data.current, o.index_page = this.data.index_page;
+        var d = this.data.new_list;
+        e.POST(i, {
+            params: o,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && e.setData({
+                    0 == t.data.info.length && n.setData({
                         my_di: !0
                     });
-                    for (var a = 0; a < t.data.info.length; a++) s.push(t.data.info[a]);
-                    e.setData({
-                        new_list: s
-                    }), $Toast.hide();
-                } else $Toast({
+                    for (var e = 0; e < t.data.info.length; e++) d.push(t.data.info[e]);
+                    n.setData({
+                        new_list: d
+                    }), a.hide();
+                } else a({
                     content: t.data.msg
                 });
             },
@@ -282,9 +267,9 @@ Page({
         });
     },
     del_mod: function(t) {
-        var a = t.currentTarget.dataset.id;
+        var e = t.currentTarget.dataset.id;
         this.setData({
-            paper_id: a,
+            paper_id: e,
             del_mod: !0
         });
     },
@@ -295,7 +280,7 @@ Page({
         });
     },
     onReachBottom: function() {
-        $Toast({
+        a({
             duration: 0,
             content: "加载中",
             type: "loading",
@@ -304,11 +289,11 @@ Page({
             index_page: this.data.index_page + 1
         }), this.get_my_list()), "tab2" == this.data.current && (this.setData({
             page: this.data.page + 1
-        }), this.get_my_pay()), $Toast.hide();
+        }), this.get_my_pay()), a.hide();
     },
     _navback: function() {
-        var t = getCurrentPages(), a = (t[t.length - 1], t[t.length - 2]);
-        1 != t.length ? (a.setData({
+        var t = getCurrentPages(), e = (t[t.length - 1], t[t.length - 2]);
+        1 != t.length ? (e.setData({
             show: !1
         }), wx.navigateBack()) : this._backhome();
     },
@@ -318,20 +303,20 @@ Page({
         });
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
+        var e = t.globalData.forward;
         return this.setData({
             show: !1
-        }), t ? {
-            title: t.title,
+        }), e ? {
+            title: e.title,
             path: "/yl_welore/pages/packageB/my_home/index?id=" + this.data.id,
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -339,70 +324,15 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/packageB/my_home/index?id=" + this.data.id,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
         };
-    },
-    // 这是我用来获取用户入驻商户店铺数据
-    get_other_shop(){
-        console.log("进得来")
-        // let url = "https://tini.zt-gz.cn/web/index.php";
-        //商城获取用户入驻商户店铺的接口如下
-        let url = "https://tini.zt-gz.cn/addons/zjhj_mall/core/web/index.php?"
-        let access_token = this.data.access_token;
-        let openId = this.data.user_info.user_wechat_open_id;
-        let data ={
-                store_id:1,
-                r: "api/mch/index/qz-user-mch",
-                access_token:access_token,
-                openId:openId
-          
-        }
-        let that = this;
-        console.log("商家的id"+openId);
-        console.log("访问者的token"+access_token)
-        getApp().request({
-            
-            url:url,
-            data:data,
-            method:"GET",
-            success:function(e){
-                console.log("请求路径正确");
-                console.log(e.data.id+"这是商家的mch_id")
-
-                console.log(e+"请求回来的信息是？")
-                // console.log("商家信息："+e.data);
-                that.setData({
-                    shop:e
-                    //注意新版商户的信息存在shop中
-                })
-                
-                if(e.code===0){
-                    let mch_id = parseInt(e.data.id);
-                    // code==0在商户的动态页面的右下角出现一个
-                    // 按钮，跳转到该用户的商城
-                    that.setData({
-                        otherShop:true,
-                        mch_id:mch_id
-                    })
-                }
-                
-            }
-        })
-    },
-    // 這個是點擊商戶的店鋪按鈕后，要跳轉到商戶的商鋪頁面
-    goShop(){
-        let that = this;
-        wx.navigateTo({
-            url:"/mch/shop/shop?mch_id="+that.data.mch_id,
-            
-        })
     }
 });

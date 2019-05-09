@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast, innerAudioContext = wx.createInnerAudioContext();
+var t = getApp(), a = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), e = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast, i = wx.createInnerAudioContext();
 
 Page({
     data: {
@@ -14,10 +14,10 @@ Page({
             type: "huifu"
         } ],
         show: !0,
-        isIpx: app.globalData.isIpx,
+        isIpx: t.globalData.isIpx,
         nvabarData: {
             showCapsule: 1,
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         title: "",
         getInfo: [],
@@ -43,34 +43,37 @@ Page({
         pl_id: 0,
         home_pl_text: ""
     },
-    onLoad: function(t) {
-        var a;
-        (this.setData({
-            height: app.globalData.height,
-            design: app.globalData.design,
-            id: t.id,
+    onLoad: function(a) {
+        if (this.setData({
+            height: t.globalData.height,
+            design: t.globalData.design,
+            id: a.id,
             page: 1
-        }), this.get_tory_info(), this.get_placement_top(), 0 != this.data.show) && (this.setData({
-            page: 1,
-            tory_list: []
-        }), (a = app.getCache("order_actions_o")) ? this.setData({
-            actions_name: a.name
-        }) : ((a = new Object()).type = "fatie", a.name = "按发帖时间", app.setCache("order_actions_o", a)), 
-        this.add_trailing_list());
+        }), this.get_tory_info(), this.get_user_info(), this.get_placement_top(), 0 != this.data.show) {
+            this.setData({
+                page: 1,
+                tory_list: []
+            });
+            var e = t.getCache("order_actions_o");
+            e ? this.setData({
+                actions_name: e.name
+            }) : ((e = new Object()).type = "fatie", e.name = "按发帖时间", t.setCache("order_actions_o", e)), 
+            this.add_trailing_list();
+        }
     },
-    getPhoneNumber: function(t) {
-        if ("getPhoneNumber:ok" == t.detail.errMsg) {
-            var a = app.api_root + "User/get_user_phone", e = this, i = app.getCache("userinfo"), n = new Object();
-            n.token = i.token, n.openid = i.openid, n.uid = i.uid, n.much_id = app.siteInfo.uniacid, 
-            n.encryptedData = t.detail.encryptedData, n.iv = t.detail.iv, n.sessionKey = i.sessionKey, 
-            http.POST(a, {
-                params: n,
+    getPhoneNumber: function(i) {
+        if ("getPhoneNumber:ok" == i.detail.errMsg) {
+            var n = t.api_root + "User/get_user_phone", o = this, s = t.getCache("userinfo"), r = new Object();
+            r.token = s.token, r.openid = s.openid, r.uid = s.uid, r.much_id = t.siteInfo.uniacid, 
+            r.encryptedData = i.detail.encryptedData, r.iv = i.detail.iv, r.sessionKey = s.sessionKey, 
+            a.POST(n, {
+                params: r,
                 success: function(t) {
-                    $Toast({
+                    e({
                         content: t.data.msg
-                    }), e.setData({
+                    }), o.setData({
                         check_phone: !1
-                    }), e.get_user_info();
+                    }), o.get_user_info();
                 },
                 fail: function() {
                     wx.showModal({
@@ -84,13 +87,13 @@ Page({
         }
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.token = e.token, i.openid = e.openid, http.POST(t, {
-            params: i,
+        var i = t.api_root + "User/get_user_info", n = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, a.POST(i, {
+            params: s,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? n.setData({
                     user_info: t.data.info
-                }) : $Toast({
+                }) : e({
                     content: t.data.msg
                 });
             },
@@ -115,17 +118,17 @@ Page({
             visible: !1
         });
     },
-    handleClickItem1: function(t) {
-        var a = t.detail.index, e = this.data.actions[a];
-        console.log(e), this.setData({
+    handleClickItem1: function(a) {
+        var e = a.detail.index, i = this.data.actions[e];
+        console.log(i), this.setData({
             visible: !1,
-            order_time: e.type,
-            actions_name: e.name
+            order_time: i.type,
+            actions_name: i.name
         });
-        var i = new Object();
-        i.type = e.type, i.name = e.name, app.setCache("order_actions_o", i);
-        var n = app.getCache("order_actions_o");
-        console.log(n), this.add_trailing_list();
+        var n = new Object();
+        n.type = i.type, n.name = i.name, t.setCache("order_actions_o", n);
+        var o = t.getCache("order_actions_o");
+        console.log(o), this.add_trailing_list();
     },
     home_pl: function(t) {
         console.log(t), this.setData({
@@ -145,22 +148,22 @@ Page({
                 title: "评论中...",
                 mask: !0
             });
-            var e = this, t = app.getCache("userinfo"), a = new Object();
-            a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid, a.uid = t.uid, 
-            a.text = this.data.home_pl_text, a.id = this.data.pl_id, a.reply_type = 0;
-            var i = app.api_root + "User/add_paper_reply";
-            http.POST(i, {
-                params: a,
+            var i = this, n = t.getCache("userinfo"), o = new Object();
+            o.token = n.token, o.openid = n.openid, o.much_id = t.siteInfo.uniacid, o.uid = n.uid, 
+            o.text = this.data.home_pl_text, o.id = this.data.pl_id, o.reply_type = 0;
+            var s = t.api_root + "User/add_paper_reply";
+            a.POST(s, {
+                params: o,
                 success: function(t) {
                     if (console.log(t), "success" == t.data.status) {
-                        $Toast({
+                        e({
                             content: t.data.msg
-                        }), e.hideModal();
-                        var a = e.data.tory_list;
-                        a[e.data.pl_key].study_repount = parseInt(a[e.data.pl_key].study_repount) + 1, e.setData({
+                        }), i.hideModal();
+                        var a = i.data.tory_list;
+                        a[i.data.pl_key].study_repount = parseInt(a[i.data.pl_key].study_repount) + 1, i.setData({
                             tory_list: a
                         }), wx.hideLoading();
-                    } else $Toast({
+                    } else e({
                         content: t.data.msg
                     }), wx.hideLoading();
                 },
@@ -173,7 +176,7 @@ Page({
                     });
                 }
             });
-        } else $Toast({
+        } else e({
             content: "内容不能为空！"
         });
     },
@@ -193,19 +196,19 @@ Page({
     onShow: function() {
         this.setData({
             isPopping: !1,
-            copyright: app.globalData.copyright
-        }), this.takeback(), this.get_diy();
+            copyright: t.globalData.copyright
+        }), this.takeback(), this.get_diy(), this.get_user_info();
     },
-    nav_add: function(t) {
+    nav_add: function(a) {
         this.setData({
-            copyright: app.globalData.copyright
+            copyright: t.globalData.copyright
         });
-        var a = t.currentTarget.dataset.k, e = this.data.diy;
-        if (1 != this.data.copyright.force_phone_arbor || this.data.user_info.user_phone) {
-            if ("tuwen" == a && wx.navigateTo({
+        var i = a.currentTarget.dataset.k, n = this.data.diy;
+        if (1 != this.data.copyright.force_phone_arbor || this.data.user_info.user_phone || 0 != this.data.version) {
+            if ("tuwen" == i && wx.navigateTo({
                 url: "/yl_welore/pages/packageA/add/index?type=0&fa_class=" + this.data.getInfo.id + "&name=" + this.data.getInfo.realm_name
-            }), "tuya" == a) if (1 == e.user_vip.graffiti_member) {
-                if (1 != e.vip) return void $Toast({
+            }), "tuya" == i) if (1 == n.user_vip.graffiti_member) {
+                if (1 != n.vip) return void e({
                     content: "VIP专属"
                 });
                 wx.navigateTo({
@@ -214,8 +217,8 @@ Page({
             } else wx.navigateTo({
                 url: "/yl_welore/pages/packageA/canvas/index?type=0&fa_class=" + this.data.getInfo.id + "&name=" + this.data.getInfo.realm_name
             });
-            if ("yuyin" == a) if (1 == e.user_vip.voice_member) {
-                if (1 != e.vip) return void $Toast({
+            if ("yuyin" == i) if (1 == n.user_vip.voice_member) {
+                if (1 != n.vip) return void e({
                     content: "VIP专属"
                 });
                 wx.navigateTo({
@@ -224,8 +227,8 @@ Page({
             } else wx.navigateTo({
                 url: "/yl_welore/pages/packageA/add/index?type=1&fa_class=" + this.data.getInfo.id + "&name=" + this.data.getInfo.realm_name
             });
-            if ("shipin" == a) if (1 == e.user_vip.video_member) {
-                if (1 != e.vip) return void $Toast({
+            if ("shipin" == i) if (1 == n.user_vip.video_member) {
+                if (1 != n.vip) return void e({
                     content: "VIP专属"
                 });
                 wx.navigateTo({
@@ -239,17 +242,18 @@ Page({
         });
     },
     get_diy: function() {
-        var t = app.api_root + "User/get_diy", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.uid = e.uid, i.token = e.token, i.openid = e.openid, i.much_id = app.siteInfo.uniacid, 
-        i.version = app.version, http.POST(t, {
-            params: i,
+        var e = t.api_root + "User/get_diy", i = this, n = t.getCache("userinfo"), o = new Object();
+        o.uid = n.uid, o.token = n.token, o.openid = n.openid, o.much_id = t.siteInfo.uniacid, 
+        o.version = t.version, a.POST(e, {
+            params: o,
             success: function(t) {
                 "账户未授权!" == t.data.msg && wx.navigateTo({
                     url: "/yl_welore/pages/author/index"
-                }), a.setData({
+                }), i.setData({
                     version: t.data.version,
                     diy: t.data,
-                    title: t.data.home_title
+                    title: t.data.home_title,
+                    add: t.data.pattern_data.release.list
                 });
             },
             fail: function() {
@@ -263,15 +267,15 @@ Page({
         });
     },
     get_placement_top: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.much_id = app.siteInfo.uniacid, e.tory_id = this.data.id;
-        var i = app.api_root + "User/get_placement_top";
-        http.POST(i, {
-            params: e,
+        var i = this, n = t.getCache("userinfo"), o = new Object();
+        o.token = n.token, o.openid = n.openid, o.much_id = t.siteInfo.uniacid, o.tory_id = this.data.id;
+        var s = t.api_root + "User/get_placement_top";
+        a.POST(s, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? i.setData({
                     top_list: t.data.info
-                }) : $Toast({
+                }) : e({
                     content: t.data.msg
                 });
             },
@@ -286,26 +290,26 @@ Page({
         });
     },
     add_trailing_list: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        e.data.getInfo;
-        a.token = t.token, a.openid = t.openid, a.uid = t.uid, a.much_id = app.siteInfo.uniacid, 
-        a.tory_id = this.data.id, a.index_page = this.data.page, a.version = app.version;
-        var i = app.getCache("order_actions");
-        a.order_time = i ? i.type : this.data.order_time;
-        var n = app.api_root + "User/get_index_list", o = e.data.tory_list;
-        http.POST(n, {
-            params: a,
+        var i = this, n = t.getCache("userinfo"), o = new Object();
+        i.data.getInfo;
+        o.token = n.token, o.openid = n.openid, o.uid = n.uid, o.much_id = t.siteInfo.uniacid, 
+        o.tory_id = this.data.id, o.index_page = this.data.page, o.version = t.version;
+        var s = t.getCache("order_actions_o");
+        o.order_time = s ? s.type : this.data.order_time;
+        var r = t.api_root + "User/get_index_list", c = i.data.tory_list;
+        a.POST(r, {
+            params: o,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && e.setData({
+                    0 == t.data.info.length && i.setData({
                         load: !0
                     });
-                    for (var a = 0; a < t.data.info.length; a++) o.push(t.data.info[a]);
-                    e.setData({
-                        tory_list: o,
+                    for (var a = 0; a < t.data.info.length; a++) c.push(t.data.info[a]);
+                    i.setData({
+                        tory_list: c,
                         version: t.data.version
                     });
-                } else $Toast({
+                } else e({
                     content: t.data.msg
                 });
             },
@@ -342,45 +346,51 @@ Page({
         });
     },
     add_trailing: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object(), i = a.data.getInfo;
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.tory_id = this.data.id, e.is_trailing = 1 == i.is_trailing ? 1 : 0, e.trailing_type = "tab1" == this.data.set_guanzhu ? 0 : 1, 
-        e.trailing_text = "tab1" == this.data.set_guanzhu ? this.data.get_gz_text : this.data.get_gz_input;
-        var n = app.api_root + "User/set_user_trailing";
-        http.POST(n, {
-            params: e,
-            success: function(t) {
-                a.hideModal(), "success" == t.data.status && (i.is_trailing = 1 != i.is_trailing, 
-                a.setData({
-                    getInfo: i
-                })), $Toast({
-                    content: t.data.msg
-                }), a.setData({
-                    get_gz_text: "",
-                    get_gz_input: ""
-                });
-            },
-            fail: function() {
-                wx.showModal({
-                    title: "提示",
-                    content: "网络繁忙，请稍候重试！",
-                    showCancel: !1,
-                    success: function(t) {}
-                });
-            }
+        var i = this, n = t.getCache("userinfo"), o = new Object(), s = i.data.getInfo;
+        if (o.token = n.token, o.openid = n.openid, o.uid = n.uid, o.much_id = t.siteInfo.uniacid, 
+        o.tory_id = this.data.id, o.is_trailing = 1 == s.is_trailing ? 1 : 0, o.trailing_type = "tab1" == this.data.set_guanzhu ? 0 : 1, 
+        o.trailing_text = "tab1" == this.data.set_guanzhu ? this.data.get_gz_text : this.data.get_gz_input, 
+        1 != i.data.guanzhu || o.trailing_text) {
+            var r = t.api_root + "User/set_user_trailing";
+            a.POST(r, {
+                params: o,
+                success: function(t) {
+                    i.hideModal(), "success" == t.data.status ? (s.is_trailing = 1 != s.is_trailing, 
+                    i.setData({
+                        getInfo: s
+                    }), e({
+                        content: t.data.msg
+                    })) : e({
+                        content: t.data.msg
+                    }), i.setData({
+                        get_gz_text: "",
+                        get_gz_input: ""
+                    });
+                },
+                fail: function() {
+                    wx.showModal({
+                        title: "提示",
+                        content: "网络繁忙，请稍候重试！",
+                        showCancel: !1,
+                        success: function(t) {}
+                    });
+                }
+            });
+        } else e({
+            content: "内容不能为空"
         });
     },
     get_tory_info: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.id = this.data.id, e.uid = t.uid, e.much_id = app.siteInfo.uniacid;
-        var i = app.api_root + "User/get_tory_info";
-        http.POST(i, {
-            params: e,
+        var i = this, n = t.getCache("userinfo"), o = new Object();
+        o.token = n.token, o.openid = n.openid, o.id = this.data.id, o.uid = n.uid, o.much_id = t.siteInfo.uniacid;
+        var s = t.api_root + "User/get_tory_info";
+        a.POST(s, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? i.setData({
                     getInfo: t.data.info,
                     title: t.data.info.realm_name
-                }) : $Toast({
+                }) : e({
                     content: t.data.msg
                 });
             },
@@ -403,10 +413,7 @@ Page({
         }));
     },
     popp: function() {
-        var t = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), a = wx.createAnimation({
+        var t = this, a = wx.createAnimation({
             duration: 500,
             timingFunction: "ease-out"
         }), e = wx.createAnimation({
@@ -421,25 +428,25 @@ Page({
         }), o = wx.createAnimation({
             duration: 500,
             timingFunction: "ease-out"
+        }), s = wx.createAnimation({
+            duration: 500,
+            timingFunction: "ease-out"
         });
-        t.rotateZ(225).step(), a.translate(90, -105).rotateZ(360).opacity(1).height("70px").width("70px").step(), 
-        e.translate(-8, -110).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
-        i.translate(-90, -100).rotateZ(360).opacity(1).height("150rpx").width("150rpx").step(), 
-        0 == this.data.version && o.translate(180, -105).rotateZ(360).opacity(1).height("65px").width("65px").step(), 
-        n.backgroundColor("#F7F9FA").height(190).step(), this.setData({
-            animPlus: t.export(),
-            animCollect: a.export(),
-            animTranspond: e.export(),
-            animInput: i.export(),
-            animationM: o.export(),
-            animBack: n.export()
+        a.rotateZ(225).step(), e.translate(90, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
+        i.translate(-10, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
+        n.translate(-110, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
+        0 == t.data.version && s.translate(180, -105).rotateZ(360).opacity(1).height("65px").width("65px").step(), 
+        o.backgroundColor("#F7F9FA").height(190).step(), t.setData({
+            animPlus: a.export(),
+            animCollect: e.export(),
+            animTranspond: i.export(),
+            animInput: n.export(),
+            animationM: s.export(),
+            animBack: o.export()
         });
     },
     takeback: function() {
-        var t = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), a = wx.createAnimation({
+        var t = this, a = wx.createAnimation({
             duration: 500,
             timingFunction: "ease-out"
         }), e = wx.createAnimation({
@@ -454,52 +461,84 @@ Page({
         }), o = wx.createAnimation({
             duration: 500,
             timingFunction: "ease-out"
+        }), s = wx.createAnimation({
+            duration: 500,
+            timingFunction: "ease-out"
         });
-        t.rotateZ(0).step(), a.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
-        e.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), i.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
-        o.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), n.backgroundColor("transparent").height(45).step(), 
-        this.setData({
-            animPlus: t.export(),
-            animCollect: a.export(),
-            animTranspond: e.export(),
-            animInput: i.export(),
-            animationM: o.export(),
-            animBack: n.export()
+        a.rotateZ(0).step(), e.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
+        i.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), n.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
+        s.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), o.backgroundColor("transparent").height(45).step(), 
+        t.setData({
+            animPlus: a.export(),
+            animCollect: e.export(),
+            animTranspond: i.export(),
+            animInput: n.export(),
+            animationM: s.export(),
+            animBack: o.export()
         });
     },
     play: function(t) {
-        for (var a = this, e = this.data.tory_list, i = 0; i < e.length; i++) e[i].is_voice = !1;
+        for (var a = this, e = this.data.tory_list, n = 0; n < e.length; n++) e[n].is_voice = !1;
         this.setData({
             tory_list: e
         });
-        var n = t.currentTarget.dataset.key;
-        innerAudioContext.src = t.currentTarget.dataset.vo, innerAudioContext.play(), e[n].is_voice = !0, 
-        this.setData({
+        var o = t.currentTarget.dataset.key;
+        i.src = t.currentTarget.dataset.vo, i.play(), e[o].is_voice = !0, this.setData({
             tory_list: e,
-            tory_list_index: n
-        }), innerAudioContext.onEnded(function(t) {
-            e[n].is_voice = !1, a.setData({
+            tory_list_index: o
+        }), i.onEnded(function(t) {
+            e[o].is_voice = !1, a.setData({
                 tory_list: e
             });
         });
     },
-    add_zan: function(t) {
-        var a = t.currentTarget.dataset.id, e = t.currentTarget.dataset.key, i = this, n = app.getCache("userinfo"), o = new Object();
-        o.token = n.token, o.openid = n.openid, o.id = a, o.uid = n.uid, o.much_id = app.siteInfo.uniacid, 
-        o.zan_type = 1 == this.data.tory_list[e].is_info_zan ? 1 : 0;
-        var s = i.data.tory_list;
-        wx.vibrateShort(), 0 == s[e].is_info_zan ? s[e].is_info_zan = !0 : s[e].is_info_zan = !1, 
-        i.setData({
-            tory_list: s
-        }), i.rotate3d(e), o.applaud_type = 0;
-        var r = app.api_root + "User/add_user_zan";
-        http.POST(r, {
-            params: o,
+    add_top_zan: function(i) {
+        var n = i.currentTarget.dataset.id, o = i.currentTarget.dataset.key, s = this, r = t.getCache("userinfo"), c = new Object();
+        c.token = r.token, c.openid = r.openid, c.id = n, c.uid = r.uid, c.much_id = t.siteInfo.uniacid, 
+        c.zan_type = 1 == this.data.top_list[o].is_info_zan ? 1 : 0;
+        var d = s.data.top_list;
+        wx.vibrateShort(), 0 == d[o].is_info_zan ? d[o].is_info_zan = !0 : d[o].is_info_zan = !1, 
+        s.setData({
+            top_list: d
+        }), s.rotate3d_top(o), c.applaud_type = 0;
+        var u = t.api_root + "User/add_user_zan";
+        a.POST(u, {
+            params: c,
             success: function(t) {
-                var a = i.data.tory_list;
-                "success" == t.data.status ? (a[e].info_zan_count = t.data.info_zan_count, i.setData({
+                var a = s.data.top_list;
+                "success" == t.data.status ? (a[o].info_zan_count = t.data.info_zan_count, s.setData({
+                    top_list: a
+                })) : e({
+                    content: t.data.msg
+                });
+            },
+            fail: function() {
+                wx.showModal({
+                    title: "提示",
+                    content: "网络繁忙，请稍候重试！",
+                    showCancel: !1,
+                    success: function(t) {}
+                });
+            }
+        });
+    },
+    add_zan: function(i) {
+        var n = i.currentTarget.dataset.id, o = i.currentTarget.dataset.key, s = this, r = t.getCache("userinfo"), c = new Object();
+        c.token = r.token, c.openid = r.openid, c.id = n, c.uid = r.uid, c.much_id = t.siteInfo.uniacid, 
+        c.zan_type = 1 == this.data.tory_list[o].is_info_zan ? 1 : 0;
+        var d = s.data.tory_list;
+        wx.vibrateShort(), 0 == d[o].is_info_zan ? d[o].is_info_zan = !0 : d[o].is_info_zan = !1, 
+        s.setData({
+            tory_list: d
+        }), s.rotate3d(o), c.applaud_type = 0;
+        var u = t.api_root + "User/add_user_zan";
+        a.POST(u, {
+            params: c,
+            success: function(t) {
+                var a = s.data.tory_list;
+                "success" == t.data.status ? (a[o].info_zan_count = t.data.info_zan_count, s.setData({
                     tory_list: a
-                })) : $Toast({
+                })) : e({
                     content: t.data.msg
                 });
             },
@@ -514,7 +553,7 @@ Page({
         });
     },
     stop: function(t) {
-        innerAudioContext.stop();
+        i.stop();
         var a = t.currentTarget.dataset.key, e = this.data.tory_list;
         e[a].is_voice = !1, this.setData({
             tory_list: e
@@ -536,43 +575,58 @@ Page({
         }), this.add_trailing_list();
     },
     onReachBottom: function() {
-        $Toast({
+        e({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), this.setData({
             page: this.data.page + 1
-        }), this.add_trailing_list(), $Toast.hide();
+        }), this.add_trailing_list(), e.hide();
     },
-    rotate3d: function(a) {
-        var e = this, t = e.data.tory_list, i = wx.createAnimation({
+    rotate3d_top: function(t) {
+        var a = this, e = a.data.top_list, i = wx.createAnimation({
             duration: 300,
             timingFunction: "ease"
         });
-        (e.animation_zan = i).rotate3d(0, 1, 0, 180).step(), t[a].animationData_zan = i.export(), 
-        e.setData({
-            tory_list: t
+        a.animation_zan = i, i.rotate3d(0, 1, 0, 180).step(), e[t].animationData_zan = i.export(), 
+        a.setData({
+            top_list: e
         }), setTimeout(function() {
-            var t = e.data.tory_list;
-            i.rotate3d(0, 1, 0, 0).step(), t[a].animationData_zan = i.export(), e.setData({
-                tory_list: t
+            var e = a.data.top_list;
+            i.rotate3d(0, 1, 0, 0).step(), e[t].animationData_zan = i.export(), a.setData({
+                top_list: e
+            });
+        }, 100);
+    },
+    rotate3d: function(t) {
+        var a = this, e = a.data.tory_list, i = wx.createAnimation({
+            duration: 300,
+            timingFunction: "ease"
+        });
+        a.animation_zan = i, i.rotate3d(0, 1, 0, 180).step(), e[t].animationData_zan = i.export(), 
+        a.setData({
+            tory_list: e
+        }), setTimeout(function() {
+            var e = a.data.tory_list;
+            i.rotate3d(0, 1, 0, 0).step(), e[t].animationData_zan = i.export(), a.setData({
+                tory_list: e
             });
         }, 100);
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var a = t.globalData.forward;
+        return console.log(a), a ? {
+            title: a.title,
             path: "/yl_welore/pages/packageA/circle_info/index?id=" + this.data.id,
-            imageUrl: t.reis_img,
+            imageUrl: a.reis_img,
             success: function(t) {
-                $Toast({
+                e({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                e({
                     content: "转发失败"
                 });
             }
@@ -580,12 +634,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/packageA/circle_info/index?id=" + this.data.id,
             success: function(t) {
-                $Toast({
+                e({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                e({
                     content: "转发失败"
                 });
             }

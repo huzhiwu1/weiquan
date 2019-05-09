@@ -50,9 +50,9 @@ Component({
         }
     },
     ready: function() {
-        var t = this;
-        wx.createSelectorQuery().in(this).select(".i-rate").boundingClientRect(function(e) {
-            t.data.touchesStart.pageX = e.left || 0;
+        var e = this;
+        wx.createSelectorQuery().in(this).select(".i-rate").boundingClientRect(function(t) {
+            e.data.touchesStart.pageX = t.left || 0;
         }).exec();
     }
 });

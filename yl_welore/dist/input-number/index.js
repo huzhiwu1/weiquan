@@ -1,16 +1,16 @@
-function addNum(t, e) {
-    var a, n = void 0, i = void 0;
+function t(t, e) {
+    var a = void 0, n = void 0, i = void 0;
     try {
-        n = t.toString().split(".")[1].length;
+        a = t.toString().split(".")[1].length;
+    } catch (t) {
+        a = 0;
+    }
+    try {
+        n = e.toString().split(".")[1].length;
     } catch (t) {
         n = 0;
     }
-    try {
-        i = e.toString().split(".")[1].length;
-    } catch (t) {
-        i = 0;
-    }
-    return a = Math.pow(10, Math.max(n, i)), (Math.round(t * a) + Math.round(e * a)) / a;
+    return i = Math.pow(10, Math.max(a, n)), (Math.round(t * i) + Math.round(e * i)) / i;
 }
 
 Component({
@@ -35,10 +35,10 @@ Component({
         }
     },
     methods: {
-        handleChangeStep: function(t, e) {
-            var a = t.currentTarget.dataset, n = (void 0 === a ? {} : a).disabled, i = this.data.step, u = this.data.value;
-            return n ? null : ("minus" === e ? u = addNum(u, -i) : "plus" === e && (u = addNum(u, i)), 
-            u < this.data.min || u > this.data.max ? null : void this.handleEmit(u, e));
+        handleChangeStep: function(e, a) {
+            var n = e.currentTarget.dataset, i = (void 0 === n ? {} : n).disabled, l = this.data.step, u = this.data.value;
+            return i ? null : ("minus" === a ? u = t(u, -l) : "plus" === a && (u = t(u, l)), 
+            u < this.data.min || u > this.data.max ? null : void this.handleEmit(u, a));
         },
         handleMinus: function(t) {
             this.handleChangeStep(t, "minus");
@@ -47,8 +47,8 @@ Component({
             this.handleChangeStep(t, "plus");
         },
         handleBlur: function(t) {
-            var e = this, a = t.detail.value, n = this.data, i = n.min, u = n.max;
-            a ? (u < (a = +a) ? a = u : a < i && (a = i), this.handleEmit(a)) : setTimeout(function() {
+            var e = this, a = t.detail.value, n = this.data, i = n.min, l = n.max;
+            a ? ((a = +a) > l ? a = l : a < i && (a = i), this.handleEmit(a)) : setTimeout(function() {
                 e.handleEmit(a);
             }, 16);
         },

@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../util/http.js");
+var e = getApp(), t = require("../../../10E9B8307EC361BF768FD0371DAD8A51.js");
 
 Component({
     externalClasses: [ "i-class" ],
@@ -44,43 +44,43 @@ Component({
     },
     methods: {
         changeCurrent: function() {
-            var e = this, n = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : this.data.current, t = this.getRelationNodes("../tab-bar-item/index");
-            if (0 < t.length) {
-                var a = [];
-                t.forEach(function(t) {
-                    t.changeCurrent(t.data.key === n), t.changeCurrentColor(e.data.color), a.push({
-                        key: t.data.key
+            var e = this, t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.data.current, n = this.getRelationNodes("../tab-bar-item/index");
+            if (n.length > 0) {
+                var i = [];
+                n.forEach(function(n) {
+                    n.changeCurrent(n.data.key === t), n.changeCurrentColor(e.data.color), i.push({
+                        key: n.data.key
                     });
                 }), this.setData({
-                    list: a
+                    list: i
                 });
             }
         },
-        emitEvent: function(t) {
+        emitEvent: function(e) {
             this.triggerEvent("change", {
-                key: t
+                key: e
             });
         },
-        handleClickItem: function(t) {
-            var e = t.currentTarget.dataset.key;
-            this.emitEvent(e);
+        handleClickItem: function(e) {
+            var t = e.currentTarget.dataset.key;
+            this.emitEvent(t);
         },
-        get_aa_dd: function(t) {
-            var e = app.getCache("userinfo"), n = new Object();
-            n.token = e.token, n.openid = e.openid, n.uid = e.uid, n.much_id = app.siteInfo.uniacid, 
-            n.form_id = t.detail.formId;
-            var a = app.api_root + "User/add_form_id";
-            http.POST(a, {
-                params: n,
-                success: function(t) {
-                    console.log(t);
+        get_aa_dd: function(n) {
+            var i = e.getCache("userinfo"), a = new Object();
+            a.token = i.token, a.openid = i.openid, a.uid = i.uid, a.much_id = e.siteInfo.uniacid, 
+            a.form_id = n.detail.formId;
+            var r = e.api_root + "User/add_form_id";
+            t.POST(r, {
+                params: a,
+                success: function(e) {
+                    console.log(e);
                 },
                 fail: function() {
                     wx.showModal({
                         title: "提示",
                         content: "网络繁忙，请稍候重试！",
                         showCancel: !1,
-                        success: function(t) {}
+                        success: function(e) {}
                     });
                 }
             });

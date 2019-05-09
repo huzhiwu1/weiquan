@@ -1,14 +1,20 @@
-var app = getApp(), recorderManager = wx.getRecorderManager(), innerAudioContext = wx.createInnerAudioContext(), WxParse = require("../../../util/wxParse/wxParse.js"), http = require("../../../util/http.js"), options = {
+var t = getApp(), e = wx.getRecorderManager(), a = wx.createInnerAudioContext(), i = (require("../../../util/wxParse/wxParse.js"), 
+require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js")), o = {
     duration: 6e4,
     sampleRate: 16e3,
     numberOfChannels: 1,
     encodeBitRate: 96e3,
     format: "mp3",
     frameSize: 50
-}, recordTimeInterval = "", _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+}, s = "", n = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
+        address_latitude: "",
+        address_longitude: "",
+        is_position: !1,
+        position: "",
+        position_name: "",
         is_open: !1,
         fa_type: 0,
         is_submit: !1,
@@ -56,7 +62,7 @@ Page({
         }, {
             color: "#000000"
         } ],
-        isIpx: app.globalData.isIpx,
+        isIpx: t.globalData.isIpx,
         nvabarData: {},
         file: "",
         file_ss: 0,
@@ -83,55 +89,56 @@ Page({
         version: 1,
         title_arbor: 1
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            copyright: app.globalData.copyright,
-            design: app.globalData.design,
-            height: app.globalData.height,
-            fa_type: t.type,
-            fa_class: t.fa_class,
-            title: "发布到" + t.name,
-            title_arbor: app.globalData.copyright.title_arbor,
+            copyright: t.globalData.copyright,
+            design: t.globalData.design,
+            height: t.globalData.height,
+            fa_type: e.type,
+            fa_class: e.fa_class,
+            title: "发布到" + e.name,
+            title_arbor: t.globalData.copyright.title_arbor,
             nvabarData: {
                 showCapsule: !0,
-                height: 2 * app.globalData.height + 20
+                height: 2 * t.globalData.height + 20
             }
-        }), this.get_user_info(), 2 == t.type && this.setData({
+        }), this.get_user_info(), 2 == e.type && this.setData({
             is_title: !0
-        }), 0 == t.fa_class && this.setData({
+        }), 0 == e.fa_class && this.setData({
             check_fa_class: !0
         }), this.get_user_vip(), this.get_left_needle(), this.get_right_item(), this.get_diy();
     },
-    getPhoneNumber: function(t) {
-        if ("getPhoneNumber:ok" == t.detail.errMsg) {
-            var e = app.api_root + "User/get_user_phone", a = this, i = app.getCache("userinfo"), o = new Object();
-            o.token = i.token, o.openid = i.openid, o.uid = i.uid, o.much_id = app.siteInfo.uniacid, 
-            o.encryptedData = t.detail.encryptedData, o.iv = t.detail.iv, o.sessionKey = i.sessionKey, 
-            http.POST(e, {
-                params: o,
-                success: function(t) {
-                    $Toast({
-                        content: t.data.msg
-                    }), a.get_user_info();
-                },
-                fail: function() {
-                    wx.showModal({
-                        title: "提示",
-                        content: "网络繁忙，请稍候重试！",
-                        showCancel: !1,
-                        success: function(t) {}
-                    });
-                }
-            });
-        }
-    },
-    get_diy: function() {
-        var t = app.api_root + "User/get_diy", e = this, a = app.getCache("userinfo"), i = new Object();
-        i.token = a.token, i.openid = a.openid, i.uid = a.uid, i.much_id = app.siteInfo.uniacid, 
-        i.version = app.version, http.POST(t, {
-            params: i,
+    onChangePosition: function(t) {
+        var e = this, a = t.detail;
+        this.setData({
+            is_position: a.value
+        }), 1 == a.value && wx.chooseLocation({
             success: function(t) {
                 console.log(t), e.setData({
+                    position: t.address,
+                    position_name: t.name,
+                    address_latitude: t.latitude,
+                    address_longitude: t.longitude,
+                    ppooss: t.name + "-" + t.address
+                });
+            },
+            fail: function(t) {
+                console.log(t), "chooseLocation:fail cancel" != t.errMsg ? e.setData({
+                    visible_pos: !0,
+                    is_position: !1
+                }) : e.setData({
+                    is_position: !1
+                });
+            }
+        });
+    },
+    get_diy: function() {
+        var e = t.api_root + "User/get_diy", a = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, s.uid = o.uid, s.much_id = t.siteInfo.uniacid, 
+        s.version = t.version, i.POST(e, {
+            params: s,
+            success: function(t) {
+                console.log(t), a.setData({
                     version: t.data.version,
                     open_file: t.data.open_file
                 });
@@ -173,7 +180,7 @@ Page({
             });
             var i = this.data.zong_red_count;
             if ("" != i) {
-                if (e / i < .01) return $Toast({
+                if (e / i < .01) return n({
                     content: "单个红包不可低于0.01"
                 }), void this.setData({
                     is_submit: !0
@@ -186,27 +193,25 @@ Page({
     },
     get_red_count: function(t) {
         var e = t.detail.detail.value;
-        if ("" != e) if (0 != e) {
-            if (/^[0-9]*$/g.test(e) || (e = "1"), this.setData({
-                zong_red_count: e
-            }), 1 == this.data.red_type) {
-                if ("" != this.data.xian_red_money) {
-                    if (this.data.xian_red_money / e < .01) return $Toast({
-                        content: "单个红包不可低于0.01"
-                    }), void this.setData({
-                        is_submit: !0
-                    });
-                    this.setData({
-                        is_submit: !1
-                    });
-                }
-            } else {
-                var a = (this.data.xian_red_money * e).toFixed(2);
+        if ("" != e) if (0 != e) if (/^[0-9]*$/g.test(e) || (e = "1"), this.setData({
+            zong_red_count: e
+        }), 1 == this.data.red_type) {
+            if ("" != this.data.xian_red_money) {
+                if (this.data.xian_red_money / e < .01) return n({
+                    content: "单个红包不可低于0.01"
+                }), void this.setData({
+                    is_submit: !0
+                });
                 this.setData({
-                    zong_red_money: a,
                     is_submit: !1
                 });
             }
+        } else {
+            var a = (this.data.xian_red_money * e).toFixed(2);
+            this.setData({
+                zong_red_money: a,
+                is_submit: !1
+            });
         } else this.setData({
             zong_red_count: 1
         });
@@ -228,18 +233,18 @@ Page({
     lower: function() {
         this.setData({
             page: this.data.page + 1
-        }), 0 < this.data.curNav && this.get_right_item();
+        }), this.data.curNav > 0 && this.get_right_item();
     },
     get_left_needle: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid;
-        var i = app.api_root + "User/get_left_needle";
-        http.POST(i, {
-            params: a,
+        var e = this, a = t.getCache("userinfo"), o = new Object();
+        o.token = a.token, o.openid = a.openid, o.much_id = t.siteInfo.uniacid;
+        var s = t.api_root + "User/get_left_needle";
+        i.POST(s, {
+            params: o,
             success: function(t) {
                 "success" == t.data.status ? e.setData({
                     navLeftItems: t.data.info
-                }) : $Toast({
+                }) : n({
                     content: t.data.msg
                 });
             },
@@ -254,19 +259,19 @@ Page({
         });
     },
     get_right_item: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.get_id = a.data.curNav, e.page = a.data.page;
-        var i = app.api_root + "User/get_right_needle", o = a.data.navRightItems;
-        http.POST(i, {
-            params: e,
+        var e = this, a = t.getCache("userinfo"), o = new Object();
+        o.token = a.token, o.openid = a.openid, o.uid = a.uid, o.much_id = t.siteInfo.uniacid, 
+        o.get_id = e.data.curNav, o.page = e.data.page;
+        var s = t.api_root + "User/get_right_needle", r = e.data.navRightItems;
+        i.POST(s, {
+            params: o,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    for (var e = 0; e < t.data.info.length; e++) o.push(t.data.info[e]);
-                    a.setData({
-                        navRightItems: o
+                    for (var a = 0; a < t.data.info.length; a++) r.push(t.data.info[a]);
+                    e.setData({
+                        navRightItems: r
                     });
-                } else $Toast({
+                } else n({
                     content: t.data.msg
                 });
             },
@@ -281,13 +286,13 @@ Page({
         });
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", e = this, a = app.getCache("userinfo"), i = new Object();
-        i.token = a.token, i.openid = a.openid, http.POST(t, {
-            params: i,
+        var e = t.api_root + "User/get_user_info", a = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, i.POST(e, {
+            params: s,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? e.setData({
+                console.log(t), "success" == t.data.status ? a.setData({
                     user_info: t.data.info
-                }) : $Toast({
+                }) : n({
                     content: t.data.msg
                 });
             },
@@ -302,11 +307,11 @@ Page({
         });
     },
     get_user_vip: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid, a.uid = t.uid;
-        var i = app.api_root + "User/check_user_vip";
-        http.POST(i, {
-            params: a,
+        var e = this, a = t.getCache("userinfo"), o = new Object();
+        o.token = a.token, o.openid = a.openid, o.much_id = t.siteInfo.uniacid, o.uid = a.uid;
+        var s = t.api_root + "User/check_user_vip";
+        i.POST(s, {
+            params: o,
             success: function(t) {
                 e.setData({
                     is_vip: t.data
@@ -323,91 +328,93 @@ Page({
         });
     },
     submit: function() {
-        if (0 == this.data.fa_class) return $Toast({
+        if (0 == this.data.fa_class) return n({
             content: "请选择发布的" + this.data.design.landgrave
         }), void this.setData({
             showLeft: !0,
             get_hidden: !1
         });
         if (console.log(this.data.zong_red_money), console.log(this.data.user_info.fraction), 
-        parseFloat(this.data.zong_red_money) > parseFloat(this.data.user_info.fraction)) $Toast({
+        parseFloat(this.data.zong_red_money) > parseFloat(this.data.user_info.fraction)) n({
             content: "所需余额不足"
         }); else {
             wx.showLoading({
                 title: "正在发布...",
                 mask: !0
             });
-            var a = this;
-            a.setData({
+            var e = this;
+            e.setData({
                 is_submit: !0
             });
-            var t = app.getCache("userinfo"), i = new Object();
-            if ("" == this.data.title_value && 1 == this.data.title_arbor) return $Toast({
+            var a = t.getCache("userinfo"), i = new Object();
+            if ("" == this.data.title_value && 1 == this.data.title_arbor) return n({
                 content: "标题不能为空"
-            }), a.setData({
+            }), e.setData({
                 is_submit: !1
             }), void wx.hideLoading();
-            if (2 != this.data.fa_type && "" == this.data.text && 0 == this.data.img_arr.length) return $Toast({
+            if (2 != this.data.fa_type && "" == this.data.text && 0 == this.data.img_arr.length) return n({
                 content: "内容不能为空"
-            }), wx.hideLoading(), void a.setData({
+            }), wx.hideLoading(), void e.setData({
                 is_submit: !1
             });
             if (i.title = this.data.title_value, i.color = this.data.title_color, i.content = this.data.text, 
-            i.img_arr = this.data.img_arr, i.uid = t.uid, i.token = t.token, i.openid = t.openid, 
+            i.img_arr = this.data.img_arr, i.uid = a.uid, i.token = a.token, i.openid = a.openid, 
             i.is_open = 0 == this.data.is_open ? 1 : 0, i.type = this.data.fa_type, i.fa_class = this.data.fa_class, 
-            i.mch_id = app.siteInfo.uniacid, i.file_ss = this.data.file_ss, i.version = app.version, 
-            this.data.red_paper && (i.red_paper = 1 == this.data.red_paper ? 1 : 0, i.red_type = this.data.red_type, 
-            i.zong_red_count = this.data.zong_red_count, i.zong_red_money = this.data.zong_red_money), 
-            console.log(i), 2 == this.data.fa_type && "" == this.data.file) return $Toast({
+            i.mch_id = t.siteInfo.uniacid, i.file_ss = this.data.file_ss, i.version = t.version, 
+            i.position_name = this.data.position_name, i.position = this.data.position, i.address_latitude = this.data.address_latitude, 
+            i.address_longitude = this.data.address_longitude, this.data.red_paper && (i.red_paper = 1 == this.data.red_paper ? 1 : 0, 
+            i.red_type = this.data.red_type, i.zong_red_count = this.data.zong_red_count, i.zong_red_money = this.data.zong_red_money), 
+            console.log(i), 2 == this.data.fa_type && "" == this.data.file) return n({
                 content: "请添加视频"
-            }), wx.hideLoading(), void a.setData({
+            }), wx.hideLoading(), void e.setData({
                 is_submit: !1
             });
             1 == this.data.fa_type || 2 == this.data.fa_type ? wx.uploadFile({
-                url: app.api_root + "User/img_upload",
-                filePath: a.data.file,
+                url: t.api_root + "User/img_upload",
+                filePath: e.data.file,
                 name: "sngpic",
                 formData: {
-                    token: t.token,
-                    openid: t.openid,
-                    much_id: app.siteInfo.uniacid
+                    token: a.token,
+                    openid: a.openid,
+                    much_id: t.siteInfo.uniacid
                 },
                 header: {
                     "Content-Type": "multipart/form-data"
                 },
                 success: function(t) {
-                    console.log("上传视频")
-                    var e = JSON.parse(t.data);
-                    console.log(e), i.user_file = e.url, a.add_submit(i);
+                    var a = JSON.parse(t.data);
+                    console.log(a), i.user_file = a.url, e.add_submit(i);
                 },
                 fail: function(t) {
-                    $Toast({
+                    n({
                         content: "上传错误！",
                         type: "error"
-                    }), wx.hideLoading(), a.setData({
+                    }), wx.hideLoading(), e.setData({
                         is_submit: !1
                     });
                 }
-            }) : (i.user_file = "", a.add_submit(i), $Toast.hide(), wx.hideLoading());
+            }) : (i.user_file = "", e.add_submit(i), n.hide(), wx.hideLoading());
         }
     },
-    add_submit: function(t) {
-        var e = this, a = app.api_root + "User/add_circle";
-        http.POST(a, {
-            params: t,
+    add_submit: function(e) {
+        var a = this, o = t.api_root + "User/add_circle";
+        i.POST(o, {
+            params: e,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? ($Toast({
+                console.log(t), "success" == t.data.status ? (n({
                     content: t.data.msg,
                     duration: 2e3
                 }), setTimeout(function() {
-                    wx.navigateBack();
-                }, 2e3)) : (e.setData({
+                    wx.reLaunch({
+                        url: "/yl_welore/pages/index/index"
+                    });
+                }, 2e3)) : (a.setData({
                     is_submit: !1
-                }), $Toast({
+                }), n({
                     content: t.data.msg,
                     duration: 0
                 })), setTimeout(function() {
-                    $Toast.hide();
+                    n.hide();
                 }, 3e3);
             },
             fail: function() {
@@ -468,32 +475,32 @@ Page({
         });
     },
     add_video: function() {
-        var e = this;
+        var t = this;
         wx.chooseVideo({
             sourceType: [ "album", "camera" ],
-            maxDuration: e.data.copyright.video_setting,
+            maxDuration: t.data.copyright.video_setting,
             compressed: !0,
-            success: function(t) {
-                console.log(t), wx.hideLoading(), e.data.copyright.video_setting < t.duration ? $Toast({
-                    content: "视频最长为" + e.data.copyright.video_setting + "秒！请重新上传"
-                }) : e.setData({
-                    file: t.tempFilePath
+            success: function(e) {
+                console.log(e), wx.hideLoading(), t.data.copyright.video_setting < e.duration ? n({
+                    content: "视频最长为" + t.data.copyright.video_setting + "秒！请重新上传"
+                }) : t.setData({
+                    file: e.tempFilePath
                 });
             }
         });
     },
     start: function() {
-        var e = this;
-        e.setData({
+        var t = this;
+        t.setData({
             file_ss: 0
-        }), recorderManager.start(options), recorderManager.onStart(function() {
-            recordTimeInterval = setInterval(function() {
-                var t = e.data.file_ss + 1;
-                60 <= t && e.touchEnd(), e.setData({
-                    file_ss: t
+        }), e.start(o), e.onStart(function() {
+            s = setInterval(function() {
+                var e = t.data.file_ss + 1;
+                e >= 60 && t.touchEnd(), t.setData({
+                    file_ss: e
                 });
             }, 1e3);
-        }), recorderManager.onError(function(t) {
+        }), e.onError(function(t) {
             console.log(t);
         });
     },
@@ -504,49 +511,50 @@ Page({
         });
     },
     stop: function() {
-        var e = this, a = this;
-        recorderManager.stop(), recorderManager.onStop(function(t) {
-            e.tempFilePath = t.tempFilePath, console.log("停止录音", t.tempFilePath), a.setData({
-                file: t.tempFilePath
-            }), clearInterval(recordTimeInterval), recordTimeInterval = "";
+        var t = this, a = this;
+        e.stop(), e.onStop(function(e) {
+            t.tempFilePath = e.tempFilePath, console.log("停止录音", e.tempFilePath), a.setData({
+                file: e.tempFilePath
+            }), clearInterval(s), s = "";
         });
     },
     play: function() {
-        innerAudioContext.autoplay = !0, innerAudioContext.src = this.data.file, innerAudioContext.play(), 
-        innerAudioContext.onPlay(function() {
+        a.autoplay = !0, a.src = this.data.file, a.play(), a.onPlay(function() {
             console.log("开始播放");
-        }), innerAudioContext.onError(function(t) {
+        }), a.onError(function(t) {
             console.log(t.errMsg), console.log(t.errCode);
         });
     },
     handleClose: function() {
         this.setData({
-            visible2: !1
+            visible2: !1,
+            visible_pos: !1
         });
     },
     handleOk: function() {
         wx.openSetting(), this.setData({
-            visible2: !1
+            visible2: !1,
+            visible_pos: !1
         });
     },
     touchStart: function() {
-        var e = this;
+        var t = this;
         if (wx.getSetting({
-            success: function(t) {
-                0 == t.authSetting["scope.record"] ? wx.authorize({
+            success: function(e) {
+                0 == e.authSetting["scope.record"] ? wx.authorize({
                     scope: "scope.record",
                     fail: function() {
-                        e.setData({
+                        t.setData({
                             visible2: !0,
                             scope_record: !1
                         });
                     }
-                }) : e.setData({
+                }) : t.setData({
                     scope_record: !0
                 });
             }
-        }), 0 == e.data.scope_record) return !1;
-        $Toast({
+        }), 0 == t.data.scope_record) return !1;
+        n({
             duration: 0,
             content: "正在录音",
             image: "https://wq.inotnpc.com/addons/yl_welore/web/static/wechat/yuyin.gif",
@@ -554,48 +562,48 @@ Page({
         }), this.start();
     },
     touchEnd: function() {
-        $Toast.hide(), this.stop();
+        n.hide(), this.stop();
     },
     chooseImage: function() {
-        var o = this, n = app.getCache("userinfo"), s = app.api_root + "User/img_upload";
+        var e = this, a = t.getCache("userinfo"), i = t.api_root + "User/img_upload";
         wx.chooseImage({
-            count: o.data.img_length,
+            count: e.data.img_length,
             sizeType: [ "original", "compressed" ],
             sourceType: [ "album", "camera" ],
-            success: function(t) {
-                $Toast({
+            success: function(o) {
+                n({
                     content: "上传中...",
                     type: "loading"
                 });
-                var e = t.tempFilePaths;
-                o.setData({
-                    img_length: o.data.img_length - e.length
-                }), o.data.img_length <= 0 && o.setData({
+                var s = o.tempFilePaths;
+                e.setData({
+                    img_length: e.data.img_length - s.length
+                }), e.data.img_length <= 0 && e.setData({
                     img_botton: !1
                 });
-                for (var a = 0, i = e.length; a < i; a++) wx.uploadFile({
-                    url: s,
-                    filePath: e[a],
+                for (var r = 0, c = s.length; r < c; r++) wx.uploadFile({
+                    url: i,
+                    filePath: s[r],
                     name: "sngpic",
                     formData: {
-                        token: n.token,
-                        openid: n.openid,
-                        much_id: app.siteInfo.uniacid
+                        token: a.token,
+                        openid: a.openid,
+                        much_id: t.siteInfo.uniacid
                     },
                     header: {
                         "Content-Type": "multipart/form-data"
                     },
                     success: function(t) {
                         console.log(t);
-                        var e = JSON.parse(t.data);
-                        console.log(e), "error" == e.status ? $Toast({
-                            content: e.msg
-                        }) : (o.setData({
-                            img_arr: o.data.img_arr.concat(e.url)
-                        }), $Toast.hide());
+                        var a = JSON.parse(t.data);
+                        console.log(a), "error" == a.status ? n({
+                            content: a.msg
+                        }) : (e.setData({
+                            img_arr: e.data.img_arr.concat(a.url)
+                        }), n.hide());
                     },
                     fail: function(t) {
-                        $Toast({
+                        n({
                             content: "上传错误！",
                             type: "error"
                         });
@@ -605,41 +613,41 @@ Page({
         });
     },
     previewOneImage: function() {
-        var a = this, i = app.getCache("userinfo"), o = app.api_root + "User/img_upload";
+        var e = this, a = t.getCache("userinfo"), i = t.api_root + "User/img_upload";
         wx.chooseImage({
             count: 1,
             sizeType: [ "original", "compressed" ],
             sourceType: [ "album", "camera" ],
-            success: function(t) {
+            success: function(o) {
                 wx.showLoading({
                     title: "上传中...",
                     mask: !0
                 });
-                var e = t.tempFilePaths;
+                var s = o.tempFilePaths;
                 wx.uploadFile({
-                    url: o,
-                    filePath: e[0],
+                    url: i,
+                    filePath: s[0],
                     name: "sngpic",
                     formData: {
-                        token: i.token,
-                        openid: i.openid,
-                        much_id: app.siteInfo.uniacid
+                        token: a.token,
+                        openid: a.openid,
+                        much_id: t.siteInfo.uniacid
                     },
                     header: {
                         "Content-Type": "multipart/form-data"
                     },
                     success: function(t) {
                         console.log(t);
-                        var e = JSON.parse(t.data);
-                        console.log(e), "error" == e.status ? $Toast({
-                            content: e.msg
-                        }) : (a.setData({
-                            img_arr: a.data.img_arr.concat(e.url),
+                        var a = JSON.parse(t.data);
+                        console.log(a), "error" == a.status ? n({
+                            content: a.msg
+                        }) : (e.setData({
+                            img_arr: e.data.img_arr.concat(a.url),
                             img_botton: !1
-                        }), wx.hideLoading()), console.log(a.data.img_botton);
+                        }), wx.hideLoading()), console.log(e.data.img_botton);
                     },
                     fail: function(t) {
-                        $Toast({
+                        n({
                             content: "上传错误！",
                             type: "error"
                         });
@@ -649,10 +657,10 @@ Page({
         });
     },
     clearOneImage: function(t) {
-        var e = t.target.dataset.index, a = this.data.img_arr;
-        a.splice(e, 1), this.setData({
-            img_arr: a
-        }), this.setData({
+        var e = this, a = t.target.dataset.index, i = e.data.img_arr;
+        i.splice(a, 1), e.setData({
+            img_arr: i
+        }), e.setData({
             img_botton: !0
         });
     },
@@ -661,7 +669,7 @@ Page({
         i.splice(a, 1), e.setData({
             img_arr: i,
             img_length: e.data.img_length + 1
-        }), 0 < e.data.img_length && e.setData({
+        }), e.data.img_length > 0 && e.setData({
             img_botton: !0
         });
     },
@@ -674,18 +682,18 @@ Page({
         });
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }
@@ -693,12 +701,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }

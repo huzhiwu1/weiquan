@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), n = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
@@ -6,7 +6,7 @@ Page({
         nvabarData: {
             showCapsule: 0,
             title: "VIP会员",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         pay_list: [],
         pay_index: 0,
@@ -29,28 +29,28 @@ Page({
         } ],
         money_index: 0
     },
-    onLoad: function(t) {
-        app.authority(), this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
-            design: app.globalData.design,
-            copyright: app.globalData.copyright
+    onLoad: function(e) {
+        t.authority(), this.setData({
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx,
+            design: t.globalData.design,
+            copyright: t.globalData.copyright
         }), console.log(this.data.copyright);
     },
     onShow: function() {
         this.get_user_hon(), this.get_user_info();
     },
     get_pay: function() {
-        var t = this, a = wx.createAnimation({
+        var t = this, e = wx.createAnimation({
             duration: 150,
             timingFunction: "linear"
         });
-        (t.animation = a).translateY(230).step(), t.setData({
-            animationPay: a.export(),
+        t.animation = e, e.translateY(230).step(), t.setData({
+            animationPay: e.export(),
             pay: !0
         }), setTimeout(function() {
-            a.translateY(0).step(), t.setData({
-                animationPay: a.export()
+            e.translateY(0).step(), t.setData({
+                animationPay: e.export()
             });
         }, 100);
     },
@@ -70,13 +70,13 @@ Page({
         }), this.bei_pay();
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", a = this, e = app.getCache("userinfo"), n = new Object();
-        n.token = e.token, n.openid = e.openid, http.POST(t, {
-            params: n,
+        var a = t.api_root + "User/get_user_info", i = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, e.POST(a, {
+            params: s,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? i.setData({
                     user_info: t.data.info
-                }) : $Toast({
+                }) : n({
                     content: t.data.msg
                 });
             },
@@ -91,16 +91,16 @@ Page({
         });
     },
     get_user_hon: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid;
-        var n = app.api_root + "User/get_user_honorary";
-        http.POST(n, {
-            params: e,
+        var a = this, i = t.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.uid = i.uid, o.much_id = t.siteInfo.uniacid;
+        var s = t.api_root + "User/get_user_honorary";
+        e.POST(s, {
+            params: o,
             success: function(t) {
                 console.log(t), "success" == t.data.status ? a.setData({
                     pay_list: t.data.info,
                     pay_info: t.data.info[0]
-                }) : $Toast({
+                }) : n({
                     content: t.data.msg
                 });
             },
@@ -115,16 +115,16 @@ Page({
         });
     },
     get_pay_index: function(t) {
-        var a = t.currentTarget.dataset.index;
+        var e = t.currentTarget.dataset.index;
         this.setData({
-            pay_index: a,
-            pay_info: this.data.pay_list[a]
+            pay_index: e,
+            pay_info: this.data.pay_list[e]
         });
     },
     get_pay_money: function(t) {
-        var a = t.currentTarget.dataset.index;
+        var e = t.currentTarget.dataset.index;
         this.setData({
-            money_index: a
+            money_index: e
         });
     },
     pay_check: function() {
@@ -133,18 +133,18 @@ Page({
         });
     },
     bei_pay: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.time = this.data.pay_info.time;
-        var n = app.api_root + "Pay/index";
-        http.POST(n, {
-            params: e,
+        var a = this, i = t.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.uid = i.uid, o.much_id = t.siteInfo.uniacid, 
+        o.time = this.data.pay_info.time;
+        var s = t.api_root + "Pay/index";
+        e.POST(s, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? ($Toast({
+                console.log(t), "success" == t.data.status ? (n({
                     content: t.data.msg
-                }), a.get_user_info(), a.get_user_hon()) : 1 == a.data.copyright.recharge_arbor ? ($Toast({
+                }), a.get_user_info(), a.get_user_hon()) : 1 == a.data.copyright.recharge_arbor ? (n({
                     content: t.data.msg
-                }), a.get_pay()) : $Toast({
+                }), a.get_pay()) : n({
                     content: "余额不足！"
                 });
             },
@@ -159,23 +159,23 @@ Page({
         });
     },
     pay_submit: function() {
-        var t = this.data.pay_money[this.data.money_index].money, o = this, a = app.getCache("userinfo"), e = new Object();
-        e.token = a.token, e.openid = a.openid, e.uid = a.uid, e.much_id = app.siteInfo.uniacid, 
-        e.money = t;
-        var n = app.api_root + "Pay/do_pay";
-        http.POST(n, {
-            params: e,
+        var i = this.data.pay_money[this.data.money_index].money, o = this, s = t.getCache("userinfo"), c = new Object();
+        c.token = s.token, c.openid = s.openid, c.uid = s.uid, c.much_id = t.siteInfo.uniacid, 
+        c.money = i;
+        var u = t.api_root + "Pay/do_pay";
+        e.POST(u, {
+            params: c,
             success: function(t) {
                 if (console.log(t), "OK" == t.data.return_msg) {
-                    var a = (Date.parse(new Date()) / 1e3).toString(), e = "prepay_id=" + t.data.prepay_id, n = t.data.nonce_str, i = md5.hexMD5("appId=" + t.data.appid + "&nonceStr=" + n + "&package=" + e + "&signType=MD5&timeStamp=" + a + "&key=" + t.data.app_info.app_key).toUpperCase();
+                    var e = (Date.parse(new Date()) / 1e3).toString(), i = "prepay_id=" + t.data.prepay_id, s = t.data.nonce_str, c = a.hexMD5("appId=" + t.data.appid + "&nonceStr=" + s + "&package=" + i + "&signType=MD5&timeStamp=" + e + "&key=" + t.data.app_info.app_key).toUpperCase();
                     wx.requestPayment({
-                        timeStamp: a,
-                        nonceStr: n,
-                        package: e,
+                        timeStamp: e,
+                        nonceStr: s,
+                        package: i,
                         signType: "MD5",
-                        paySign: i,
+                        paySign: c,
                         success: function(t) {
-                            $Toast({
+                            n({
                                 content: "充值成功！"
                             }), o.get_user_info(), o.no_pay();
                         },
@@ -183,7 +183,7 @@ Page({
                             o.get_user_info(), o.no_pay();
                         }
                     });
-                } else $Toast({
+                } else n({
                     content: t.data.msg
                 }), o.get_pay();
             },
@@ -201,18 +201,18 @@ Page({
         wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }
@@ -220,12 +220,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }

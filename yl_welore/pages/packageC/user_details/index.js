@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), n = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
@@ -7,7 +7,7 @@ Page({
         nvabarData: {
             showCapsule: 0,
             title: "零钱明细",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         pay_list: [],
         pay_index: 0,
@@ -43,13 +43,13 @@ Page({
         ji_money_b: "0.00",
         bei_money_b: ""
     },
-    onLoad: function(t) {
-        app.authority(), this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
+    onLoad: function(e) {
+        t.authority(), this.setData({
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx,
             page: 1,
-            design: app.globalData.design,
-            copyright: app.globalData.copyright
+            design: t.globalData.design,
+            copyright: t.globalData.copyright
         }), console.log(this.data.copyright), this.get_user_info(), this.get_user_amount();
     },
     onShow: function() {},
@@ -90,20 +90,20 @@ Page({
         });
     },
     add_bei_ji: function() {
-        var e = this;
-        if ("" == e.data.bei_money || e.data.bei_money <= 0) $Toast({
+        var a = this;
+        if ("" == a.data.bei_money || a.data.bei_money <= 0) n({
             content: "请填写正确兑换的数量"
         }); else {
-            var t = app.api_root + "User/add_bei_ji", a = app.getCache("userinfo"), n = new Object();
-            n.token = a.token, n.openid = a.openid, n.uid = a.uid, n.much_id = app.siteInfo.uniacid, 
-            n.bei_money = e.data.bei_money, http.POST(t, {
-                params: n,
+            var o = t.api_root + "User/add_bei_ji", i = t.getCache("userinfo"), s = new Object();
+            s.token = i.token, s.openid = i.openid, s.uid = i.uid, s.much_id = t.siteInfo.uniacid, 
+            s.bei_money = a.data.bei_money, e.POST(o, {
+                params: s,
                 success: function(t) {
-                    console.log(t), "success" == t.data.status ? (e.setData({
+                    console.log(t), "success" == t.data.status ? (a.setData({
                         page: 1
-                    }), $Toast({
+                    }), n({
                         content: t.data.msg
-                    }), e.hideModal(), e.get_user_info(), e.get_user_amount()) : $Toast({
+                    }), a.hideModal(), a.get_user_info(), a.get_user_amount()) : n({
                         content: t.data.msg
                     });
                 },
@@ -142,22 +142,22 @@ Page({
         });
     },
     get_ji_bei: function() {
-        var e = this;
-        if ("" == e.data.bei_money_b || e.data.bei_money_b <= 0) $Toast({
+        var a = this;
+        if ("" == a.data.bei_money_b || a.data.bei_money_b <= 0) n({
             content: "请填写正确兑换的数量"
         }); else {
-            var t = app.api_root + "User/get_ji_bei", a = app.getCache("userinfo"), n = new Object();
-            n.token = a.token, n.openid = a.openid, n.uid = a.uid, n.much_id = app.siteInfo.uniacid, 
-            n.bei_money_b = e.data.ji_money_b, http.POST(t, {
-                params: n,
+            var o = t.api_root + "User/get_ji_bei", i = t.getCache("userinfo"), s = new Object();
+            s.token = i.token, s.openid = i.openid, s.uid = i.uid, s.much_id = t.siteInfo.uniacid, 
+            s.bei_money_b = a.data.ji_money_b, e.POST(o, {
+                params: s,
                 success: function(t) {
-                    console.log(t), "success" == t.data.status ? (e.hideModal(), e.setData({
+                    console.log(t), "success" == t.data.status ? (a.hideModal(), a.setData({
                         page: 1
-                    }), $Toast({
+                    }), n({
                         content: t.data.msg
-                    }), e.get_user_info(), e.get_user_amount()) : (e.setData({
+                    }), a.get_user_info(), a.get_user_amount()) : (a.setData({
                         yes_mod: !1
-                    }), $Toast({
+                    }), n({
                         content: t.data.msg
                     }));
                 },
@@ -186,7 +186,7 @@ Page({
             duration: 150,
             timingFunction: "linear"
         });
-        (t.animation = e).translateY(230).step(), t.setData({
+        t.animation = e, e.translateY(230).step(), t.setData({
             animationPay: e.export(),
             pay: !0
         }), setTimeout(function() {
@@ -201,23 +201,23 @@ Page({
         });
     },
     get_user_amount: function() {
-        var t = app.api_root + "User/get_user_amount", a = this, e = app.getCache("userinfo"), n = new Object();
-        n.token = e.token, n.openid = e.openid, n.uid = e.uid, n.much_id = app.siteInfo.uniacid, 
-        n.page = this.data.page, n.evaluate = this.data.current;
-        var o = a.data.amount_list;
-        http.POST(t, {
-            params: n,
+        var a = t.api_root + "User/get_user_amount", o = this, i = t.getCache("userinfo"), s = new Object();
+        s.token = i.token, s.openid = i.openid, s.uid = i.uid, s.much_id = t.siteInfo.uniacid, 
+        s.page = this.data.page, s.evaluate = this.data.current;
+        var c = o.data.amount_list;
+        e.POST(a, {
+            params: s,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && a.setData({
+                    0 == t.data.info.length && o.setData({
                         di_msg: !0
                     });
-                    for (var e = 0; e < t.data.info.length; e++) o.push(t.data.info[e]);
-                    a.setData({
-                        amount_list: o,
+                    for (var e = 0; e < t.data.info.length; e++) c.push(t.data.info[e]);
+                    o.setData({
+                        amount_list: c,
                         setting: t.data.setting
                     });
-                } else $Toast({
+                } else n({
                     content: t.data.msg
                 });
             },
@@ -232,19 +232,19 @@ Page({
         });
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", a = this, e = app.getCache("userinfo"), n = new Object();
-        n.token = e.token, n.openid = e.openid, http.POST(t, {
-            params: n,
+        var a = t.api_root + "User/get_user_info", o = this, i = t.getCache("userinfo"), s = new Object();
+        s.token = i.token, s.openid = i.openid, e.POST(a, {
+            params: s,
             success: function(t) {
                 if ("success" == t.data.status) {
                     var e = (t.data.info.fraction / 10).toFixed(3);
-                    a.setData({
+                    o.setData({
                         user_info: t.data.info,
                         dd_fraction: e.substring(0, e.length - 1),
-                        bei_ji: a.data.copyright.conch_convert - t.data.info.bei_ji < 0 ? 0 : a.data.copyright.conch_convert - t.data.info.bei_ji,
-                        bei_ji_b: a.data.copyright.fraction_convert - t.data.info.ji_bei < 0 ? 0 : a.data.copyright.fraction_convert - t.data.info.ji_bei
+                        bei_ji: o.data.copyright.conch_convert - t.data.info.bei_ji < 0 ? 0 : o.data.copyright.conch_convert - t.data.info.bei_ji,
+                        bei_ji_b: o.data.copyright.fraction_convert - t.data.info.ji_bei < 0 ? 0 : o.data.copyright.fraction_convert - t.data.info.ji_bei
                     });
-                } else $Toast({
+                } else n({
                     content: t.data.msg
                 });
             },
@@ -265,25 +265,25 @@ Page({
         });
     },
     pay_submit: function() {
-        var t = this.data.pay_money[this.data.money_index].money;
-        if (console.log(t), t) {
-            var i = this, e = app.getCache("userinfo"), a = new Object();
-            a.token = e.token, a.openid = e.openid, a.uid = e.uid, a.much_id = app.siteInfo.uniacid, 
-            a.money = t;
-            var n = app.api_root + "Pay/do_pay";
-            http.POST(n, {
-                params: a,
+        var o = this.data.pay_money[this.data.money_index].money;
+        if (console.log(o), o) {
+            var i = this, s = t.getCache("userinfo"), c = new Object();
+            c.token = s.token, c.openid = s.openid, c.uid = s.uid, c.much_id = t.siteInfo.uniacid, 
+            c.money = o;
+            var _ = t.api_root + "Pay/do_pay";
+            e.POST(_, {
+                params: c,
                 success: function(t) {
                     if (console.log(t), "OK" == t.data.return_msg) {
-                        var e = (Date.parse(new Date()) / 1e3).toString(), a = "prepay_id=" + t.data.prepay_id, n = t.data.nonce_str, o = md5.hexMD5("appId=" + t.data.appid + "&nonceStr=" + n + "&package=" + a + "&signType=MD5&timeStamp=" + e + "&key=" + t.data.app_info.app_key).toUpperCase();
+                        var e = (Date.parse(new Date()) / 1e3).toString(), o = "prepay_id=" + t.data.prepay_id, s = t.data.nonce_str, c = a.hexMD5("appId=" + t.data.appid + "&nonceStr=" + s + "&package=" + o + "&signType=MD5&timeStamp=" + e + "&key=" + t.data.app_info.app_key).toUpperCase();
                         wx.requestPayment({
                             timeStamp: e,
-                            nonceStr: n,
-                            package: a,
+                            nonceStr: s,
+                            package: o,
                             signType: "MD5",
-                            paySign: o,
+                            paySign: c,
                             success: function(t) {
-                                $Toast({
+                                n({
                                     content: "充值成功！"
                                 }), i.setData({
                                     page: 1,
@@ -297,7 +297,7 @@ Page({
                                 }), i.get_user_info(), i.no_pay(), i.get_user_amount();
                             }
                         });
-                    } else $Toast({
+                    } else n({
                         content: "参数错误！"
                     }), i.get_pay();
                 },
@@ -310,46 +310,46 @@ Page({
                     });
                 }
             });
-        } else $Toast({
+        } else n({
             content: "充值金额错误！"
         });
     },
     onPullDownRefresh: function() {
-        $Toast({
+        n({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), setTimeout(function() {
             wx.hideNavigationBarLoading(), wx.stopPullDownRefresh();
-        }, 1500), this.get_user_info(), this.get_user_amount(), $Toast.hide();
+        }, 1500), this.get_user_info(), this.get_user_amount(), n.hide();
     },
     onReachBottom: function() {
-        $Toast({
+        n({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), this.setData({
             page: this.data.page + 1
-        }), this.get_user_amount(), $Toast.hide();
+        }), this.get_user_amount(), n.hide();
     },
     _navback: function() {
         wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }
@@ -357,12 +357,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                n({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                n({
                     content: "转发失败"
                 });
             }

@@ -1,21 +1,22 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = (require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), 
+require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast);
 
 Page({
     data: {
         nvabarData: {
             showCapsule: 0,
             title: "提现",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         setting: {},
         withdraw: !1,
         withdraw_money: "",
         withdraw_number: ""
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx,
             page: 1
         });
     },
@@ -23,12 +24,12 @@ Page({
         this.get_raws_setting();
     },
     get_raws_setting: function() {
-        var t = app.api_root + "User/get_raws_setting", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.token = e.token, i.openid = e.openid, i.uid = e.uid, i.much_id = app.siteInfo.uniacid, 
-        http.POST(t, {
-            params: i,
+        var a = t.api_root + "User/get_raws_setting", i = this, n = t.getCache("userinfo"), s = new Object();
+        s.token = n.token, s.openid = n.openid, s.uid = n.uid, s.much_id = t.siteInfo.uniacid, 
+        e.POST(a, {
+            params: s,
             success: function(t) {
-                a.setData({
+                i.setData({
                     setting: t.data
                 });
             },
@@ -48,9 +49,9 @@ Page({
         });
     },
     get_money: function(t) {
-        var a = t.detail.value.replace(".", "");
+        var e = t.detail.value.replace(".", "");
         this.setData({
-            withdraw_money: a
+            withdraw_money: e
         });
     },
     withdraw: function() {
@@ -64,24 +65,26 @@ Page({
         });
     },
     withdraw_do: function() {
-        if (this.hideModal(), 1 == this.data.setting.open_offline_payment && "" == this.data.withdraw_number) return $Toast({
+        if (this.hideModal(), 1 == this.data.setting.open_offline_payment && "" == this.data.withdraw_number) return a({
             content: "支付宝账号不能为空"
         }), !1;
-        if ("" == this.data.withdraw_money || this.data.withdraw_money <= 0) return $Toast({
+        if ("" == this.data.withdraw_money || this.data.withdraw_money <= 0) return a({
             content: "提现金额不正确"
         }), !1;
-        var t = app.api_root + "User/withdraw", a = this, e = app.getCache("userinfo"), i = new Object();
-        i.token = e.token, i.openid = e.openid, i.uid = e.uid, i.much_id = app.siteInfo.uniacid, 
-        i.withdraw_number = this.data.withdraw_number, i.withdraw_money = this.data.withdraw_money, 
-        http.POST(t, {
-            params: i,
+        var i = t.api_root + "User/withdraw", n = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.uid = s.uid, o.much_id = t.siteInfo.uniacid, 
+        o.withdraw_number = this.data.withdraw_number, o.withdraw_money = this.data.withdraw_money, 
+        e.POST(i, {
+            params: o,
             success: function(t) {
-                console.log(t), a.hideModal(), t.data.status, $Toast({
+                console.log(t), n.hideModal(), a("success" == t.data.status ? {
                     content: t.data.msg
-                }), a.setData({
+                } : {
+                    content: t.data.msg
+                }), n.setData({
                     withdraw_money: "",
                     withdraw_number: ""
-                }), a.get_raws_setting();
+                }), n.get_raws_setting();
             },
             fail: function() {
                 wx.showModal({
@@ -97,18 +100,18 @@ Page({
         wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -116,12 +119,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }

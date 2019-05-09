@@ -67,6 +67,16 @@
     top: -.16em;
 }
 
+@-webkit-keyframes btn-spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes btn-spin {
     0% {
         transform: rotate(0);

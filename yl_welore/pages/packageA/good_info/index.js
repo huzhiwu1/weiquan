@@ -1,34 +1,34 @@
-var app = getApp(), http = require("../../../util/http.js"), WxParse = require("../../../util/wxParse/wxParse.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../util/wxParse/wxParse.js"), i = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
-        isIpx: app.globalData.isIpx,
+        isIpx: t.globalData.isIpx,
         nvabarData: {
             showCapsule: 1,
             title: "商品详情",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         good_info: {}
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            height: app.globalData.height,
-            id: t.id,
-            design: app.globalData.design
+            height: t.globalData.height,
+            id: e.id,
+            design: t.globalData.design
         }), this.get_goods();
     },
     onShow: function() {},
     exchange: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.much_id = app.siteInfo.uniacid, e.uid = t.uid, 
-        e.id = this.data.id;
-        var o = app.api_root + "User/exchange_goods";
-        http.POST(o, {
-            params: e,
+        var a = this, o = t.getCache("userinfo"), n = new Object();
+        n.token = o.token, n.openid = o.openid, n.much_id = t.siteInfo.uniacid, n.uid = o.uid, 
+        n.id = this.data.id;
+        var s = t.api_root + "User/exchange_goods";
+        e.POST(s, {
+            params: n,
             success: function(t) {
                 console.log(t), "success" == t.data.status ? wx.redirectTo({
                     url: "/yl_welore/pages/packageA/good_address/index?id=" + a.data.id
-                }) : $Toast({
+                }) : i({
                     content: t.data.msg
                 });
             },
@@ -43,19 +43,19 @@ Page({
         });
     },
     get_goods: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid, a.uid = t.uid, 
-        a.id = this.data.id;
-        var o = app.api_root + "User/get_goods";
-        http.POST(o, {
-            params: a,
+        var o = this, n = t.getCache("userinfo"), s = new Object();
+        s.token = n.token, s.openid = n.openid, s.much_id = t.siteInfo.uniacid, s.uid = n.uid, 
+        s.id = this.data.id;
+        var c = t.api_root + "User/get_goods";
+        e.POST(c, {
+            params: s,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    var a = t.data.info.product_detail;
-                    e.setData({
+                    var e = t.data.info.product_detail;
+                    o.setData({
                         good_info: t.data.info
-                    }), WxParse.wxParse("article", "html", a, e, 5);
-                } else $Toast({
+                    }), a.wxParse("article", "html", e, o, 5);
+                } else i({
                     content: t.data.msg
                 });
             },
@@ -70,26 +70,26 @@ Page({
         });
     },
     _navback: function() {
-        var t = getCurrentPages(), a = (t[t.length - 1], t[t.length - 2]);
-        1 != t.length ? (a.setData({
+        var t = getCurrentPages(), e = (t[t.length - 1], t[t.length - 2]);
+        1 != t.length ? (e.setData({
             show: !1
         }), wx.navigateBack()) : wx.reLaunch({
             url: "/yl_welore/pages/index/index"
         });
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/packageA/good_info/index?id=" + this.data.id,
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                i({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                i({
                     content: "转发失败"
                 });
             }
@@ -97,12 +97,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/packageA/good_info/index?id=" + this.data.id,
             success: function(t) {
-                $Toast({
+                i({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                i({
                     content: "转发失败"
                 });
             }

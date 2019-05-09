@@ -17,7 +17,7 @@ Component({
     methods: {
         _updateIsLastCell: function() {
             var e = this.getRelationNodes("../cell/index"), t = e.length;
-            if (0 < t) {
+            if (t > 0) {
                 var l = t - 1;
                 e.forEach(function(e, t) {
                     e.updateIsLastCell(t === l);

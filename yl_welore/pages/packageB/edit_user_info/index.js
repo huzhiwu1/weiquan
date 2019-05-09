@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
@@ -8,10 +8,10 @@ Page({
         nick_name: "",
         autograph: ""
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx
         }), this.get_user_info();
     },
     onShow: function() {},
@@ -26,15 +26,15 @@ Page({
         });
     },
     edit_submit: function() {
-        var t = app.api_root + "User/edit_user_info", a = this, e = app.getCache("userinfo"), n = new Object();
-        n.token = e.token, n.openid = e.openid, n.much_id = app.siteInfo.uniacid, n.uid = e.uid, 
-        n.img = this.data.img, n.nick_name = this.data.nick_name, n.autograph = this.data.autograph, 
-        n.gender = "男" == this.data.current ? 1 : 2, http.POST(t, {
-            params: n,
+        var n = t.api_root + "User/edit_user_info", i = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, s.much_id = t.siteInfo.uniacid, s.uid = o.uid, 
+        s.img = this.data.img, s.nick_name = this.data.nick_name, s.autograph = this.data.autograph, 
+        s.gender = "男" == this.data.current ? 1 : 2, e.POST(n, {
+            params: s,
             success: function(t) {
-                "success" == t.data.status ? ($Toast({
+                "success" == t.data.status ? (a({
                     content: t.data.msg
-                }), a.get_user_info()) : $Toast({
+                }), i.get_user_info()) : a({
                     content: t.data.msg
                 });
             },
@@ -49,17 +49,17 @@ Page({
         });
     },
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", a = this, e = app.getCache("userinfo"), n = new Object();
-        n.token = e.token, n.openid = e.openid, n.much_id = app.siteInfo.uniacid, http.POST(t, {
-            params: n,
+        var n = t.api_root + "User/get_user_info", i = this, o = t.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, s.much_id = t.siteInfo.uniacid, e.POST(n, {
+            params: s,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? i.setData({
                     info: t.data.info,
                     autograph: t.data.info.autograph,
                     nick_name: t.data.info.user_nick_name,
                     img: t.data.info.user_head_sculpture,
                     current: 1 == t.data.info.gender || 0 == t.data.info.gender ? "男" : "女"
-                }) : $Toast({
+                }) : a({
                     content: t.data.msg
                 });
             },
@@ -74,40 +74,40 @@ Page({
         });
     },
     previewOneImage: function() {
-        var e = this, n = app.getCache("userinfo"), i = app.api_root + "User/img_upload";
+        var e = this, n = t.getCache("userinfo"), i = t.api_root + "User/img_upload";
         wx.chooseImage({
             count: 1,
             sizeType: [ "original", "compressed" ],
             sourceType: [ "album", "camera" ],
-            success: function(t) {
-                $Toast({
+            success: function(o) {
+                a({
                     content: "上传中...",
                     type: "loading"
                 });
-                var a = t.tempFilePaths;
+                var s = o.tempFilePaths;
                 wx.uploadFile({
                     url: i,
-                    filePath: a[0],
+                    filePath: s[0],
                     name: "sngpic",
                     formData: {
                         token: n.token,
                         openid: n.openid,
-                        much_id: app.siteInfo.uniacid
+                        much_id: t.siteInfo.uniacid
                     },
                     header: {
                         "Content-Type": "multipart/form-data"
                     },
                     success: function(t) {
                         console.log(t);
-                        var a = JSON.parse(t.data);
-                        console.log(a), "error" == a.status ? $Toast({
-                            content: a.msg
+                        var n = JSON.parse(t.data);
+                        console.log(n), "error" == n.status ? a({
+                            content: n.msg
                         }) : (e.setData({
-                            img: a.url
-                        }), $Toast.hide());
+                            img: n.url
+                        }), a.hide());
                     },
                     fail: function(t) {
-                        $Toast({
+                        a({
                             content: "上传错误！",
                             type: "error"
                         });
@@ -117,9 +117,9 @@ Page({
         });
     },
     handleFruitChange: function(t) {
-        var a = t.detail, e = void 0 === a ? {} : a;
+        var e = t.detail, a = void 0 === e ? {} : e;
         this.setData({
-            current: e.value
+            current: a.value
         });
     },
     _navback: function() {
@@ -130,18 +130,18 @@ Page({
         }), wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -149,12 +149,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }

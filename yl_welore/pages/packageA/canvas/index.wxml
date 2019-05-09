@@ -10,7 +10,7 @@
 </view>
 <view style="margin-top:{{height*2+20}}px"></view>
 <view style="padding:30rpx;">
-    <view class="weui-cell__bd">
+    <view class="weui-cell__bd" wx:if="{{copyright.title_input_arbor==1}}">
         <input bindinput="set_title_value" class="weui-input" maxlength="20" placeholder="标题" style="color:{{title_color}};font-size:18px;font-weight:600;width:85%;float:left;"></input>
         <image bindtap="color_select" mode="aspectFill" src="../../../style/icon/ic_category_t5.png" style="width:70rpx;height:70rpx;float:left;margin-left:20rpx;margin-top:20rpx;" wx:if="{{is_vip==1}}"></image>
     </view>
@@ -36,6 +36,10 @@
         </view>
         <view style="clear:both;height:0"></view>
     </view>
+    <i-cell title="我的位置">
+        <i-switch bind:change="onChangePosition" slot="footer" value="{{is_position}}"></i-switch>
+        <view wx:if="{{is_position==true}}">{{ppooss}}</view>
+    </i-cell>
     <i-cell title="禁止转发">
         <i-switch bind:change="onChange" slot="footer" value="{{is_open}}"></i-switch>
     </i-cell>
@@ -107,3 +111,6 @@
         </view>
     </view>
 </i-drawer>
+<i-modal bind:cancel="handleClose" bind:ok="handleOk" visible="{{visible_pos}}">
+    <view>需要使用您的地理位置，是否允许？</view>
+</i-modal>

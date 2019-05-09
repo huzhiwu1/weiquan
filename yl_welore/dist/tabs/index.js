@@ -35,9 +35,9 @@ Component({
     },
     methods: {
         changeCurrent: function() {
-            var n = this, t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : this.data.current, e = this.getRelationNodes("../tab/index");
-            0 < e.length && e.forEach(function(e) {
-                e.changeScroll(n.data.scroll), e.changeCurrent(e.data.key === t), e.changeCurrentColor(n.data.color);
+            var e = this, n = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.data.current, t = this.getRelationNodes("../tab/index");
+            t.length > 0 && t.forEach(function(t) {
+                t.changeScroll(e.data.scroll), t.changeCurrent(t.data.key === n), t.changeCurrentColor(e.data.color);
             });
         },
         emitEvent: function(e) {

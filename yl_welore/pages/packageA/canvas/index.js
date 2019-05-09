@@ -1,14 +1,19 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast, isButtonDown = !1, canvasw = 0, canvash = 0;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast, i = !1, s = 0, o = 0;
 
 wx.getSystemInfo({
     success: function(t) {
-        canvasw = t.windowWidth, canvash = t.windowHeight;
+        s = t.windowWidth, o = t.windowHeight;
     }
 }), Page({
     startX: 0,
     startY: 0,
     context: null,
     data: {
+        address_latitude: "",
+        address_longitude: "",
+        is_position: !1,
+        position: "",
+        position_name: "",
         is_open: !1,
         fa_type: 0,
         is_submit: !1,
@@ -56,7 +61,7 @@ wx.getSystemInfo({
         }, {
             color: "#000000"
         } ],
-        isIpx: app.globalData.isIpx,
+        isIpx: t.globalData.isIpx,
         nvabarData: {},
         file: "",
         text: "",
@@ -81,32 +86,68 @@ wx.getSystemInfo({
         version: 1,
         title_arbor: 1
     },
-    onLoad: function(t) {
+    onLoad: function(e) {
         this.setData({
-            copyright: app.globalData.copyright,
-            design: app.globalData.design,
-            height: app.globalData.height,
-            fa_type: t.type,
-            fa_class: t.fa_class,
-            title_arbor: app.globalData.copyright.title_arbor,
+            copyright: t.globalData.copyright,
+            design: t.globalData.design,
+            height: t.globalData.height,
+            fa_type: e.type,
+            fa_class: e.fa_class,
+            title_arbor: t.globalData.copyright.title_arbor,
             nvabarData: {
                 showCapsule: !0,
-                height: 2 * app.globalData.height + 20
+                height: 2 * t.globalData.height + 20
             },
-            title: "发布到" + t.name
-        }), 0 == t.fa_class && this.setData({
+            title: "发布到" + e.name
+        }), 0 == e.fa_class && this.setData({
             check_fa_class: !0
         }), this.cleardraw(), this.get_user_info(), this.get_user_vip(), this.get_left_needle(), 
         this.get_right_item(), this.get_diy();
     },
-    get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", e = this, a = app.getCache("userinfo"), s = new Object();
-        s.token = a.token, s.openid = a.openid, http.POST(t, {
-            params: s,
+    onChangePosition: function(t) {
+        var e = this, a = t.detail;
+        this.setData({
+            is_position: a.value
+        }), 1 == a.value && wx.chooseLocation({
             success: function(t) {
-                console.log(t), "success" == t.data.status ? e.setData({
+                console.log(t), e.setData({
+                    position: t.address,
+                    position_name: t.name,
+                    address_latitude: t.latitude,
+                    address_longitude: t.longitude,
+                    ppooss: t.name + "-" + t.address
+                });
+            },
+            fail: function(t) {
+                console.log(t), "chooseLocation:fail cancel" != t.errMsg ? e.setData({
+                    visible_pos: !0,
+                    is_position: !1
+                }) : e.setData({
+                    is_position: !1
+                });
+            }
+        });
+    },
+    handleClose: function() {
+        this.setData({
+            visible2: !1,
+            visible_pos: !1
+        });
+    },
+    handleOk: function() {
+        wx.openSetting(), this.setData({
+            visible2: !1,
+            visible_pos: !1
+        });
+    },
+    get_user_info: function() {
+        var i = t.api_root + "User/get_user_info", s = this, o = t.getCache("userinfo"), n = new Object();
+        n.token = o.token, n.openid = o.openid, e.POST(i, {
+            params: n,
+            success: function(t) {
+                console.log(t), "success" == t.data.status ? s.setData({
                     user_info: t.data.info
-                }) : $Toast({
+                }) : a({
                     content: t.data.msg
                 });
             },
@@ -121,12 +162,12 @@ wx.getSystemInfo({
         });
     },
     get_diy: function() {
-        var t = app.api_root + "User/get_diy", e = this, a = app.getCache("userinfo"), s = new Object();
-        s.token = a.token, s.openid = a.openid, s.uid = a.uid, s.much_id = app.siteInfo.uniacid, 
-        s.version = app.version, http.POST(t, {
-            params: s,
+        var a = t.api_root + "User/get_diy", i = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.uid = s.uid, o.much_id = t.siteInfo.uniacid, 
+        o.version = t.version, e.POST(a, {
+            params: o,
             success: function(t) {
-                console.log(t), e.setData({
+                console.log(t), i.setData({
                     version: t.data.version
                 });
             },
@@ -157,24 +198,24 @@ wx.getSystemInfo({
     get_red_money_d: function(t) {
         var e = t.detail.detail.value;
         if ("" != e) {
-            var a = /^(\.*)(\d+)(\.?)(\d{0,2}).*$/g, s = ((e = a.test(e) ? e.replace(a, "$2$3$4") : "0.00") * this.data.zong_red_count).toFixed(2);
+            var a = /^(\.*)(\d+)(\.?)(\d{0,2}).*$/g, i = ((e = a.test(e) ? e.replace(a, "$2$3$4") : "0.00") * this.data.zong_red_count).toFixed(2);
             this.setData({
                 xian_red_money: e,
-                zong_red_money: s
+                zong_red_money: i
             });
         }
     },
     get_red_money: function(t) {
         var e = t.detail.detail.value;
         if ("" != e) {
-            var a = /^(\.*)(\d+)(\.?)(\d{0,2}).*$/g;
-            e = a.test(e) ? e.replace(a, "$2$3$4") : "0.00", this.setData({
+            var i = /^(\.*)(\d+)(\.?)(\d{0,2}).*$/g;
+            e = i.test(e) ? e.replace(i, "$2$3$4") : "0.00", this.setData({
                 zong_red_money: parseFloat(e).toFixed(2),
                 xian_red_money: e
             });
             var s = this.data.zong_red_count;
             if ("" != s) {
-                if (e / s < .01) return $Toast({
+                if (e / s < .01) return a({
                     content: "单个红包不可低于0.01"
                 }), void this.setData({
                     is_submit: !0
@@ -187,26 +228,24 @@ wx.getSystemInfo({
     },
     get_red_count: function(t) {
         var e = t.detail.detail.value;
-        if ("" != e) if (0 != e) {
-            if (/^[0-9]*$/g.test(e) || (e = "1"), this.setData({
-                zong_red_count: e
-            }), 1 == this.data.red_type) {
-                if ("" != this.data.xian_red_money) {
-                    if (this.data.xian_red_money / e < .01) return $Toast({
-                        content: "单个红包不可低于0.01"
-                    }), void this.setData({
-                        is_submit: !0
-                    });
-                    this.setData({
-                        is_submit: !1
-                    });
-                }
-            } else {
-                var a = (this.data.xian_red_money * e).toFixed(2);
+        if ("" != e) if (0 != e) if (/^[0-9]*$/g.test(e) || (e = "1"), this.setData({
+            zong_red_count: e
+        }), 1 == this.data.red_type) {
+            if ("" != this.data.xian_red_money) {
+                if (this.data.xian_red_money / e < .01) return a({
+                    content: "单个红包不可低于0.01"
+                }), void this.setData({
+                    is_submit: !0
+                });
                 this.setData({
-                    zong_red_money: a
+                    is_submit: !1
                 });
             }
+        } else {
+            var i = (this.data.xian_red_money * e).toFixed(2);
+            this.setData({
+                zong_red_money: i
+            });
         } else this.setData({
             zong_red_count: 1
         });
@@ -228,18 +267,18 @@ wx.getSystemInfo({
     lower: function() {
         this.setData({
             page: this.data.page + 1
-        }), 0 < this.data.curNav && this.get_right_item();
+        }), this.data.curNav > 0 && this.get_right_item();
     },
     get_left_needle: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid;
-        var s = app.api_root + "User/get_left_needle";
-        http.POST(s, {
-            params: a,
+        var i = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.much_id = t.siteInfo.uniacid;
+        var n = t.api_root + "User/get_left_needle";
+        e.POST(n, {
+            params: o,
             success: function(t) {
-                "success" == t.data.status ? e.setData({
+                "success" == t.data.status ? i.setData({
                     navLeftItems: t.data.info
-                }) : $Toast({
+                }) : a({
                     content: t.data.msg
                 });
             },
@@ -254,19 +293,19 @@ wx.getSystemInfo({
         });
     },
     get_right_item: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.get_id = a.data.curNav, e.page = a.data.page;
-        var s = app.api_root + "User/get_right_needle", o = a.data.navRightItems;
-        http.POST(s, {
-            params: e,
+        var i = this, s = t.getCache("userinfo"), o = new Object();
+        o.token = s.token, o.openid = s.openid, o.uid = s.uid, o.much_id = t.siteInfo.uniacid, 
+        o.get_id = i.data.curNav, o.page = i.data.page;
+        var n = t.api_root + "User/get_right_needle", c = i.data.navRightItems;
+        e.POST(n, {
+            params: o,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    for (var e = 0; e < t.data.info.length; e++) o.push(t.data.info[e]);
-                    a.setData({
-                        navRightItems: o
+                    for (var e = 0; e < t.data.info.length; e++) c.push(t.data.info[e]);
+                    i.setData({
+                        navRightItems: c
                     });
-                } else $Toast({
+                } else a({
                     content: t.data.msg
                 });
             },
@@ -300,20 +339,20 @@ wx.getSystemInfo({
         });
     },
     canvasEnd: function(t) {
-        isButtonDown = !1;
+        i = !1;
     },
     cleardraw: function() {
         this.startX = 0, this.startY = 0, this.context = wx.createCanvasContext("canvas"), 
-        this.context.clearRect(0, 0, canvasw, canvash), this.context.draw();
+        this.context.clearRect(0, 0, s, o), this.context.draw();
     },
     get_user_vip: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid, a.uid = t.uid;
-        var s = app.api_root + "User/check_user_vip";
-        http.POST(s, {
-            params: a,
+        var a = this, i = t.getCache("userinfo"), s = new Object();
+        s.token = i.token, s.openid = i.openid, s.much_id = t.siteInfo.uniacid, s.uid = i.uid;
+        var o = t.api_root + "User/check_user_vip";
+        e.POST(o, {
+            params: s,
             success: function(t) {
-                e.setData({
+                a.setData({
                     is_vip: t.data
                 });
             },
@@ -328,69 +367,71 @@ wx.getSystemInfo({
         });
     },
     submit: function() {
-        if (0 == this.data.fa_class) return $Toast({
+        if (0 == this.data.fa_class) return a({
             content: "请选择发布的" + this.data.design.landgrave
         }), void this.setData({
             showLeft: !0,
             get_hidden: !1
         });
-        var s = app.getCache("userinfo"), e = app.api_root + "User/img_upload", o = this;
+        var e = t.getCache("userinfo"), i = t.api_root + "User/img_upload", s = this;
         if (console.log(parseFloat(this.data.zong_red_money)), console.log(parseFloat(this.data.user_info.fraction)), 
         !(parseFloat(this.data.zong_red_money) > parseFloat(this.data.user_info.fraction))) return 0 == this.startX ? (wx.showModal({
             title: "提示",
             content: "画布内容不能为空！",
             showCancel: !1
-        }), !1) : "" == o.data.title_value && 1 == this.data.title_arbor ? ($Toast({
+        }), !1) : "" == s.data.title_value && 1 == this.data.title_arbor ? (a({
             content: "标题不能为空"
-        }), void o.setData({
+        }), void s.setData({
             is_submit: !1
         })) : void wx.canvasToTempFilePath({
             canvasId: "canvas",
-            success: function(t) {
+            success: function(o) {
                 wx.uploadFile({
-                    url: e,
-                    filePath: t.tempFilePath,
+                    url: i,
+                    filePath: o.tempFilePath,
                     name: "sngpic",
                     formData: {
-                        token: s.token,
-                        openid: s.openid,
-                        much_id: app.siteInfo.uniacid
+                        token: e.token,
+                        openid: e.openid,
+                        much_id: t.siteInfo.uniacid
                     },
                     header: {
                         "Content-Type": "multipart/form-data"
                     },
-                    success: function(t) {
-                        console.log(t);
-                        var e = JSON.parse(t.data);
-                        if (console.log(e), "error" == e.status) $Toast({
-                            content: e.msg
+                    success: function(i) {
+                        console.log(i);
+                        var o = JSON.parse(i.data);
+                        if (console.log(o), "error" == o.status) a({
+                            content: o.msg
                         }); else {
-                            o.setData({
-                                img_arr: o.data.img_arr.concat(e.url)
-                            }), $Toast({
+                            s.setData({
+                                img_arr: s.data.img_arr.concat(o.url)
+                            }), a({
                                 content: "正在发布....",
                                 icon: "prompt",
                                 duration: 0,
                                 mask: !1
-                            }), o.setData({
+                            }), s.setData({
                                 is_submit: !0
                             });
-                            var a = new Object();
-                            if (2 != o.data.fa_type && "" == o.data.text && 0 == o.startX) return $Toast({
+                            var n = new Object();
+                            if (2 != s.data.fa_type && "" == s.data.text && 0 == s.startX) return a({
                                 content: "内容不能为空"
-                            }), void o.setData({
+                            }), void s.setData({
                                 is_submit: !1
                             });
-                            a.title = o.data.title_value, a.color = o.data.title_color, a.content = o.data.text, 
-                            a.img_arr = o.data.img_arr, a.uid = s.uid, a.token = s.token, a.openid = s.openid, 
-                            a.is_open = 0 == o.data.is_open ? 1 : 0, a.type = o.data.fa_type, a.fa_class = o.data.fa_class, 
-                            a.mch_id = app.siteInfo.uniacid, a.file_ss = o.data.file_ss, a.user_file = "", o.data.red_paper && (a.red_paper = 1 == o.data.red_paper ? 1 : 0, 
-                            a.red_type = o.data.red_type, a.zong_red_count = o.data.zong_red_count, a.zong_red_money = o.data.zong_red_money), 
-                            o.add_submit(a), $Toast.hide();
+                            n.title = s.data.title_value, n.color = s.data.title_color, n.content = s.data.text, 
+                            n.img_arr = s.data.img_arr, n.uid = e.uid, n.token = e.token, n.openid = e.openid, 
+                            n.is_open = 0 == s.data.is_open ? 1 : 0, n.type = s.data.fa_type, n.fa_class = s.data.fa_class, 
+                            n.mch_id = t.siteInfo.uniacid, n.file_ss = s.data.file_ss, n.user_file = "", n.position_name = s.data.position_name, 
+                            n.position = s.data.position, n.address_latitude = s.data.address_latitude, n.address_longitude = s.data.address_longitude, 
+                            s.data.red_paper && (n.red_paper = 1 == s.data.red_paper ? 1 : 0, n.red_type = s.data.red_type, 
+                            n.zong_red_count = s.data.zong_red_count, n.zong_red_money = s.data.zong_red_money), 
+                            s.add_submit(n), a.hide();
                         }
                     },
                     fail: function(t) {
-                        $Toast({
+                        a({
                             content: "上传错误！",
                             type: "error"
                         });
@@ -398,22 +439,22 @@ wx.getSystemInfo({
                 });
             }
         });
-        $Toast({
+        a({
             content: "所需余额不足"
         });
     },
-    add_submit: function(t) {
-        var e = this, a = app.api_root + "User/add_circle";
-        http.POST(a, {
-            params: t,
+    add_submit: function(i) {
+        var s = this, o = t.api_root + "User/add_circle";
+        e.POST(o, {
+            params: i,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? wx.navigateBack() : (e.setData({
+                console.log(t), "success" == t.data.status ? wx.navigateBack() : (s.setData({
                     is_submit: !1
-                }), $Toast({
+                }), a({
                     content: t.data.msg,
                     duration: 0
                 })), setTimeout(function() {
-                    $Toast.hide();
+                    a.hide();
                 }, 3e3);
             },
             fail: function() {
@@ -473,18 +514,18 @@ wx.getSystemInfo({
         });
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -492,12 +533,12 @@ wx.getSystemInfo({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }

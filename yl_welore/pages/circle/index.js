@@ -1,6 +1,4 @@
-var _data;
-
-function _defineProperty(t, e, a) {
+function t(t, e, a) {
     return e in t ? Object.defineProperty(t, e, {
         value: a,
         enumerable: !0,
@@ -9,17 +7,17 @@ function _defineProperty(t, e, a) {
     }) : t[e] = a, t;
 }
 
-var app = getApp(), http = require("../../util/http.js"), _require = require("../../dist/base/index"), $Toast = _require.$Toast;
+var e, a = getApp(), n = require("../../../10E9B8307EC361BF768FD0371DAD8A51.js"), i = require("../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
-    data: (_data = {
+    data: (e = {
+        tabbar: {},
         user_info: {},
-        check_phone: !1,
         plaza_current: "plaza",
         nvabarData: {
             showCapsule: 0,
             title: "广场",
-            height: 2 * app.globalData.height + 20
+            height: 2 * a.globalData.height + 20
         },
         diy: "",
         needle: [],
@@ -30,112 +28,18 @@ Page({
         is_show: !0,
         not_jia: !1,
         di_msg: !1
-    }, _defineProperty(_data, "diy", {}), _defineProperty(_data, "isPopping", !1), _defineProperty(_data, "animPlus", {}), 
-    _defineProperty(_data, "animCollect1", {}), _defineProperty(_data, "animCollect", {}), 
-    _defineProperty(_data, "animTranspond", {}), _defineProperty(_data, "animInput", {}), 
-    _defineProperty(_data, "animBack", {}), _defineProperty(_data, "version", 0), _data),
-    hideModal: function() {
-        this.setData({
-            check_phone: !1
-        });
-    },
-    getPhoneNumber: function(t) {
-        if ("getPhoneNumber:ok" == t.detail.errMsg) {
-            var e = app.api_root + "User/get_user_phone", a = this, i = app.getCache("userinfo"), n = new Object();
-            n.token = i.token, n.openid = i.openid, n.uid = i.uid, n.much_id = app.siteInfo.uniacid, 
-            n.encryptedData = t.detail.encryptedData, n.iv = t.detail.iv, n.sessionKey = i.sessionKey, 
-            http.POST(e, {
-                params: n,
-                success: function(t) {
-                    $Toast({
-                        content: t.data.msg
-                    }), a.setData({
-                        check_phone: !1
-                    }), a.get_user_info();
-                },
-                fail: function() {
-                    wx.showModal({
-                        title: "提示",
-                        content: "网络繁忙，请稍候重试！",
-                        showCancel: !1,
-                        success: function(t) {}
-                    });
-                }
-            });
-        }
-    },
+    }, t(e, "diy", {}), t(e, "isPopping", !1), t(e, "animPlus", {}), t(e, "animCollect1", {}), 
+    t(e, "animCollect", {}), t(e, "animTranspond", {}), t(e, "animInput", {}), t(e, "animBack", {}), 
+    t(e, "version", 0), e),
     get_user_info: function() {
-        var t = app.api_root + "User/get_user_info", e = this, a = app.getCache("userinfo"), i = new Object();
-        i.token = a.token, i.openid = a.openid, http.POST(t, {
-            params: i,
+        var t = a.api_root + "User/get_user_info", e = this, o = a.getCache("userinfo"), s = new Object();
+        s.token = o.token, s.openid = o.openid, n.POST(t, {
+            params: s,
             success: function(t) {
                 console.log(t), "success" == t.data.status ? e.setData({
                     user_info: t.data.info
-                }) : $Toast({
+                }) : i({
                     content: t.data.msg
-                });
-            },
-            fail: function() {
-                wx.showModal({
-                    title: "提示",
-                    content: "网络繁忙，请稍候重试！",
-                    showCancel: !1,
-                    success: function(t) {}
-                });
-            }
-        });
-    },
-    nav_add: function(t) {
-        this.setData({
-            copyright: app.globalData.copyright
-        });
-        var e = t.currentTarget.dataset.k, a = this.data.diy;
-        if (1 != this.data.copyright.force_phone_arbor || this.data.user_info.user_phone) {
-            if ("tuwen" == e && wx.navigateTo({
-                url: "/yl_welore/pages/packageA/add/index?type=0&fa_class=0&name="
-            }), "tuya" == e) if (1 == a.user_vip.graffiti_member) {
-                if (1 != a.vip) return void $Toast({
-                    content: "此功能仅限VIP用户使用"
-                });
-                wx.navigateTo({
-                    url: "/yl_welore/pages/packageA/canvas/index?type=0&fa_class=0&name="
-                });
-            } else wx.navigateTo({
-                url: "/yl_welore/pages/packageA/canvas/index?type=0&fa_class=0&name="
-            });
-            if ("yuyin" == e) if (1 == a.user_vip.voice_member) {
-                if (1 != a.vip) return void $Toast({
-                    content: "此功能仅限VIP用户使用"
-                });
-                wx.navigateTo({
-                    url: "/yl_welore/pages/packageA/add/index?type=1&fa_class=0&name="
-                });
-            } else wx.navigateTo({
-                url: "/yl_welore/pages/packageA/add/index?type=1&fa_class=0&name="
-            });
-            if ("shipin" == e) if (1 == a.user_vip.video_member) {
-                if (1 != a.vip) return void $Toast({
-                    content: "此功能仅限VIP用户使用"
-                });
-                wx.navigateTo({
-                    url: "/yl_welore/pages/packageA/add/index?type=2&fa_class=0&name="
-                });
-            } else wx.navigateTo({
-                url: "/yl_welore/pages/packageA/add/index?type=2&fa_class=0&name="
-            });
-        } else this.setData({
-            check_phone: !0
-        });
-    },
-    get_diy: function() {
-        var t = app.api_root + "User/get_diy", e = this, a = app.getCache("userinfo"), i = new Object();
-        i.token = a.token, i.openid = a.openid, i.much_id = app.siteInfo.uniacid, i.version = app.version, 
-        i.uid = a.uid, http.POST(t, {
-            params: i,
-            success: function(t) {
-                console.log(t), e.setData({
-                    version: t.data.version,
-                    diy: t.data
                 });
             },
             fail: function() {
@@ -162,8 +66,8 @@ Page({
     },
     onLoad: function(t) {
         this.setData({
-            height: app.globalData.height,
-            design: app.globalData.design
+            height: a.globalData.height,
+            design: a.globalData.design
         }), this.get_guanchang(), this.setData({
             info: [],
             tj_list: [],
@@ -172,118 +76,58 @@ Page({
         }), this.get_my_trailing(), this.get_tj_list();
     },
     onShow: function() {
-        app.check_user_status(), this.get_diy(), this.setData({
+        wx.hideTabBar(), a.editTabbar(), a.check_user_status(), this.setData({
             isPopping: !1,
-            copyright: app.globalData.copyright
-        }), this.takeback(), this.data.is_show;
+            copyright: a.globalData.copyright
+        }), 0 != this.data.is_show && this.authority();
     },
-    plus: function() {
-        var t = this;
-        console.log(t.data.isPopping), 0 == t.data.isPopping ? (t.popp(), t.setData({
-            isPopping: !0,
-            plaza_current: "add"
-        })) : 1 == t.data.isPopping && (t.takeback(), t.setData({
-            isPopping: !1,
-            plaza_current: "plaza"
-        }));
-    },
-    popp: function() {
-        var t = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), e = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), a = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), i = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), n = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), o = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), s = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        });
-        t.rotateZ(225).step(), e.translate(90, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
-        a.translate(90, -105).rotateZ(360).opacity(1).width("60px").step(), i.translate(-10, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
-        n.translate(-110, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
-        0 == this.data.version && s.translate(180, -105).rotateZ(360).opacity(1).height("60px").width("60px").step(), 
-        o.backgroundColor("#F7F9FA").height(190).step(), this.setData({
-            animPlus: t.export(),
-            animCollect1: a.export(),
-            animCollect: e.export(),
-            animTranspond: i.export(),
-            animInput: n.export(),
-            animationM: s.export(),
-            animBack: o.export()
-        });
-    },
-    takeback: function() {
-        var t = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), e = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), a = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), i = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), n = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        }), o = wx.createAnimation({
-            duration: 500,
-            timingFunction: "ease-out"
-        });
-        t.rotateZ(0).step(), e.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
-        a.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), i.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), 
-        o.translate(0, 0).rotateZ(0).opacity(0).height("0rpx").width("0rpx").step(), n.backgroundColor("transparent").height(45).step(), 
-        this.setData({
-            animPlus: t.export(),
-            animCollect: e.export(),
-            animTranspond: a.export(),
-            animInput: i.export(),
-            animationM: o.export(),
-            animBack: n.export()
+    authority: function() {
+        var t = a.api_root + "User/get_authority", e = this, i = a.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.much_id = a.siteInfo.uniacid, n.POST(t, {
+            params: o,
+            success: function(t) {
+                e.setData({
+                    copyright: t.data
+                });
+            },
+            fail: function() {
+                wx.showModal({
+                    title: "提示",
+                    content: "网络繁忙，请稍候重试！",
+                    showCancel: !1,
+                    success: function(t) {}
+                });
+            }
         });
     },
     onReachBottom: function() {
-        $Toast({
+        i({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), this.setData({
             tj_page: this.data.tj_page + 1
-        }), this.get_tj_list(), $Toast.hide();
+        }), this.get_tj_list(), i.hide();
     },
     get_tj_list: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.page = a.data.tj_page;
-        var i = app.api_root + "User/get_tj_list", n = a.data.tj_list;
-        http.POST(i, {
-            params: e,
-            success: function(t) {
-                if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && a.setData({
+        var t = this, e = a.getCache("userinfo"), o = new Object();
+        o.token = e.token, o.openid = e.openid, o.uid = e.uid, o.much_id = a.siteInfo.uniacid, 
+        o.page = t.data.tj_page;
+        var s = a.api_root + "User/get_tj_list", c = t.data.tj_list;
+        n.POST(s, {
+            params: o,
+            success: function(e) {
+                if (console.log(e), "success" == e.data.status) {
+                    0 == e.data.info.length && t.setData({
                         di_msg: !0
                     });
-                    for (var e = 0; e < t.data.info.length; e++) n.push(t.data.info[e]);
-                    a.setData({
-                        tj_list: n
+                    for (var a = 0; a < e.data.info.length; a++) c.push(e.data.info[a]);
+                    t.setData({
+                        tj_list: c
                     });
-                } else $Toast({
-                    content: t.data.msg
+                } else i({
+                    content: e.data.msg
                 });
             },
             fail: function() {
@@ -297,23 +141,23 @@ Page({
         });
     },
     get_my_trailing: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.uid = t.uid, e.much_id = app.siteInfo.uniacid, 
-        e.get_id = -1, e.page = a.data.page;
-        var i = app.api_root + "User/get_right_needle", n = a.data.info;
-        http.POST(i, {
-            params: e,
-            success: function(t) {
-                if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && a.setData({
+        var t = this, e = a.getCache("userinfo"), o = new Object();
+        o.token = e.token, o.openid = e.openid, o.uid = e.uid, o.much_id = a.siteInfo.uniacid, 
+        o.get_id = -1, o.page = t.data.page;
+        var s = a.api_root + "User/get_right_needle", c = t.data.info;
+        n.POST(s, {
+            params: o,
+            success: function(e) {
+                if (console.log(e), "success" == e.data.status) {
+                    0 == e.data.info.length && t.setData({
                         not_jia: !0
                     });
-                    for (var e = 0; e < t.data.info.length; e++) n.push(t.data.info[e]);
-                    a.setData({
-                        info: n
+                    for (var a = 0; a < e.data.info.length; a++) c.push(e.data.info[a]);
+                    t.setData({
+                        info: c
                     });
-                } else $Toast({
-                    content: t.data.msg
+                } else i({
+                    content: e.data.msg
                 });
             },
             fail: function() {
@@ -327,26 +171,26 @@ Page({
         });
     },
     nex_my_qq: function() {
-        $Toast({
+        i({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), this.setData({
             page: this.data.page + 1
-        }), this.get_my_trailing(), $Toast.hide();
+        }), this.get_my_trailing(), i.hide();
     },
     get_guanchang: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.much_id = app.siteInfo.uniacid;
-        var i = app.api_root + "User/get_all_needle";
-        http.POST(i, {
-            params: a,
-            success: function(t) {
-                console.log(t), "success" == t.data.status ? e.setData({
-                    needle: t.data.info
-                }) : $Toast({
-                    content: t.data.msg
+        var t = this, e = a.getCache("userinfo"), o = new Object();
+        o.token = e.token, o.openid = e.openid, o.much_id = a.siteInfo.uniacid;
+        var s = a.api_root + "User/get_all_needle";
+        n.POST(s, {
+            params: o,
+            success: function(e) {
+                console.log(e), "success" == e.data.status ? t.setData({
+                    needle: e.data.info
+                }) : i({
+                    content: e.data.msg
                 });
             },
             fail: function() {
@@ -375,18 +219,18 @@ Page({
         }, 1500), this.onLoad();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
+        var t = a.globalData.forward;
         return console.log(t), t ? {
             title: t.title,
             path: "/yl_welore/pages/index/index",
             imageUrl: t.reis_img,
             success: function(t) {
-                $Toast({
+                i({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                i({
                     content: "转发失败"
                 });
             }
@@ -394,12 +238,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                i({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                i({
                     content: "转发失败"
                 });
             }

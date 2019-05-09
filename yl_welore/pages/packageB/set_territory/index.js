@@ -1,10 +1,11 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var e = getApp(), t = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = (require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), 
+require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast);
 
 Page({
     data: {
         nvabarData: {
             showCapsule: 0,
-            height: 2 * app.globalData.height + 20
+            height: 2 * e.globalData.height + 20
         },
         needle: [],
         needle_index: 0,
@@ -17,50 +18,50 @@ Page({
     },
     onLoad: function(t) {
         this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
-            design: app.globalData.design,
-            title: "创建" + app.globalData.design.landgrave
+            height: e.globalData.height,
+            isIpx: e.globalData.isIpx,
+            design: e.globalData.design,
+            title: "创建" + e.globalData.design.landgrave
         });
     },
     onShow: function() {
         this.get_needle();
     },
-    onChange: function(t) {
-        var e = t.detail;
+    onChange: function(e) {
+        var t = e.detail;
         this.setData({
-            this_qz: e.value
+            this_qz: t.value
         });
     },
-    onChange_qx: function(t) {
-        var e = t.detail;
+    onChange_qx: function(e) {
+        var t = e.detail;
         this.setData({
-            this_qx: e.value
+            this_qx: t.value
         });
     },
-    formSubmit: function(t) {
-        var e = this;
-        e.setData({
+    formSubmit: function(n) {
+        var i = this;
+        i.setData({
             is_submit: !0
         });
-        var a = new Object(), n = app.getCache("userinfo");
-        a.needle_id = this.data.needle[this.data.needle_index].id, a.realm_icon = this.data.img_arr[0], 
-        a.is_gnaw_qulord = 0 == this.data.this_qz ? 0 : 1, a.attention = 0 == this.data.this_qx ? 0 : 1, 
-        a.realm_name = t.detail.value.qq_name, a.realm_synopsis = t.detail.value.qq_content, 
-        a.solicit_origin = t.detail.value.qq_apply, a.token = n.token, a.openid = n.openid, 
-        a.uid = n.uid, a.much_id = app.siteInfo.uniacid;
-        var i = app.api_root + "User/add_territory_petition";
-        http.POST(i, {
-            params: a,
-            success: function(t) {
-                console.log(t), "success" == t.data.status ? ($Toast({
-                    content: t.data.msg
+        var o = new Object(), s = e.getCache("userinfo");
+        o.needle_id = this.data.needle[this.data.needle_index].id, o.realm_icon = this.data.img_arr[0], 
+        o.is_gnaw_qulord = 0 == this.data.this_qz ? 0 : 1, o.attention = 0 == this.data.this_qx ? 0 : 1, 
+        o.realm_name = n.detail.value.qq_name, o.realm_synopsis = n.detail.value.qq_content, 
+        o.solicit_origin = n.detail.value.qq_apply, o.token = s.token, o.openid = s.openid, 
+        o.uid = s.uid, o.much_id = e.siteInfo.uniacid;
+        var l = e.api_root + "User/add_territory_petition";
+        t.POST(l, {
+            params: o,
+            success: function(e) {
+                console.log(e), "success" == e.data.status ? (a({
+                    content: e.data.msg
                 }), setTimeout(function() {
                     wx.navigateBack();
-                }, 2e3)) : (e.setData({
+                }, 2e3)) : (i.setData({
                     is_submit: !1
-                }), $Toast({
-                    content: t.data.msg
+                }), a({
+                    content: e.data.msg
                 }));
             },
             fail: function() {
@@ -68,27 +69,27 @@ Page({
                     title: "提示",
                     content: "网络繁忙，请稍候重试！",
                     showCancel: !1,
-                    success: function(t) {}
+                    success: function(e) {}
                 });
             }
         });
     },
-    needleChange: function(t) {
+    needleChange: function(e) {
         this.setData({
-            needle_index: t.detail.value
+            needle_index: e.detail.value
         });
     },
     get_needle: function() {
-        var e = this, t = app.getCache("userinfo"), a = new Object();
-        a.token = t.token, a.openid = t.openid, a.uid = t.uid, a.much_id = app.siteInfo.uniacid;
-        var n = app.api_root + "User/get_left_needle";
-        http.POST(n, {
-            params: a,
-            success: function(t) {
-                console.log(t), "success" == t.data.status ? e.setData({
-                    needle: t.data.info
-                }) : $Toast({
-                    content: t.data.msg
+        var n = this, i = e.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.uid = i.uid, o.much_id = e.siteInfo.uniacid;
+        var s = e.api_root + "User/get_left_needle";
+        t.POST(s, {
+            params: o,
+            success: function(e) {
+                console.log(e), "success" == e.data.status ? n.setData({
+                    needle: e.data.info
+                }) : a({
+                    content: e.data.msg
                 });
             },
             fail: function() {
@@ -96,26 +97,26 @@ Page({
                     title: "提示",
                     content: "网络繁忙，请稍候重试！",
                     showCancel: !1,
-                    success: function(t) {}
+                    success: function(e) {}
                 });
             }
         });
     },
     previewOneImage: function() {
-        var a = this, n = app.getCache("userinfo"), i = app.api_root + "User/img_upload";
+        var t = this, n = e.getCache("userinfo"), i = e.api_root + "User/img_upload";
         wx.chooseImage({
             count: 1,
             sizeType: [ "original", "compressed" ],
             sourceType: [ "album", "camera" ],
-            success: function(t) {
-                $Toast({
+            success: function(e) {
+                a({
                     content: "上传中...",
                     type: "loading"
                 });
-                var e = t.tempFilePaths;
+                var o = e.tempFilePaths;
                 wx.uploadFile({
                     url: i,
-                    filePath: e[0],
+                    filePath: o[0],
                     name: "sngpic",
                     formData: {
                         token: n.token,
@@ -124,18 +125,18 @@ Page({
                     header: {
                         "Content-Type": "multipart/form-data"
                     },
-                    success: function(t) {
-                        console.log(t);
-                        var e = JSON.parse(t.data);
-                        console.log(e), "error" == e.status ? $Toast({
-                            content: e.msg
-                        }) : (a.setData({
-                            img_arr: a.data.img_arr.concat(e.url),
+                    success: function(e) {
+                        console.log(e);
+                        var n = JSON.parse(e.data);
+                        console.log(n), "error" == n.status ? a({
+                            content: n.msg
+                        }) : (t.setData({
+                            img_arr: t.data.img_arr.concat(n.url),
                             img_botton: !1
-                        }), $Toast.hide()), console.log(a.data.img_botton);
+                        }), a.hide()), console.log(t.data.img_botton);
                     },
-                    fail: function(t) {
-                        $Toast({
+                    fail: function(e) {
+                        a({
                             content: "上传错误！",
                             type: "error"
                         });
@@ -144,11 +145,11 @@ Page({
             }
         });
     },
-    clearOneImage: function(t) {
-        var e = this, a = t.target.dataset.index, n = e.data.img_arr;
-        n.splice(a, 1), e.setData({
+    clearOneImage: function(e) {
+        var t = this, a = e.target.dataset.index, n = t.data.img_arr;
+        n.splice(a, 1), t.setData({
             img_arr: n
-        }), e.setData({
+        }), t.setData({
             img_botton: !0
         });
     },
@@ -156,31 +157,31 @@ Page({
         wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
+        var t = e.globalData.forward;
         return console.log(t), t ? {
             title: t.title,
             path: "/yl_welore/pages/index/index",
             imageUrl: t.reis_img,
-            success: function(t) {
-                $Toast({
+            success: function(e) {
+                a({
                     content: "转发成功"
                 });
             },
-            fail: function(t) {
-                $Toast({
+            fail: function(e) {
+                a({
                     content: "转发失败"
                 });
             }
         } : {
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
-            success: function(t) {
-                $Toast({
+            success: function(e) {
+                a({
                     content: "转发成功"
                 });
             },
-            fail: function(t) {
-                $Toast({
+            fail: function(e) {
+                a({
                     content: "转发失败"
                 });
             }

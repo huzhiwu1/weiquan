@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js");
+var t = getApp(), a = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js");
 
 Page({
     data: {
@@ -6,21 +6,21 @@ Page({
         nvabarData: {
             showCapsule: 0,
             title: "发帖须知",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         }
     },
-    onLoad: function(t) {
-        app.authority(), this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx
+    onLoad: function(a) {
+        t.authority(), this.setData({
+            height: t.globalData.height,
+            isIpx: t.globalData.isIpx
         });
     },
     onShow: function() {
-        var t = app.api_root + "User/get_post_notice", a = this, i = app.getCache("userinfo"), e = new Object();
-        e.token = i.token, e.openid = i.openid, e.much_id = app.siteInfo.uniacid, http.POST(t, {
-            params: e,
+        var i = t.api_root + "User/get_post_notice", e = this, n = t.getCache("userinfo"), o = new Object();
+        o.token = n.token, o.openid = n.openid, o.much_id = t.siteInfo.uniacid, a.POST(i, {
+            params: o,
             success: function(t) {
-                a.setData({
+                e.setData({
                     info: t.data
                 });
             },

@@ -1,34 +1,34 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), a = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), e = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
-        isIpx: app.globalData.isIpx,
+        isIpx: t.globalData.isIpx,
         nvabarData: {
             showCapsule: 1,
             title: "订单详情",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         order_info: {}
     },
-    onLoad: function(t) {
+    onLoad: function(a) {
         this.setData({
-            height: app.globalData.height,
-            id: t.id,
-            design: app.globalData.design
+            height: t.globalData.height,
+            id: a.id,
+            design: t.globalData.design
         }), this.get_my_order();
     },
     onShow: function() {},
     get_my_order: function() {
-        var a = this, t = app.getCache("userinfo"), e = new Object();
-        e.token = t.token, e.openid = t.openid, e.much_id = app.siteInfo.uniacid, e.uid = t.uid, 
-        e.id = this.data.id;
-        var i = app.api_root + "User/get_my_order";
-        http.POST(i, {
-            params: e,
+        var n = this, i = t.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.much_id = t.siteInfo.uniacid, o.uid = i.uid, 
+        o.id = this.data.id;
+        var s = t.api_root + "User/get_my_order";
+        a.POST(s, {
+            params: o,
             success: function(t) {
-                console.log(t), "success" == t.data.status ? a.setData({
+                console.log(t), "success" == t.data.status ? n.setData({
                     order_info: t.data.info
-                }) : $Toast({
+                }) : e({
                     content: t.data.msg
                 });
             },

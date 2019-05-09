@@ -8,7 +8,7 @@
     background: #f7f7f7;
     transform: translate3d(0,100%,0);
     transform-origin: center;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     z-index: 900;
     visibility: hidden;
 }
@@ -24,9 +24,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,0.7);
     z-index: 900;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     opacity: 0;
     visibility: hidden;
 }
@@ -47,7 +47,7 @@
     left: 0;
     width: 200%;
     height: 200%;
-    transform: scale(.5);
+    transform: scale(0.5);
     transform-origin: 0 0;
     pointer-events: none;
     box-sizing: border-box;
@@ -70,7 +70,7 @@
     left: 0;
     width: 200%;
     height: 200%;
-    transform: scale(.5);
+    transform: scale(0.5);
     transform-origin: 0 0;
     pointer-events: none;
     box-sizing: border-box;
@@ -92,7 +92,7 @@
     border-radius: 50%;
     border: 2px solid #e5e5e5;
     border-color: #666 #e5e5e5 #e5e5e5 #e5e5e5;
-    animation: btn-spin .6s linear;
+    animation: btn-spin 0.6s linear;
     animation-iteration-count: infinite;
 }
 
@@ -104,6 +104,16 @@
 .i-as-btn-icon {
     font-size: 14px!important;
     margin-right: 4px;
+}
+
+@-webkit-keyframes btn-spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes btn-spin {

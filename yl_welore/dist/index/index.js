@@ -37,34 +37,34 @@ Component({
     methods: {
         loop: function() {},
         _updateDataChange: function() {
-            var t = this, a = this.getRelationNodes("../index-item/index"), e = a.length, i = this.data.fixedData;
-            0 < e && (this.data.timer && (clearTimeout(this.data.timer), this.setData({
+            var t = this, e = this.getRelationNodes("../index-item/index"), a = e.length, i = this.data.fixedData;
+            a > 0 && (this.data.timer && (clearTimeout(this.data.timer), this.setData({
                 timer: null
             })), this.data.timer = setTimeout(function() {
-                var e = [];
-                a.forEach(function(t) {
-                    t.data.name && -1 === i.indexOf(t.data.name) && (e.push(t.data.name), t.updateDataChange());
+                var a = [];
+                e.forEach(function(t) {
+                    t.data.name && -1 === i.indexOf(t.data.name) && (a.push(t.data.name), t.updateDataChange());
                 }), t.setData({
-                    fixedData: e,
-                    itemLength: a.length
+                    fixedData: a,
+                    itemLength: e.length
                 }), t.setTouchStartVal();
             }, 0), this.setData({
                 timer: this.data.timer
             }));
         },
         handlerScroll: function(t) {
-            var n = this, r = t.detail.scrollTop;
-            this.getRelationNodes("../index-item/index").forEach(function(t, e) {
-                var a = t.data, i = a.top + a.height;
-                r < i && r >= a.top && n.setData({
-                    current: e,
-                    currentName: a.currentName
+            var e = this, a = t.detail.scrollTop;
+            this.getRelationNodes("../index-item/index").forEach(function(t, i) {
+                var n = t.data, r = n.top + n.height;
+                a < r && a >= n.top && e.setData({
+                    current: i,
+                    currentName: n.currentName
                 });
             });
         },
         getCurrentItem: function(t) {
             var e = this.getRelationNodes("../index-item/index"), a = {};
-            return (a = e[t].data).total = e.length, a;
+            return a = e[t].data, a.total = e.length, a;
         },
         triggerCallback: function(t) {
             this.triggerEvent("change", t);
@@ -99,10 +99,10 @@ Component({
             });
         },
         setTouchStartVal: function() {
-            var e = this;
-            wx.createSelectorQuery().in(this).select(".i-index-fixed").boundingClientRect(function(t) {
-                e.setData({
-                    startTop: t.top
+            var t = this;
+            wx.createSelectorQuery().in(this).select(".i-index-fixed").boundingClientRect(function(e) {
+                t.setData({
+                    startTop: e.top
                 });
             }).exec();
         }

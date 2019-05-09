@@ -54,15 +54,22 @@
             <image bindtap="previewImage" data-src="{{img}}" mode="widthFix" src="{{img}}" style="width:100%"></image>
         </view>
     </view>
+    <view style="padding-left:10px" wx:if="{{info.address_name!=null}}">
+        <view style="margin-top:10px;float:left;">
+            <image src="../../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+            <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{info.address_name}}-{{info.address_details}}</text>
+        </view>
+    </view>
+    <view style="clear:both;height:0"></view>
     <view style="padding-bottom:10px;margin-top:15px;text-align:center;" wx:if="{{info.red&&version==0}}">
         <view class="weui-flex">
             <view class="weui-flex__item" style="color:#FF9966;">
                 <view>
-                    <image mode="widthFix" src="../../../style/icon/atk.png" style="width:20px;vertical-align:sub;"></image>
+                    <image src="../../../style/icon/atk1.png" style="height:26px;width:30px;vertical-align:sub;"></image>
                     <text style="font-size:14px;margin-left:5px;">红包总数：{{info.red.initial_quantity}}，剩余：{{info.red.surplus_quantity}}</text>
                 </view>
                 <view>
-                    <image mode="widthFix" src="../../../style/icon/jifen.png" style="width:25px;vertical-align:middle;"></image>
+                    <image src="../../../style/icon/jifen.png" style="height:25px;width:25px;vertical-align:middle;"></image>
                     <text style="font-size:14px;margin-left:5px;">红包金额：{{info.red.initial_fraction}}，剩余：{{info.red.surplus_fraction}}</text>
                 </view>
                 <view style="font-size:14px;text-align:center;color:#CCCCCC">回复可获得红包</view>
@@ -102,7 +109,7 @@
         </view>
     </view>
     <view style="height:1px;width:100%;background-color:#F4F4F4"></view>
-    <view style="min-height:120px;">
+    <view style="min-height:120px;" wx:if="{{version==0}}">
         <view style="padding:10px 20px;font-size:14px;float:left;">
       礼物榜</view>
         <view style="padding:10px 20px;font-size:14px;float:left;">
@@ -187,13 +194,19 @@
                 <view class="zan_style_test">{{hui.is_huifu_zan_count}}</view>
                 <image bindtap="handleCancel3" data-id="{{hui.id}}" data-key="{{hui_list_index}}" data-user_id="{{hui.user_id}}" mode="widthFix" src="../../../style/icon/bqd.png" style="width:40px;"></image>
             </view>
-            <view style="margin:0rpx 35rpx 0rpx 100rpx;" wx:if="{{hui.reply_type==0}}">
+            <view style="margin:0rpx 35rpx 0rpx 100rpx;position:relative;" wx:if="{{hui.reply_type==0}}">
                 <view style="word-break:break-all;font-size:14px;">{{hui.reply_content}}</view>
                 <image bindtap="previewHuiImage" data-index="{{hui_list_index}}" data-src="{{hui.image_part[0]}}" mode="widthFix" src="{{hui.image_part[0]}}" style="width:100px;" wx:if="{{hui.image_part[0]}}"></image>
                 <view style="font-size:14px;min-height:23px;padding:10px;background-color:#F4F4F4;" wx:if="{{hui.huifu_huifu.length>0}}">
                     <view wx:for="{{hui.huifu_huifu}}" wx:for-item="hhh" wx:key="hhh_key">
                         <text style="color:#4A6598;">{{hhh.user_nick_name}}</text>
                         <text>：{{hhh.duplex_content}}</text>
+                    </view>
+                </view>
+                <view style="-webkit-transform: rotate(25deg);-moz-transform: rotate(25deg);filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=0.45);position:absolute;top:0;left:50%;opacity:0.7;" wx:if="{{hui.is_red_hui!=0&&version==0}}">
+                    <view>
+                        <image src="../../../style/icon/bg_luckybagdialog.png" style="width:100px;height:34px;border-radius:5px;"></image>
+                        <text style="font-size:14px;position:absolute;left:32%;top:13%;color:#FFE765;">已抢{{hui.is_red_hui}}</text>
                     </view>
                 </view>
                 <view bindtap="reply_and" data-hui_id="{{hui.id}}" style="font-size:12px;margin-top:10px;">{{hui.apter_time}} ·
@@ -323,7 +336,7 @@
             </view>
             <view style="margin:0rpx 35rpx 10px 100rpx;">
                 <view style="word-break:break-all;font-size:14px;">{{get_reply_and_info.reply_content}}</view>
-                <image bindtap="previewHuiAndImage" data-src="{{get_reply_and_info.image_part[0]}}" mode="widthFix" src="{{get_reply_and_info.image_part[0]}}" style="width:50px;" wx:if="{{get_reply_and_info.image_part[0]}}"></image>
+                <image bindtap="previewHuiAndImage" data-src="{{get_reply_and_info.image_part[0]}}" mode="widthFix" src="{{get_reply_and_info.image_part[0]}}" style="height:100px;" wx:if="{{get_reply_and_info.image_part[0]}}"></image>
             </view>
             <view style="width:100%;border-top:0.5px solid #f9f9f9;"></view>
             <view>

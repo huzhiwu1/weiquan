@@ -18,16 +18,16 @@ Component({
         updateScrollTopChange: function(t) {
             var e = this.data, i = e.top, a = e.height;
             this.setData({
-                isFixed: i <= t && t < i + a
+                isFixed: t >= i && t < i + a
             });
         },
-        updateDataChange: function(e) {
-            var i = this;
-            wx.createSelectorQuery().in(this).select(".i-sticky-item").boundingClientRect(function(t) {
-                t && i.setData({
-                    top: t.top,
-                    height: t.height,
-                    index: e
+        updateDataChange: function(t) {
+            var e = this;
+            wx.createSelectorQuery().in(this).select(".i-sticky-item").boundingClientRect(function(i) {
+                i && e.setData({
+                    top: i.top,
+                    height: i.height,
+                    index: t
                 });
             }).exec();
         }

@@ -23,6 +23,10 @@ Component({
         actions: {
             type: Array,
             value: []
+        },
+        is_home: {
+            type: String,
+            value: ""
         }
     },
     methods: {

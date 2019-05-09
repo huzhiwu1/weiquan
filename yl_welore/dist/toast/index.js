@@ -1,10 +1,10 @@
-var _extends = Object.assign || function(t) {
+var t = Object.assign || function(t) {
     for (var e = 1; e < arguments.length; e++) {
         var a = arguments[e];
         for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (t[i] = a[i]);
     }
     return t;
-}, default_data = {
+}, e = {
     visible: !1,
     content: "",
     icon: "",
@@ -12,26 +12,26 @@ var _extends = Object.assign || function(t) {
     duration: 2,
     mask: !0,
     type: "default"
-}, timmer = null;
+}, a = null;
 
 Component({
     externalClasses: [ "i-class" ],
-    data: _extends({}, default_data),
+    data: t({}, e),
     methods: {
-        handleShow: function(t) {
-            var e = this, a = t.type, i = void 0 === a ? "default" : a, n = t.duration, d = void 0 === n ? 2 : n;
-            this.setData(_extends({}, t, {
-                type: i,
-                duration: d,
+        handleShow: function(e) {
+            var i = this, n = e.type, o = void 0 === n ? "default" : n, s = e.duration, r = void 0 === s ? 2 : s;
+            this.setData(t({}, e, {
+                type: o,
+                duration: r,
                 visible: !0
             }));
-            var r = 1e3 * this.data.duration;
-            timmer && clearTimeout(timmer), 0 !== r && (timmer = setTimeout(function() {
-                e.handleHide(), timmer = null;
-            }, r));
+            var l = 1e3 * this.data.duration;
+            a && clearTimeout(a), 0 !== l && (a = setTimeout(function() {
+                i.handleHide(), a = null;
+            }, l));
         },
         handleHide: function() {
-            this.setData(_extends({}, default_data));
+            this.setData(t({}, e));
         }
     }
 });

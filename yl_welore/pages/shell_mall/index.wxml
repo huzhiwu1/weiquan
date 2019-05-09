@@ -56,48 +56,5 @@
     </view>
     <i-toast id="toast"></i-toast>
 </view>
-<view animation="{{animBack}}" class="weui-tabbar_boo" style="height:55px;">
-    <view animation="{{animCollect}}" bindtap="nav_add" class="img-style" data-k="tuya">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.graffiti_member==1}}"></image>
-        <image src="../../style/icon/c98.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发涂鸦</view>
-    </view>
-    <view animation="{{animTranspond}}" bindtap="nav_add" class="img-style" data-k="yuyin">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.voice_member==1}}"></image>
-        <image src="../../style/icon/b.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;font-size:12px;margin-top:-10px">发语音</view>
-    </view>
-    <view animation="{{animInput}}" bindtap="nav_add" class="img-style" data-k="tuwen">
-        <image src="../../style/icon/a.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发图文</view>
-    </view>
-    <view animation="{{animationM}}" bindtap="nav_add" class="img-style" data-k="shipin">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.video_member==1}}"></image>
-        <image src="../../style/icon/bpn.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发视频</view>
-    </view>
-</view>
-<i-tab-bar background="{{diy['pattern_data']['style']['backcolor']}}" bindchange="get_aa_dd" current="{{goods_current}}" fixed="true">
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['home']['images']['img_active']}}" img="{{diy['pattern_data']['home']['images']['img']}}" key="home" title="{{diy['pattern_data']['home']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['plaza']['images']['img_active']}}" img="{{diy['pattern_data']['plaza']['images']['img']}}" key="plaza" title="{{diy['pattern_data']['plaza']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['release']['images']['img']}}" img="{{diy['pattern_data']['release']['images']['img']}}" key="add" title="{{diy['pattern_data']['release']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}" wx:if="{{version==0}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['goods']['images']['img_active']}}" img="{{diy['pattern_data']['goods']['images']['img']}}" key="goods" title="{{diy['pattern_data']['goods']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['user']['images']['img_active']}}" img="{{diy['pattern_data']['user']['images']['img']}}" key="user" title="{{diy['pattern_data']['user']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-</i-tab-bar>
-<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{check_phone}}"></view>
-<view class="modal-dialog" style="border-radius:0px;" wx:if="{{check_phone}}">
-    <view class="modal-title" style="font-size:15px;">您未绑定手机</view>
-    <view class="modal-content">
-        <view style="text-align:center;">
-            <image mode="widthFix" src="../../style/icon/check_phone.png" style="width:120px;height:120px;"></image>
-        </view>
-        <view style="text-align:center;">
-            <text>微信手机号授权</text>
-        </view>
-    </view>
-    <view class="modal-footer">
-        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
-        <button bindgetphonenumber="getPhoneNumber" class="btn-confirm" openType="getPhoneNumber" style="font-size:15px;background-color:#48A246;color:#fff;border-radius:0px;line-height:43px;">确定</button>
-    </view>
-</view>
+<tabbar tabbar="{{tabbar}}"></tabbar>
 <wxs module="filters" src="tofix.wxs" />

@@ -10,14 +10,26 @@
         </navigator>
     </view>
 </view>
-<view class="page" style="margin-top: {{nvabarData.height}}px"></view>
-<view class="" wx:if="{{sw_info.length>0}}">
+<view class="page" style="height: {{nvabarData.height}}px"></view>
+<view style="margin-top:10px;" wx:if="{{sw_info.length>0}}">
     <swiper autoplay="true" circular="true" class="advertising2" duration="1000" indicatorActiveColor="#ffffff" indicatorDots="true" interval="5000" style="width:95%;height:200px;margin:0 auto;">
-        <navigator hoverClass="none" url="{{item.url}}" wx:for="{{sw_info}}" wx:key="s_key">
-            <swiper-item style="border-radius:10px;">
-                <image mode="scaleToFill" src="{{item.playbill_url}}" style="height:200px;width:100%;"></image>
-            </swiper-item>
-        </navigator>
+        <block wx:for="{{sw_info}}" wx:key="s_key">
+            <navigator hoverClass="none" url="{{item.url}}" wx:if="{{item.practice_type==0}}">
+                <swiper-item style="border-radius:10px;">
+                    <image mode="scaleToFill" src="{{item.playbill_url}}" style="height:200px;width:100%;"></image>
+                </swiper-item>
+            </navigator>
+            <navigator hoverClass="none" url="/yl_welore/pages/web/index?url={{item.url}}" wx:if="{{item.practice_type==1}}">
+                <swiper-item style="border-radius:10px;">
+                    <image mode="scaleToFill" src="{{item.playbill_url}}" style="height:200px;width:100%;"></image>
+                </swiper-item>
+            </navigator>
+            <navigator appId="{{item.url}}" hoverClass="none" openType="navigate" target="miniProgram" wx:if="{{item.practice_type==2}}">
+                <swiper-item style="border-radius:10px;">
+                    <image mode="scaleToFill" src="{{item.playbill_url}}" style="height:200px;width:100%;"></image>
+                </swiper-item>
+            </navigator>
+        </block>
     </swiper>
 </view>
 <i-tabs bindchange="handleChange" color="#000000" current="{{current}}" iClass="yes_pos">
@@ -35,12 +47,10 @@
 </view>
 <view style="clear:both;height:0"></view>
 <view style="background-color:#ffffff;padding-bottom:50px;" wx:if="{{current=='tab1'}}">
-<!-- 这里是用来遍历用户的发帖信息的 -->
     <block wx:for="{{new_list}}" wx:for-index="dataListindex" wx:key="index_key">
         <view class="weui-cells weui-cells_after-title" style="" wx:if="{{item.study_type==0}}">
             <image src="../../style/icon/home_zhang.png" style="opacity:0.8;width:110px;height:110px;position:absolute;left:53%;top:1%;" wx:if="{{item.top_time}}"></image>
             <view class="weui-cell">
-                <!-- 这里的item.user._id是文章的排序的id -->
                 <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.user_id}}">
                     <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                         <image src="{{item.user_head_sculpture}}" style="width: 35px; height: 35px; display: block;border-radius:50%;"></image>
@@ -56,9 +66,9 @@
                     <view style="font-size: 13px;color: #888888;" wx:if="{{item.top_time}}">{{item.adapter_time}}</view>
                     <view style="font-size: 13px;color: #888888;" wx:if="{{!item.top_time&&actions_name=='按最后回帖时间'&&item.huifu_time!=null}}">回复于{{item.huifu_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;vertical-align:sub;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -70,7 +80,7 @@
                 </view>
                 <view style="overflow:hidden">
                     <view style="padding:0px 15px;" wx:if="{{item.image_part.length==1&&img!=''}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
-                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:180px;"></image>
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:190px;"></image>
                     </view>
                     <view style="width:47%;float:left;text-align:center;padding-left:8px;" wx:if="{{item.image_part.length==2}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
                         <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;height:180px;width:100%;" wx:if="{{img_index==0}}"></image>
@@ -101,8 +111,8 @@
                             <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:65px;"></image>
                         </view>
                     </block>
-                    <view style="width:32%;float:left;text-align:center;padding-left:3px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
-                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:120px;"></image>
+                    <view style="width:30%;float:left;text-align:center;padding-left:9px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:110px;border-radius:10px;"></image>
                     </view>
                 </view>
             </navigator>
@@ -114,6 +124,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;">
                 <view class="weui-flex__item">
@@ -158,9 +174,9 @@
                     <view style="font-size: 13px;color: #888888;" wx:if="{{item.top_time}}">{{item.adapter_time}}</view>
                     <view style="font-size: 13px;color: #888888;" wx:if="{{!item.top_time&&actions_name=='按最后回帖时间'&&item.huifu_time!=null}}">回复于{{item.huifu_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -183,6 +199,45 @@
                     </navigator>
                 </view>
             </view>
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=1">
+                <view style="overflow:hidden">
+                    <view style="padding:0px 15px;" wx:if="{{item.image_part.length==1&&img!=''}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:190px;"></image>
+                    </view>
+                    <view style="width:47%;float:left;text-align:center;padding-left:8px;" wx:if="{{item.image_part.length==2}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;height:180px;width:100%;" wx:if="{{img_index==0}}"></image>
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 10px 0px;height:180px;width:100%;" wx:if="{{img_index==1}}"></image>
+                    </view>
+                    <block wx:if="{{item.image_part.length==3}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <view style="width:53%;float:left;text-align:center;padding-left:8px;" wx:if="{{img_index==0}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;width:100%;height:185px;"></image>
+                        </view>
+                        <view style="width:41%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==1}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 0px 0px;width:100%;height:89px;"></image>
+                        </view>
+                        <view style="width:41%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==2}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:89px;"></image>
+                        </view>
+                    </block>
+                    <block wx:if="{{item.image_part.length>=4&&item.image_part.length<9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <view style="width:54%;float:left;text-align:center;padding-left:9px;" wx:if="{{img_index==0}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;width:100%;height:190px;"></image>
+                        </view>
+                        <view style="width:40%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==1}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 0px 0px;width:100%;height:120px;"></image>
+                        </view>
+                        <view style="width:19.5%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==2}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:65px;"></image>
+                        </view>
+                        <view style="width:19%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==3}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:65px;"></image>
+                        </view>
+                    </block>
+                    <view style="width:30%;float:left;text-align:center;padding-left:9px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:110px;border-radius:10px;"></image>
+                    </view>
+                </view>
+            </navigator>
             <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.tory_id}}">
                 <view style="padding-left:10px">
                     <view style="margin-top:10px;padding-top:1px;padding-bottom:1px;padding-right:10px;border-radius:20px;float:left;background-color:#eacda3;">
@@ -191,6 +246,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;padding-top:10px;">
                 <view class="weui-flex__item">
@@ -235,9 +296,9 @@
                     <view style="font-size: 13px;color: #888888;" wx:if="{{item.top_time}}">{{item.adapter_time}}</view>
                     <view style="font-size: 13px;color: #888888;" wx:if="{{!item.top_time&&actions_name=='按最后回帖时间'&&item.huifu_time!=null}}">回复于{{item.huifu_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -248,14 +309,13 @@
           </view>
                 </view>
             </navigator>
-            <!-- <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=2"> -->
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=2">
                 <view class="weui-cell" style="width:91%;margin:0 auto;">
                     <image src="../../style/icon/home_bf.png" style="width:50px;height:50px;position:absolute;left:44%;"></image>
-                    <!-- <image mode="aspectFill" src="{{item.image_part[0]}}" style="height:190px;margin:0 auto;border-radius:10px;" wx:if="{{item.image_part.length>0}}"></image> -->
-                     <video  src="{{item.study_video}}" style="height:190px;margin:0 auto;border-radius:10px;" wx:if="{{item.study_video.length>0}}"></video>
-                    <!-- <image mode="aspectFill" src="../../style/icon/a84.jpg" style="height:190px;margin:0 auto;border-radius:10px;" wx:if="{{item.image_part.length==null}}"></image> -->
+                    <image mode="aspectFill" src="{{item.image_part[0]}}" style="height:190px;margin:0 auto;border-radius:10px;" wx:if="{{item.image_part.length>0}}"></image>
+                    <image mode="aspectFill" src="../../style/icon/a84.jpg" style="height:190px;margin:0 auto;border-radius:10px;" wx:if="{{item.image_part.length==null}}"></image>
                 </view>
-            <!-- </navigator> -->
+            </navigator>
             <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.tory_id}}">
                 <view style="padding-left:10px">
                     <view style="margin-top:10px;padding-top:1px;padding-bottom:1px;padding-right:10px;border-radius:20px;float:left;background-color:#eacda3;">
@@ -264,6 +324,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;padding-top:10px;">
                 <view class="weui-flex__item">
@@ -314,9 +380,9 @@
                     </view>
                     <view style="font-size: 13px;color: #888888;">{{item.adapter_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -328,7 +394,7 @@
                 </view>
                 <view style="overflow:hidden">
                     <view style="padding:0px 15px;" wx:if="{{item.image_part.length==1&&img!=''}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
-                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:180px;"></image>
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:190px;"></image>
                     </view>
                     <view style="width:47%;float:left;text-align:center;padding-left:8px;" wx:if="{{item.image_part.length==2}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
                         <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;height:180px;width:100%;" wx:if="{{img_index==0}}"></image>
@@ -359,8 +425,8 @@
                             <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:65px;"></image>
                         </view>
                     </block>
-                    <view style="width:32%;float:left;text-align:center;padding-left:3px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
-                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:120px;"></image>
+                    <view style="width:30%;float:left;text-align:center;padding-left:9px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:110px;border-radius:10px;"></image>
                     </view>
                 </view>
             </navigator>
@@ -372,6 +438,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;">
@@ -414,9 +486,9 @@
                     </view>
                     <view style="font-size: 13px;color: #888888;">{{item.adapter_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -439,6 +511,45 @@
                     </navigator>
                 </view>
             </view>
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=1">
+                <view style="overflow:hidden">
+                    <view style="padding:0px 15px;" wx:if="{{item.image_part.length==1&&img!=''}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px;width:100%;height:190px;"></image>
+                    </view>
+                    <view style="width:47%;float:left;text-align:center;padding-left:8px;" wx:if="{{item.image_part.length==2}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;height:180px;width:100%;" wx:if="{{img_index==0}}"></image>
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 10px 0px;height:180px;width:100%;" wx:if="{{img_index==1}}"></image>
+                    </view>
+                    <block wx:if="{{item.image_part.length==3}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <view style="width:53%;float:left;text-align:center;padding-left:8px;" wx:if="{{img_index==0}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;width:100%;height:185px;"></image>
+                        </view>
+                        <view style="width:41%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==1}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 0px 0px;width:100%;height:89px;"></image>
+                        </view>
+                        <view style="width:41%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==2}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:89px;"></image>
+                        </view>
+                    </block>
+                    <block wx:if="{{item.image_part.length>=4&&item.image_part.length<9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <view style="width:54%;float:left;text-align:center;padding-left:9px;" wx:if="{{img_index==0}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:10px 0px 0px 10px;width:100%;height:190px;"></image>
+                        </view>
+                        <view style="width:40%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==1}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 10px 0px 0px;width:100%;height:120px;"></image>
+                        </view>
+                        <view style="width:19.5%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==2}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:65px;"></image>
+                        </view>
+                        <view style="width:19%;float:left;text-align:center;padding-left:5px;" wx:if="{{img_index==3}}">
+                            <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="border-radius:0px 0px 10px 0px;width:100%;height:65px;"></image>
+                        </view>
+                    </block>
+                    <view style="width:30%;float:left;text-align:center;padding-left:9px;" wx:if="{{item.image_part.length>=9}}" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:110px;border-radius:10px;"></image>
+                    </view>
+                </view>
+            </navigator>
             <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.tory_id}}">
                 <view style="padding-left:10px">
                     <view style="margin-top:10px;padding-top:1px;padding-bottom:1px;padding-right:10px;border-radius:20px;float:left;background-color:#eacda3;">
@@ -447,6 +558,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;padding-top:10px;">
                 <view class="weui-flex__item">
@@ -488,9 +605,9 @@
                     </view>
                     <view style="font-size: 13px;color: #888888;">{{item.adapter_time}}</view>
                 </view>
-                <view wx:if="{{item.red==1&&version==0}}">
-                    <view style="float:right;">
-                        <image mode="widthFix" src="../../style/icon/atk.png" style="width:30px;"></image>
+                <view style="position:absolute;right:7px;top:0px;" wx:if="{{item.red==1&&version==0}}">
+                    <view>
+                        <image src="../../style/icon/atk.png" style="width:50px;height:50px;"></image>
                     </view>
                 </view>
             </view>
@@ -516,6 +633,12 @@
                     </view>
                 </view>
             </navigator>
+            <view style="padding-left:10px" wx:if="{{item.address_name!=null}}">
+                <view style="margin-left:10px;margin-top:10px;float:left;">
+                    <image src="../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+                    <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{item.address_name}}</text>
+                </view>
+            </view>
             <view style="clear:both;height:0"></view>
             <view class="weui-flex" style="padding-bottom:10px;padding-top:10px;">
                 <view class="weui-flex__item">
@@ -561,48 +684,5 @@
         <view bindtap="do_user_pl" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
     </view>
 </view>
-<view animation="{{animBack}}" class="weui-tabbar_boo" style="height:55px;">
-    <view animation="{{animCollect}}" bindtap="nav_add" class="img-style" data-k="tuya">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.graffiti_member==1}}"></image>
-        <image src="../../style/icon/c98.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发涂鸦</view>
-    </view>
-    <view animation="{{animTranspond}}" bindtap="nav_add" class="img-style" data-k="yuyin">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.voice_member==1}}"></image>
-        <image src="../../style/icon/b.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;font-size:12px;margin-top:-10px">发语音</view>
-    </view>
-    <view animation="{{animInput}}" bindtap="nav_add" class="img-style" data-k="tuwen">
-        <image src="../../style/icon/a.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发图文</view>
-    </view>
-    <view animation="{{animationM}}" bindtap="nav_add" class="img-style" data-k="shipin">
-        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.video_member==1}}"></image>
-        <image src="../../style/icon/bpn.png" style="width:100%;height:100%;"></image>
-        <view style="text-align:center;margin-top:-10px;font-size:12px;">发视频</view>
-    </view>
-</view>
-<i-tab-bar background="{{diy['pattern_data']['style']['backcolor']}}" bindchange="get_aa_dd" current="{{home_current}}" fixed="true" height="{{isIpx==true?75:60}}">
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['home']['images']['img_active']}}" img="{{diy['pattern_data']['home']['images']['img']}}" key="home" title="{{diy['pattern_data']['home']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['plaza']['images'][img_active]}}" img="{{diy['pattern_data']['plaza']['images']['img']}}" key="plaza" title="{{diy['pattern_data']['plaza']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['release']['images']['img']}}" img="{{diy['pattern_data']['release']['images']['img']}}" key="add" title="{{diy['pattern_data']['release']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}" wx:if="{{version==0}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['goods']['images']['img_active']}}" img="{{diy['pattern_data']['goods']['images']['img']}}" key="goods" title="{{diy['pattern_data']['goods']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-    <i-tab-bar-item color="{{diy['pattern_data']['style']['font_color']}}" currentImg="{{diy['pattern_data']['user']['images']['img_active']}}" img="{{diy['pattern_data']['user']['images']['img']}}" key="user" title="{{diy['pattern_data']['user']['title']}}" yes_color="{{diy['pattern_data']['style']['font_color_active']}}"></i-tab-bar-item>
-</i-tab-bar>
-<i-action-sheet showCancel actions="{{actions}}" bind:cancel="handleCancel1" bind:click="handleClickItem1" visible="{{visible}}"></i-action-sheet>
-<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{check_phone}}"></view>
-<view class="modal-dialog" style="border-radius:0px;" wx:if="{{check_phone}}">
-    <view class="modal-title" style="font-size:15px;">您未绑定手机</view>
-    <view class="modal-content">
-        <view style="text-align:center;">
-            <image mode="widthFix" src="../../style/icon/check_phone.png" style="width:120px;height:120px;"></image>
-        </view>
-        <view style="text-align:center;">
-            <text>微信手机号授权</text>
-        </view>
-    </view>
-    <view class="modal-footer">
-        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
-        <button bindgetphonenumber="getPhoneNumber" class="btn-confirm" openType="getPhoneNumber" style="font-size:15px;background-color:#48A246;color:#fff;border-radius:0px;line-height:43px;">确定</button>
-    </view>
-</view>
+<i-action-sheet showCancel actions="{{actions}}" bind:cancel="handleCancel1" bind:click="handleClickItem1" is_home="is_home" visible="{{visible}}"></i-action-sheet>
+<tabbar bind:parentEvent="onParentEvent" tabbar="{{tabbar}}"></tabbar>

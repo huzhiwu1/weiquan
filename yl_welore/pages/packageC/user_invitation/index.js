@@ -1,4 +1,5 @@
-var app = getApp(), http = require("../../../util/http.js"), md5 = require("../../../util/md5.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast, fsm = wx.getFileSystemManager();
+var e = getApp(), t = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = (require("../../../../5E0B68B67EC361BF386D00B1C8BD8A51.js"), 
+require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast), n = wx.getFileSystemManager();
 
 Page({
     data: {
@@ -6,7 +7,7 @@ Page({
         nvabarData: {
             showCapsule: 0,
             title: "推荐有奖",
-            height: 2 * app.globalData.height + 20
+            height: 2 * e.globalData.height + 20
         },
         page: 1,
         set_img_quan: !1,
@@ -14,30 +15,30 @@ Page({
         code: "",
         yzm_text: ""
     },
-    onLoad: function(e) {
-        app.authority();
-        var t = decodeURIComponent(e.scene);
-        console.log(t);
-        var a = app.getCache("userinfo");
-        "undefined" != t && a && (this.ger_cor_user_code(t), this.setData({
-            scene: t
+    onLoad: function(t) {
+        e.authority();
+        var a = decodeURIComponent(t.scene);
+        console.log(a);
+        var n = e.getCache("userinfo");
+        "undefined" != a && n && (this.ger_cor_user_code(a), this.setData({
+            scene: a
         })), this.setData({
-            height: app.globalData.height,
-            isIpx: app.globalData.isIpx,
-            copyright: app.globalData.copyright,
-            design: app.globalData.design
+            height: e.globalData.height,
+            isIpx: e.globalData.isIpx,
+            copyright: e.globalData.copyright,
+            design: e.globalData.design
         });
     },
-    onShow: function(e) {
-        console.log(e), app.getCache("userinfo") && (this.ger_user_code(), this.data.scene && this.ger_cor_user_code(this.data.scene)), 
+    onShow: function(t) {
+        console.log(t), e.getCache("userinfo") && (this.ger_user_code(), this.data.scene && this.ger_cor_user_code(this.data.scene)), 
         this.get_ad();
     },
     get_ad: function() {
-        var e = app.getCache("userinfo"), t = new Object();
-        t.token = e.token, t.openid = e.openid, t.much_id = app.siteInfo.uniacid;
-        var a = app.api_root + "User/get_ad";
-        http.POST(a, {
-            params: t,
+        var a = e.getCache("userinfo"), n = new Object();
+        n.token = a.token, n.openid = a.openid, n.much_id = e.siteInfo.uniacid;
+        var i = e.api_root + "User/get_ad";
+        t.POST(i, {
+            params: n,
             success: function(e) {
                 console.log(e), "账户未授权!" == e.data.msg && wx.navigateTo({
                     url: "/yl_welore/pages/author/index"
@@ -58,14 +59,14 @@ Page({
             yzm_text: e.detail.value
         });
     },
-    ger_cor_user_code: function(e) {
-        var t = this, a = app.getCache("userinfo"), n = new Object();
-        n.token = a.token, n.openid = a.openid, n.much_id = app.siteInfo.uniacid, n.uid = e;
-        var i = app.api_root + "User/ger_user_code";
-        http.POST(i, {
-            params: n,
+    ger_cor_user_code: function(a) {
+        var n = this, i = e.getCache("userinfo"), o = new Object();
+        o.token = i.token, o.openid = i.openid, o.much_id = e.siteInfo.uniacid, o.uid = a;
+        var s = e.api_root + "User/ger_user_code";
+        t.POST(s, {
+            params: o,
             success: function(e) {
-                console.log(e), t.setData({
+                console.log(e), n.setData({
                     yzm_text: e.data
                 });
             },
@@ -80,13 +81,13 @@ Page({
         });
     },
     ger_user_code: function() {
-        var t = this, e = app.getCache("userinfo"), a = new Object();
-        a.token = e.token, a.openid = e.openid, a.much_id = app.siteInfo.uniacid, a.uid = e.uid;
-        var n = app.api_root + "User/ger_user_code";
-        http.POST(n, {
-            params: a,
+        var a = this, n = e.getCache("userinfo"), i = new Object();
+        i.token = n.token, i.openid = n.openid, i.much_id = e.siteInfo.uniacid, i.uid = n.uid;
+        var o = e.api_root + "User/ger_user_code";
+        t.POST(o, {
+            params: i,
             success: function(e) {
-                console.log(e), t.setData({
+                console.log(e), a.setData({
                     code: e.data
                 });
             },
@@ -101,16 +102,18 @@ Page({
         });
     },
     add_user_invitation: function() {
-        var e = app.getCache("userinfo"), t = new Object();
-        if (t.token = e.token, t.openid = e.openid, t.much_id = app.siteInfo.uniacid, t.uid = e.uid, 
-        t.yzm_text = this.data.yzm_text, "" == this.data.yzm_text) return $Toast({
+        var n = this, i = e.getCache("userinfo"), o = new Object();
+        if (o.token = i.token, o.openid = i.openid, o.much_id = e.siteInfo.uniacid, o.uid = i.uid, 
+        o.yzm_text = n.data.yzm_text, "" == n.data.yzm_text) return a({
             content: "内容不能为空"
         }), !1;
-        var a = app.api_root + "User/add_user_invitation";
-        http.POST(a, {
-            params: t,
+        var s = e.api_root + "User/add_user_invitation";
+        t.POST(s, {
+            params: o,
             success: function(e) {
-                e.data.status, $Toast({
+                a("success" == e.data.status ? {
+                    content: e.data.msg
+                } : {
                     content: e.data.msg
                 });
             },
@@ -140,13 +143,13 @@ Page({
             title: "生成中...",
             mask: !0
         });
-        var t = this, e = app.getCache("userinfo"), a = new Object();
-        a.token = e.token, a.openid = e.openid, a.much_id = app.siteInfo.uniacid, a.img = t.data.this_user_info.avatarUrl;
-        var n = app.api_root + "User/base64EncodeImage";
-        http.POST(n, {
-            params: a,
+        var a = this, n = e.getCache("userinfo"), i = new Object();
+        i.token = n.token, i.openid = n.openid, i.much_id = e.siteInfo.uniacid, i.img = a.data.this_user_info.avatarUrl;
+        var o = e.api_root + "User/base64EncodeImage";
+        t.POST(o, {
+            params: i,
             success: function(e) {
-                t.getQrCode(e.data);
+                a.getQrCode(e.data);
             },
             fail: function() {
                 wx.showModal({
@@ -158,61 +161,61 @@ Page({
             }
         });
     },
-    getQrCode: function(a) {
+    getQrCode: function(t) {
         wx.showLoading({
             title: "生成中...",
             mask: !0
         });
-        var n = this, e = app.getCache("userinfo"), t = new Object();
-        t.token = e.token, t.openid = e.openid, t.much_id = app.siteInfo.uniacid, t.uid = e.uid;
-        var i = app.api_root + "User/qrcode_code";
+        var a = this, a = this, n = e.getCache("userinfo"), i = new Object();
+        i.token = n.token, i.openid = n.openid, i.much_id = e.siteInfo.uniacid, i.uid = n.uid;
+        var o = e.api_root + "User/qrcode_code";
         wx.request({
-            url: i,
+            url: o,
             method: "POST",
-            data: t,
+            data: i,
             responseType: "arraybuffer",
             header: {
                 "content-type": "application/json,charset=utf-8"
             },
             success: function(e) {
-                var t = wx.arrayBufferToBase64(e.data);
-                n.sharePosteCanvas(a, t);
+                var n = wx.arrayBufferToBase64(e.data);
+                a.sharePosteCanvas(t, n);
             }
         });
     },
-    sharePosteCanvas: function(u, l) {
+    sharePosteCanvas: function(e, t) {
         wx.showLoading({
             title: "生成中...",
             mask: !0
         });
-        var d = this, p = d.data.this_user_info, h = wx.createCanvasContext("myCanvas", d), f = "";
-        wx.createSelectorQuery().select("#canvas-container").boundingClientRect(function(e) {
-            var t = e.height;
-            e.right;
-            f = e.width;
-            e.left;
-            h.save(), h.setFillStyle("#FFE200"), h.fillRect(0, 0, f, t);
-            h.drawImage("../../../style/icon/1033914-20180419150322109-1754886203.png", 0, 0, f, 150), 
-            h.beginPath(), h.fill();
-            var a = f / 2 - 25, n = 160, i = u.split(","), o = wx.base64ToArrayBuffer(i[1]), s = wx.env.USER_DATA_PATH + "/head_img.png";
-            fsm.writeFileSync(s, o, "binary"), h.arc(25 + a, 185, 25, 0, 2 * Math.PI, !1), h.clip(), 
-            h.drawImage(s, a, n, 50, 50), h.restore(), h.setFontSize(20), h.setFillStyle("#000"), 
-            h.fillText(p.nickName, (f - h.measureText(p.nickName).width) / 2, 235), h.setFontSize(11), 
-            h.setFillStyle("#000"), h.fillText("邀你一起赚赏金", (f - h.measureText("邀你一起赚赏金").width) / 2, 260);
-            h.drawImage("../../../style/icon/1033914-20180419150331561-740454292.png", f / 2 - 115, 290, 230, 60), 
-            h.setFontSize(35), h.setFillStyle("#FFE200"), h.fillText(d.data.code, (f - h.measureText(d.data.code).width) / 2, 325);
-            h.drawImage("../../../style/icon/1033914-20180419150338090-1432865429.png", f / 2 - 125, 390, 130, 70), 
-            h.setFontSize(10), h.setFillStyle("#000000"), h.fillText("进入小程序输入朋友的邀", f / 2 - 120, 410), 
-            h.fillText("请码，各自都会获得赏金", f / 2 - 120, 425), h.fillText("哦~", f / 2 - 120, 440);
-            var c = wx.base64ToArrayBuffer(l), r = wx.env.USER_DATA_PATH + "/code_img.png";
-            fsm.writeFileSync(r, c, "binary"), h.drawImage(r, f - 120, 360, 80, 80);
-            h.drawImage("../../../style/icon/1033914-20180419150342935-1154229474.png", f - 120, 440, 80, 22);
+        var a = this, i = a.data.this_user_info, o = wx.createCanvasContext("myCanvas", a), s = "";
+        wx.createSelectorQuery().select("#canvas-container").boundingClientRect(function(c) {
+            var r = c.height;
+            c.right;
+            s = c.width;
+            c.left;
+            o.save(), o.setFillStyle("#FFE200"), o.fillRect(0, 0, s, r);
+            o.drawImage("../../../style/icon/1033914-20180419150322109-1754886203.png", 0, 0, s, 150), 
+            o.beginPath(), o.fill();
+            var u = s / 2 - 25, l = e.split(","), d = wx.base64ToArrayBuffer(l[1]), h = wx.env.USER_DATA_PATH + "/head_img.png";
+            n.writeFileSync(h, d, "binary"), o.arc(25 + u, 185, 25, 0, 2 * Math.PI, !1), o.clip(), 
+            o.drawImage(h, u, 160, 50, 50), o.restore(), o.setFontSize(20), o.setFillStyle("#000"), 
+            o.fillText(i.nickName, (s - o.measureText(i.nickName).width) / 2, 235), o.setFontSize(11), 
+            o.setFillStyle("#000"), o.fillText("邀你一起赚赏金", (s - o.measureText("邀你一起赚赏金").width) / 2, 260);
+            o.drawImage("../../../style/icon/1033914-20180419150331561-740454292.png", s / 2 - 115, 290, 230, 60), 
+            o.setFontSize(35), o.setFillStyle("#FFE200"), o.fillText(a.data.code, (s - o.measureText(a.data.code).width) / 2, 325);
+            o.drawImage("../../../style/icon/1033914-20180419150338090-1432865429.png", s / 2 - 125, 390, 130, 70), 
+            o.setFontSize(10), o.setFillStyle("#000000"), o.fillText("进入小程序输入朋友的邀", s / 2 - 120, 410), 
+            o.fillText("请码，各自都会获得赏金", s / 2 - 120, 425), o.fillText("哦~", s / 2 - 120, 440);
+            var f = wx.base64ToArrayBuffer(t), g = wx.env.USER_DATA_PATH + "/code_img.png";
+            n.writeFileSync(g, f, "binary"), o.drawImage(g, s - 120, 360, 80, 80);
+            o.drawImage("../../../style/icon/1033914-20180419150342935-1154229474.png", s - 120, 440, 80, 22);
         }).exec(), setTimeout(function() {
-            h.draw(), wx.canvasToTempFilePath({
+            o.draw(), wx.canvasToTempFilePath({
                 canvasId: "myCanvas",
                 success: function(e) {
                     var t = e.tempFilePath;
-                    d.setData({
+                    a.setData({
                         imagePath_c: t
                     });
                 },

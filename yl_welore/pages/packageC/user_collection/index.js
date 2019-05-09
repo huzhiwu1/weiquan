@@ -1,4 +1,4 @@
-var app = getApp(), http = require("../../../util/http.js"), _require = require("../../../dist/base/index"), $Toast = _require.$Toast;
+var t = getApp(), e = require("../../../../10E9B8307EC361BF768FD0371DAD8A51.js"), a = require("../../../../5A7158247EC361BF3C1730235F9D8A51.js").$Toast;
 
 Page({
     data: {
@@ -6,37 +6,37 @@ Page({
         nvabarData: {
             showCapsule: 1,
             title: "我的收藏",
-            height: 2 * app.globalData.height + 20
+            height: 2 * t.globalData.height + 20
         },
         delBtnWidth: 180,
         list: [],
         page: 1,
         di_msg: !1
     },
-    onLoad: function(t) {
-        var a = app.getCache("userinfo");
+    onLoad: function(e) {
+        var a = t.getCache("userinfo");
         this.setData({
-            height: app.globalData.height,
+            height: t.globalData.height,
             uid: a.uid,
             page: 1
         }), this.get_user_collection();
     },
     onShow: function() {},
-    cancel: function(t) {
-        var e = t.currentTarget.dataset.key, a = app.api_root + "User/get_user_cancel", s = this, i = app.getCache("userinfo"), n = new Object();
-        n.token = i.token, n.openid = i.openid, n.much_id = app.siteInfo.uniacid, n.uid = this.data.list[e].user_id, 
-        n.this_uid = this.data.uid, n.is_user = this.data.list[e].is_user, http.POST(a, {
-            params: n,
+    cancel: function(s) {
+        var i = s.currentTarget.dataset.key, n = t.api_root + "User/get_user_cancel", o = this, c = t.getCache("userinfo"), u = new Object();
+        u.token = c.token, u.openid = c.openid, u.much_id = t.siteInfo.uniacid, u.uid = this.data.list[i].user_id, 
+        u.this_uid = this.data.uid, u.is_user = this.data.list[i].is_user, e.POST(n, {
+            params: u,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    $Toast({
+                    a({
                         content: t.data.msg
                     });
-                    var a = s.data.list;
-                    a[e].is_user = 1 == a[e].is_user ? 0 : 1, s.setData({
-                        list: a
+                    var e = o.data.list;
+                    e[i].is_user = 1 == e[i].is_user ? 0 : 1, o.setData({
+                        list: e
                     });
-                } else $Toast({
+                } else a({
                     content: t.data.msg
                 });
             },
@@ -51,22 +51,22 @@ Page({
         });
     },
     get_user_collection: function() {
-        var t = app.api_root + "User/get_user_collection", e = this, a = app.getCache("userinfo"), s = new Object();
-        s.token = a.token, s.openid = a.openid, s.much_id = app.siteInfo.uniacid, s.uid = a.uid, 
-        s.page = this.data.page;
-        var i = e.data.list;
-        http.POST(t, {
-            params: s,
+        var s = t.api_root + "User/get_user_collection", i = this, n = t.getCache("userinfo"), o = new Object();
+        o.token = n.token, o.openid = n.openid, o.much_id = t.siteInfo.uniacid, o.uid = n.uid, 
+        o.page = this.data.page;
+        var c = i.data.list;
+        e.POST(s, {
+            params: o,
             success: function(t) {
                 if (console.log(t), "success" == t.data.status) {
-                    0 == t.data.info.length && e.setData({
+                    0 == t.data.info.length && i.setData({
                         di_msg: !0
                     });
-                    for (var a = 0; a < t.data.info.length; a++) i.push(t.data.info[a]);
-                    e.setData({
-                        list: i
+                    for (var e = 0; e < t.data.info.length; e++) c.push(t.data.info[e]);
+                    i.setData({
+                        list: c
                     });
-                } else $Toast({
+                } else a({
                     content: t.data.msg
                 });
             },
@@ -81,19 +81,19 @@ Page({
         });
     },
     onReachBottom: function() {
-        $Toast({
+        a({
             duration: 0,
             content: "加载中",
             type: "loading",
             mask: !1
         }), this.setData({
             page: this.data.page + 1
-        }), this.get_user_collection(), $Toast.hide();
+        }), this.get_user_collection(), a.hide();
     },
     delItem: function(t) {
-        var a = t.currentTarget.dataset.index, e = this.data.list;
-        e.splice(a, 1), this.setData({
-            list: e
+        var e = t.currentTarget.dataset.index, a = this.data.list;
+        a.splice(e, 1), this.setData({
+            list: a
         });
     },
     _navback: function() {
@@ -104,18 +104,18 @@ Page({
         }), wx.navigateBack();
     },
     onShareAppMessage: function() {
-        var t = app.globalData.forward;
-        return console.log(t), t ? {
-            title: t.title,
+        var e = t.globalData.forward;
+        return console.log(e), e ? {
+            title: e.title,
             path: "/yl_welore/pages/index/index",
-            imageUrl: t.reis_img,
+            imageUrl: e.reis_img,
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }
@@ -123,12 +123,12 @@ Page({
             title: "您的好友给您发了一条信息",
             path: "/yl_welore/pages/index/index",
             success: function(t) {
-                $Toast({
+                a({
                     content: "转发成功"
                 });
             },
             fail: function(t) {
-                $Toast({
+                a({
                     content: "转发失败"
                 });
             }

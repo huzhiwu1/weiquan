@@ -1,5 +1,3 @@
-var prefixCls = "i-radio";
-
 Component({
     externalClasses: [ "i-class" ],
     relations: {
@@ -32,29 +30,29 @@ Component({
     },
     data: {
         checked: !0,
-        positionCls: prefixCls + "-radio-left"
+        positionCls: "i-radio-radio-left"
     },
     attached: function() {
         this.setPosition();
     },
     methods: {
-        changeCurrent: function(e) {
+        changeCurrent: function(t) {
             this.setData({
-                checked: e
+                checked: t
             });
         },
         radioChange: function() {
             if (!this.data.disabled) {
-                var e = {
+                var t = {
                     current: !this.data.checked,
                     value: this.data.value
-                }, t = this.getRelationNodes("../radio-group/index")[0];
-                t ? t.emitEvent(e) : this.triggerEvent("change", e);
+                }, e = this.getRelationNodes("../radio-group/index")[0];
+                e ? e.emitEvent(t) : this.triggerEvent("change", t);
             }
         },
         setPosition: function() {
             this.setData({
-                positionCls: -1 !== this.data.position.indexOf("left") ? prefixCls + "-radio-left" : prefixCls + "-radio-right"
+                positionCls: -1 !== this.data.position.indexOf("left") ? "i-radio-radio-left" : "i-radio-radio-right"
             });
         }
     }
