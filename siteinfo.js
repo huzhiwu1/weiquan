@@ -3,6 +3,7 @@ module.exports = {
     uniacid: "2",
     acid: "2",
     acid2:-1,
+    m: "yl_welore",
     multiid: "0",
     version:"1.0.0",//这个是商城.siteinfo.js中的version
     // version: "1.0.35",

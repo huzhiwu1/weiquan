@@ -272,11 +272,47 @@ var modules = [{
     isIpx: !1,
     copyright: {},
     forward: {},
-    design: {}
-  },
-  version: "1.0.35",
-  api_root: "",
-  http_root: "",
+    design: {},
+    tabBar: {
+        backgroundColor: "#ffffff",
+        color: "#979795",
+        selectedColor: "#1c1c1b",
+        version: 1,
+        list: [ {
+            pagePath: "/yl_welore/pages/index/index",
+            iconPath: "",
+            selectedIconPath: "",
+            text: "",
+            isSpecial: !1
+        }, {
+            pagePath: "/yl_welore/pages/circle/index",
+            iconPath: "",
+            selectedIconPath: "",
+            text: "",
+            isSpecial: !1
+        }, {
+            pagePath: "",
+            iconPath: "",
+            isSpecial: !0,
+            text: ""
+        }, {
+            pagePath: "/yl_welore/pages/shell_mall/index",
+            iconPath: "",
+            selectedIconPath: "",
+            text: "",
+            isSpecial: !1
+        }, {
+            pagePath: "/yl_welore/pages/user/index",
+            iconPath: "",
+            selectedIconPath: "",
+            text: "",
+            isSpecial: !1
+        } ]
+    }
+},
+version: "1.0.35",
+api_root: "",
+http_root: "",
   siteInfo: require("siteinfo.js"),
   onLaunch: function (t) {
     this.getStoreData();
@@ -545,6 +581,21 @@ args.alert = function (e, o) {
     success: function (t) {
       t.confirm && "function" == typeof o && o();
     }
+  });
+};
+args.edtiTabbar=function() {
+  var e = this.globalData.tabBar, t = getCurrentPages(), i = t[t.length - 1], o = i.route, a = wx.getStorageSync("is_diy").pattern_data;
+  e.version = wx.getStorageSync("is_diy").version, e.backgroundColor = a.style.backcolor, 
+  e.color = a.style.font_color, e.selectedColor = a.style.font_color_active, e.list[0].iconPath = a.home.images.img, 
+  e.list[0].selectedIconPath = a.home.images.img_active, e.list[0].text = a.home.title, 
+  e.list[1].iconPath = a.plaza.images.img, e.list[1].selectedIconPath = a.plaza.images.img_active, 
+  e.list[1].text = a.plaza.title, e.list[2].iconPath = a.release.images.img, e.list[2].selectedIconPath = a.release.images.img_active, 
+  e.list[2].text = a.release.title, e.list[3].iconPath = a.goods.images.img, e.list[3].selectedIconPath = a.goods.images.img_active, 
+  e.list[3].text = a.goods.title, e.list[4].iconPath = a.user.images.img, e.list[4].selectedIconPath = a.user.images.img_active, 
+  e.list[4].text = a.user.title, 0 != o.indexOf("/") && (o = "/" + o);
+  for (var n in e.list) e.list[n].selected = !1, e.list[n].pagePath == o && (e.list[n].selected = !0);
+  i.setData({
+      tabbar: e
   });
 };
 var app = App(args);

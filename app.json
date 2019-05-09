@@ -7,7 +7,8 @@
     "yl_welore/pages/square/index",
     "yl_welore/pages/inspect/index",
     "yl_welore/pages/user/index",
-    "yl_welore/pages/author/index"
+    "yl_welore/pages/author/index",
+    "yl_welore/pages/web/index"
       
   ],
   "permission": {
@@ -15,6 +16,7 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
+ 
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "",
